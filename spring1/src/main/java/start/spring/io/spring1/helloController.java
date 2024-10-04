@@ -20,6 +20,7 @@ public class helloController {
     @GetMapping("/admin")
     public String adminPage() {
         return "Only admin can see access this page";
+        
     }
     
     
