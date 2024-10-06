@@ -3,6 +3,7 @@ package start.spring.io.spring1.controller;
 import org.springframework.stereotype.Controller;
 
 import start.spring.io.spring1.domain.User;
+import start.spring.io.spring1.repository.UserRepository;
 import start.spring.io.spring1.service.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,16 +15,17 @@ import org.springframework.ui.Model;
 @Controller
 public class UserController {
     // DI: dependency injection
-    private UserService userService;
+    private final UserService userService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+
     }
 
     @RequestMapping("/") // mặt định nó là method GET
     public String getHomePage(Model model) {
-        String test = this.userService.handelHello();
-        model.addAttribute("bien", test);
+
+        model.addAttribute("bien", "in ra biến");
         return "hello";
     }
 
@@ -36,9 +38,11 @@ public class UserController {
     // @RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST)//
     // cả 2 cách đều oke
     @PostMapping("/admin/user/create1")
-    public String createUserLogin(Model model,@ModelAttribute("newUser") User userHieuVo) { 
-        // lấy newUser từ form, Kiểu dữ liệu phải trùng với kiểu dữ liệu của biến newUser
-       System.out.println("run here" + userHieuVo.toString());
+    public String createUserLogin(Model model, @ModelAttribute("newUser") User userHieuVo) {
+        // lấy newUser từ form, Kiểu dữ liệu phải trùng với kiểu dữ liệu của biến
+        // newUser
+        System.out.println("run here" + userHieuVo);
+        this.userService.handleSaveUser(userHieuVo); // lưu người dùng truyền vào
         return "hello";
     }
 }

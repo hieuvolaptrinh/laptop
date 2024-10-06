@@ -1,7 +1,19 @@
 package start.spring.io.spring1.domain;
 
+import jakarta.annotation.Generated;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity // biến class thành table trong database
+// @Table(name = "nguoi_dung")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private long id;
+
     private String email;
     private String password;
     private String fullName;
