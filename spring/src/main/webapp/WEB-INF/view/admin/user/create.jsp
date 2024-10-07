@@ -27,7 +27,7 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
           <h2 class="text-center mb-4">User Registration</h2>
           <form:form
             method="post"
-            action="/admin/user/create1"
+            action="/admin/user/create"
             modelAttribute="newUser"
           >
             <!-- Email -->

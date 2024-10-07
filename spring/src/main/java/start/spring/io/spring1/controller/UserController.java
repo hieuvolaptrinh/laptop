@@ -1,5 +1,7 @@
 package start.spring.io.spring1.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 
 import start.spring.io.spring1.domain.User;
@@ -24,21 +26,29 @@ public class UserController {
 
     @RequestMapping("/") // mặt định nó là method GET
     public String getHomePage(Model model) {
-
+        List<User> arrUsers = this.userService.getAllUsersByEmail("vndhieuak@gmail.com");
+        System.out.println("arUsers: " + arrUsers);
         model.addAttribute("bien", "in ra biến");
         return "hello";
     }
 
-    @RequestMapping(value = "/admin/user/", method = RequestMethod.GET)
+    // list user
+    @RequestMapping(value = "/admin/user", method = RequestMethod.GET)
     public String getUserPage(Model model) {
+
+        return "/admin/user/table-user";
+    }
+
+    @RequestMapping(value = "/admin/user/create", method = RequestMethod.GET)
+    public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
         return "/admin/user/create";
     }
 
     // @RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST)//
     // cả 2 cách đều oke
-    @PostMapping("/admin/user/create1")
-    public String createUserLogin(Model model, @ModelAttribute("newUser") User userHieuVo) {
+    @PostMapping("/admin/user/create")
+    public String createUserPage(Model model, @ModelAttribute("newUser") User userHieuVo) {
         // lấy newUser từ form, Kiểu dữ liệu phải trùng với kiểu dữ liệu của biến
         // newUser
         System.out.println("run here" + userHieuVo);
