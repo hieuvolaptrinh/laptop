@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import start.spring.io.spring1.domain.User;
 import java.util.List;
+import java.util.Optional;
 
 //CRUD: Create, Read, Update, Delete
 @Repository
@@ -16,4 +17,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findFirstByEmail(String email);
 
+    Optional<User> findById(long id);
 }

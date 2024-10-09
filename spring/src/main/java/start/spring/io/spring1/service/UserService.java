@@ -1,6 +1,7 @@
 package start.spring.io.spring1.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -27,11 +28,16 @@ public class UserService {
     public List<User> getAllUsersByEmail(String email) {
         return this.userRepository.findByEmail(email);
     }
-    
 
     public User handleSaveUser(User user) {
         User nguoiDung = this.userRepository.save(user);
         System.out.println("nguoi dung da duoc luu: " + nguoiDung);
         return nguoiDung;
+    }
+
+    // lấy ra user
+
+    public Optional<User> getUserById(long id) {
+        return this.userRepository.findById(id);
     }
 }

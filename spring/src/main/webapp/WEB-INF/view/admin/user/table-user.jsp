@@ -37,7 +37,7 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
     <div class="container mt-5">
       <div class="row">
         <table
-          class="table table-hover table-dark table-striped col-12 col-md-9 col-lg-8 mx-auto"
+          class="table table-hover table-striped col-12 col-md-9 col-lg-8 mx-auto"
         >
           <thead class="thead-light">
             <tr class="table-success">
@@ -55,7 +55,9 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
                 <td>${user.fullName}</td>
                 <td class="d-flex justify-content-around align-items-center">
                   <button class="btn btn-success">
-                    <i class="fas fa-eye"></i> View
+                    <a class="text-dark" href="/admin/user/${user.id}">
+                      <i class="fas fa-eye"></i> View</a
+                    >
                   </button>
                   <button class="btn btn-warning mx-2">
                     <i class="fas fa-pencil-alt"></i> Update
@@ -66,16 +68,6 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
                 </td>
               </tr>
             </c:forEach>
-            <tr>
-              <td>2</td>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td class="d-flex justify-content-around align-items-center">
-                <button class="btn btn-success">View</button>
-                <button class="btn btn-warning mx-2">Update</button>
-                <button class="btn btn-danger">Delete</button>
-              </td>
-            </tr>
           </tbody>
         </table>
       </div>
