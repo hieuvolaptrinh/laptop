@@ -7,7 +7,11 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -19,7 +23,7 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
       integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
       crossorigin="anonymous"
     ></script>
-    <title>Document</title>
+    <title>Table User</title>
   </head>
   <body>
     <div class="container mt-5">
@@ -33,7 +37,7 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
     <div class="container mt-5">
       <div class="row">
         <table
-          class="col-xl-8 col-lg-8 mx-auto col-8 table table-hover table-dark table-striped"
+          class="table table-hover table-dark table-striped col-12 col-md-9 col-lg-8 mx-auto"
         >
           <thead class="thead-light">
             <tr class="table-success">
@@ -44,16 +48,24 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td class="d-flex justify-content-around align-items-center">
-                <button class="btn btn-success">View</button>
-                <button class="btn btn-warning mx-2">Update</button>
-                <button class="btn btn-danger">Delete</button>
-              </td>
-            </tr>
+            <c:forEach var="user" items="${usersArray}">
+              <tr>
+                <td>${user.id}</td>
+                <td>${user.email}</td>
+                <td>${user.fullName}</td>
+                <td class="d-flex justify-content-around align-items-center">
+                  <button class="btn btn-success">
+                    <i class="fas fa-eye"></i> View
+                  </button>
+                  <button class="btn btn-warning mx-2">
+                    <i class="fas fa-pencil-alt"></i> Update
+                  </button>
+                  <button class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Delete
+                  </button>
+                </td>
+              </tr>
+            </c:forEach>
             <tr>
               <td>2</td>
               <td>Jacob</td>

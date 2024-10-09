@@ -35,7 +35,8 @@ public class UserController {
     // list user
     @RequestMapping(value = "/admin/user", method = RequestMethod.GET)
     public String getUserPage(Model model) {
-
+        List<User> users = this.userService.getAllUsers();
+        model.addAttribute("usersArray", users);// truyền dữ liệu từ controller sang view
         return "/admin/user/table-user";
     }
 
@@ -50,9 +51,8 @@ public class UserController {
     @PostMapping("/admin/user/create")
     public String createUserPage(Model model, @ModelAttribute("newUser") User userHieuVo) {
         // lấy newUser từ form, Kiểu dữ liệu phải trùng với kiểu dữ liệu của biến
-        // newUser
-        System.out.println("run here" + userHieuVo);
         this.userService.handleSaveUser(userHieuVo); // lưu người dùng truyền vào
-        return "hello";
+        return "redirect:/admin/user"; // chuyển hướng ngược lại phần requestmapping ở trên /admin/user
+        // redirect: chuyển hướng ngược lại ko bị lỗi
     }
 }
