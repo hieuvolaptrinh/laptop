@@ -1,13 +1,19 @@
 package start.spring.io.spring1.domain;
 
+import org.hibernate.annotations.ManyToAny;
+import java.util.List;
+
 import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity // biến class thành table trong database
-// @Table(name = "nguoi_dung")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -19,6 +25,16 @@ public class User {
     private String fullName;
     private String address;
     private String phone;
+    private String avatar;
+    // roleId;
+    // User many -> to one Role
+    @ManyToOne
+    @JoinColumn(name = "roleId")
+    private Role role;
+
+    // User -> many order
+    @OneToMany(mappedBy = "user")
+    private List<Order> order;
 
     public long getId() {
         return id;
@@ -68,10 +84,18 @@ public class User {
         this.phone = phone;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     @Override
     public String toString() {
         return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName
-                + ", address=" + address + ", phone=" + phone + "]";
+                + ", address=" + address + ", phone=" + phone + ", avatar=" + avatar + "]";
     }
 
 }

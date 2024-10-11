@@ -60,10 +60,14 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
                     >
                   </button>
                   <button class="btn btn-warning mx-2">
-                    <i class="fas fa-pencil-alt"></i> Update
+                    <a href="/admin/user/update/${user.id}"
+                      ><i class="fas fa-pencil-alt"></i> Update</a
+                    >
                   </button>
                   <button class="btn btn-danger">
-                    <i class="fas fa-trash"></i> Delete
+                    <a href="/admin/user/delete/${user.id}"
+                      ><i class="fas fa-trash"></i> Delete</a
+                    >
                   </button>
                 </td>
               </tr>

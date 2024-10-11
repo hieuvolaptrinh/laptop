@@ -8,7 +8,6 @@ import org.springframework.context.ApplicationContext;
                                                                                                                           // security
 
 public class SpringApplication {
-
     public static void main(String[] args) {
         // container
         ApplicationContext hieuvo = org.springframework.boot.SpringApplication.run(SpringApplication.class, args);

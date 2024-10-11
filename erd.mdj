@@ -1206,7 +1206,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGSeuCb+0qDlxE="
 							},
-							"name": "name",
+							"name": "nameRole",
 							"length": 0
 						},
 						{
