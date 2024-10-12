@@ -1,8 +1,10 @@
 package start.spring.io.spring1.domain;
 
+import java.util.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +23,11 @@ public class Product {
     private String sold;
     private String factory;
     private String target;
+
+    // // 1:N order_product không nhất thiết phải khai báo trong Product vì trong
+    // Order_Product đã khai báo đã có
+    // @OneToMany(mappedBy = "product")
+    // private List<OrderProduct> orderProducts;
 
     public long getProductId() {
         return productId;

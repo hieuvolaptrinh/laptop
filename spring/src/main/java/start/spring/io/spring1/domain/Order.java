@@ -1,10 +1,12 @@
 package start.spring.io.spring1.domain;
 
+import java.util.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,6 +22,10 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
+
+    // 1 : n order_Product
+    @OneToMany(mappedBy = "order")
+    private List<OrderProduct> orderProducts;
 
     public long getOrderId() {
         return orderId;
