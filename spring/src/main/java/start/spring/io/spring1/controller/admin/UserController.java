@@ -1,4 +1,4 @@
-package start.spring.io.spring1.controller;
+package start.spring.io.spring1.controller.admin;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +50,7 @@ public class UserController {
     public String getUserPage(Model model) {
         List<User> users = this.userService.getAllUsers();
         model.addAttribute("usersArray", users);// truyền dữ liệu từ controller sang view
-        return "/admin/user/table-user";
+        return "/admin/user/show";
     }
 
     @RequestMapping(value = "/admin/user/create", method = RequestMethod.GET)
@@ -74,7 +74,7 @@ public class UserController {
             model.addAttribute("errorMessage", "User not found");
             return "error";
         }
-        return "/admin/user/show";
+        return "/admin/user/detail";
     }
 
     // update user
