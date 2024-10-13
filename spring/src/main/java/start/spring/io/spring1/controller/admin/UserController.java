@@ -2,6 +2,8 @@ package start.spring.io.spring1.controller.admin;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import start.spring.io.spring1.domain.User;
 import start.spring.io.spring1.repository.UserRepository;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +30,17 @@ public class UserController {
 
     }
 
+    // ví dụ viết để test API với Postman
+    @PostMapping("/create")
+    public ResponseEntity<String> createUser(@RequestBody User newUser) {
+        // Ví dụ: Lưu người dùng mới vào database
+        // userRepository.save(newUser);
+
+        // Trả về phản hồi thành công
+        return ResponseEntity.ok("User created successfully: " + newUser.getFullName());
+    }
+
+    // end
     @RequestMapping("/") // mặt định nó là method GET
     public String getHomePage(Model model) {
         List<User> arrUsers = this.userService.getAllUsersByEmail("vndhieuak@gmail.com");
