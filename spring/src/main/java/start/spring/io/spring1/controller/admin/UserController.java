@@ -1,5 +1,9 @@
 package start.spring.io.spring1.controller.admin;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import start.spring.io.spring1.domain.User;
 import start.spring.io.spring1.repository.UserRepository;
+import start.spring.io.spring1.service.UploadService;
 import start.spring.io.spring1.service.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,25 +22,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
+import jakarta.servlet.ServletContext;
 
 @Controller
 public class UserController {
     // DI: dependency injection
     private final UserService userService;
+    private final UploadService uploadService;
 
-    public UserController(UserService userService, UserRepository userRepository) {
+    public UserController(UserService userService, UploadService uploadService) {
         this.userService = userService;
+       this.uploadService = uploadService;
 
     }
 
-    // ví dụ viết để test API với Postman
     @PostMapping("/create")
     public ResponseEntity<String> createUser(@RequestBody User newUser) {
         // Ví dụ: Lưu người dùng mới vào database
         // userRepository.save(newUser);
-
         // Trả về phản hồi thành công
         return ResponseEntity.ok("User created successfully: " + newUser.getFullName());
     }
@@ -50,13 +58,13 @@ public class UserController {
     }
 
     // create new user
-    // @RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST)
     @PostMapping("/admin/user/create")
-    public String createUserPage(Model model, @ModelAttribute("newUser") User userHieuVo) {
-        // lấy newUser từ form, Kiểu dữ liệu phải trùng với kiểu dữ liệu của biến
-        this.userService.handleSaveUser(userHieuVo); // lưu người dùng truyền vào
-        return "redirect:/admin/user"; // chuyển hướng ngược lại phần requestmapping ở trên /admin/user
-        // redirect: chuyển hướng ngược lại ko bị lỗi
+    public String createUserPage(Model model, @ModelAttribute("newUser") User userHieuVo,
+            @RequestParam("hieuvoFile") MultipartFile[] files) {
+
+        String avatar=this.uploadService.handleSaveUploadFile(files, "avatar");
+        // this.userService.handleSaveUser(userHieuVo);
+        return "redirect:/admin/user"; // Chuyển hướng sau khi thành công
     }
 
     // render list user
@@ -67,7 +75,7 @@ public class UserController {
         return "/admin/user/show";
     }
 
-    @RequestMapping(value = "/admin/user/create", method = RequestMethod.GET)
+    @GetMapping(value = "/admin/user/create")
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
         return "/admin/user/create";
