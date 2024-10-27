@@ -94,6 +94,23 @@ uri="http://www.springframework.org/tags/form" %>
                     <label for="phone" class="form-label">Phone Number</label>
                     <form:input type="tel" class="form-control" path="phone" />
                   </div>
+                  <!-- avatar -->
+                  <div>
+                    <label for="avatar" class="form-label">Avatar</label>
+                    <div>
+                      <c:if test="${not empty user.avatar}">
+                        <img
+                          src="${pageContext.request.contextPath}/images/avatar/${user.avatar}"
+                          alt="Avatar"
+                          style="max-width: 150px; max-height: 150px"
+                        />
+                      </c:if>
+                      <c:if test="${empty user.avatar}">
+                        <span class="text-danger">No avatar uploaded</span>
+                      </c:if>
+                    </div>
+                  </div>
+
                   <!-- Submit Button -->
                   <div class="d-grid">
                     <button class="btn btn-warning">

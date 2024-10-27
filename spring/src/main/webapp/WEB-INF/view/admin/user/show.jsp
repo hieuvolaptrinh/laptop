@@ -60,6 +60,7 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
                         <th class="text-center">ID</th>
                         <th class="text-center">Email</th>
                         <th class="text-center">Full Name</th>
+                        <th class="text-center">Role</th>
                         <th class="text-center">Action</th>
                       </tr>
                     </thead>
@@ -69,6 +70,7 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
                           <td>${user.id}</td>
                           <td>${user.email}</td>
                           <td>${user.fullName}</td>
+                          <td>${user.role.roleName}</td>
                           <td
                             class="d-flex justify-content-around align-items-center"
                           >
@@ -100,7 +102,7 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
             </div>
           </div>
         </main>
-        <!-- --------------------------------------begin footer ----------------------------------------------------->       
+        <!-- --------------------------------------begin footer ----------------------------------------------------->
         <jsp:include page="../layout/footer.jsp" />
         <!-- --------------------------------------end footer ----------------------------------------------------->
       </div>

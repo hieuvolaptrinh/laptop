@@ -106,11 +106,18 @@ public class UserController {
     // update user
     @GetMapping("/admin/user/update/{id}")
     public String getUpdateUserPage(Model model, @PathVariable long id) {
-        Optional<User> currentUser = this.userService.getUserById(id);
-        model.addAttribute("user", currentUser);
+        Optional<User> currentUserOptional = this.userService.getUserById(id);
+        if (currentUserOptional.isPresent()) {
+            User currentUser = currentUserOptional.get(); // Lấy giá trị User từ Optional
+            model.addAttribute("user", currentUser); // Thêm đối tượng User vào model
+        } else {
+            // Xử lý khi người dùng không tồn tại
+            return "error"; // hoặc điều hướng đến trang khác
+        }
         return "/admin/user/update";
     }
 
+    // update user
     @PostMapping("/admin/user/update")
     public String postUpdateUser(Model model, @ModelAttribute("user") User user) {
         Optional<User> currentUser = this.userService.getUserById(user.getId());

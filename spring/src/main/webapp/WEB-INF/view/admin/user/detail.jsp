@@ -50,6 +50,9 @@ uri="http://www.springframework.org/tags/form" %>
                     <div class="card-header">User information</div>
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item">ID: ${user.id}</li>
+                      <li class="list-group-item">
+                        Role: ${user.role.roleName}
+                      </li>
                       <li class="list-group-item">Email: ${user.email}</li>
                       <li class="list-group-item">
                         FullName: ${user.fullName}
