@@ -26,11 +26,9 @@ public class UploadService {
             if (!dir.exists()) {
                 dir.mkdirs();
             }
-
             for (MultipartFile file : files) {
                 if (!file.isEmpty()) {
                     byte[] bytes = file.getBytes();
-
                     finalName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
                     File serverFile = new File(dir.getAbsolutePath() + File.separator + finalName);
                     // Lưu file lên server

@@ -1,16 +1,14 @@
 package start.spring.io.spring1.controller.admin;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import start.spring.io.spring1.domain.User;
-import start.spring.io.spring1.repository.UserRepository;
+
 import start.spring.io.spring1.service.UploadService;
 import start.spring.io.spring1.service.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,26 +22,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-
-import jakarta.servlet.ServletContext;
-
 @Controller
 public class UserController {
     // DI: dependency injection
     private final UserService userService;
     private final UploadService uploadService;
+    private final PasswordEncoder passwordEncoder; // mã hóa mật khẩu hash password
 
-    public UserController(UserService userService, UploadService uploadService) {
+    public UserController(UserService userService, UploadService uploadService,
+            PasswordEncoder passwordEncoder) {
         this.userService = userService;
-       this.uploadService = uploadService;
-
+        this.uploadService = uploadService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/create")
     public ResponseEntity<String> createUser(@RequestBody User newUser) {
         // Ví dụ: Lưu người dùng mới vào database
-        // userRepository.save(newUser);
+        // this.userService.handleSaveUser(newUser);
         // Trả về phản hồi thành công
         return ResponseEntity.ok("User created successfully: " + newUser.getFullName());
     }
@@ -62,8 +58,16 @@ public class UserController {
     public String createUserPage(Model model, @ModelAttribute("newUser") User userHieuVo,
             @RequestParam("hieuvoFile") MultipartFile[] files) {
 
-        String avatar=this.uploadService.handleSaveUploadFile(files, "avatar");
-        // this.userService.handleSaveUser(userHieuVo);
+        String avatar = this.uploadService.handleSaveUploadFile(files, "avatar");
+        // mã hóa mật khẩu
+        String hashPassword = this.passwordEncoder.encode(userHieuVo.getPassword());
+        userHieuVo.setPassword(hashPassword);
+        userHieuVo.setAvatar(avatar);
+        // còn phần Role mình lấy mối quan hệ 1:N từ Role sang User mà nó mình để là 1
+        // đối tượng ở trong domain nên mình phải
+        // tạo ra 1 đối tượng Role mới để lưu vào database trong RoleRepository
+        userHieuVo.setRole(this.userService.getRoleByName(userHieuVo.getRole().getRoleName()));
+        this.userService.handleSaveUser(userHieuVo);
         return "redirect:/admin/user"; // Chuyển hướng sau khi thành công
     }
 
@@ -119,7 +123,6 @@ public class UserController {
             currentUser.get().setPhone(user.getPhone());
             System.out.println("check user sau : " + currentUser);
             this.userService.handleSaveUser(currentUser.get()); // lưu người dùng truyền vào database
-
         } else {
             System.out.println("User not found");
             return "error";

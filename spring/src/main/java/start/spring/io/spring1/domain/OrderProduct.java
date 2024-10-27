@@ -1,8 +1,5 @@
 package start.spring.io.spring1.domain;
-
-import java.util.*;
-
-import org.hibernate.annotations.Array;
+    
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
