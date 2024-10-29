@@ -1,6 +1,7 @@
 package start.spring.io.spring1.domain;
 
 import org.hibernate.annotations.ManyToAny;
+
 import java.util.List;
 
 import jakarta.annotation.Generated;

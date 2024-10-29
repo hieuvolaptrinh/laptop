@@ -58,6 +58,18 @@ uri="http://www.springframework.org/tags/form" %>
                         FullName: ${user.fullName}
                       </li>
                       <li class="list-group-item">Address: ${user.address}</li>
+                      <li class="list-group-item">
+                            <c:if test="${not empty user.avatar}">
+                                <img
+                                src="${pageContext.request.contextPath}/images/avatar/${user.avatar}"
+                                alt="Avatar"
+                                style="max-width: 150px; max-height: 150px"
+                                />
+                            </c:if>
+                            <c:if test="${empty user.avatar}">
+                                <p>avater is empty</p>
+                            </c:if>
+                      </li>
                     </ul>
                   </div>
                   <a href="/admin/user" class="btn btn-success mt-3">Back</a>
