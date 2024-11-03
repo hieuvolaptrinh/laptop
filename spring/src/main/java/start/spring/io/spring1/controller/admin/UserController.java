@@ -1,5 +1,6 @@
 package start.spring.io.spring1.controller.admin;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,9 +19,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class UserController {
@@ -55,17 +60,25 @@ public class UserController {
 
     // create new user
     @PostMapping("/admin/user/create")
-    public String createUserPage(Model model, @ModelAttribute("newUser") User userHieuVo,
-            @RequestParam("hieuvoFile") MultipartFile[] files) {
-
-        String avatar = this.uploadService.handleSaveUploadFile(files, "avatar");
+    public String createUserPage(Model model, @ModelAttribute("newUser") @Valid User userHieuVo,
+            BindingResult newUserBindingResult,
+            @RequestParam("hieuvoFile") MultipartFile file) {
+        // bindingResult để kiểm tra lỗi + @Valid để kiểm tra dữ liệu
+        List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println("error: " + error.getField() + " " + error.getDefaultMessage());
+        }
+        if (newUserBindingResult.hasErrors()) {
+            return "/admin/user/create";
+        }
+        String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
         // mã hóa mật khẩu
         String hashPassword = this.passwordEncoder.encode(userHieuVo.getPassword());
         userHieuVo.setPassword(hashPassword);
         userHieuVo.setAvatar(avatar);
         // còn phần Role mình lấy mối quan hệ 1:N từ Role sang User mà nó mình để là 1
-        // đối tượng ở trong domain nên mình phải
-        // tạo ra 1 đối tượng Role mới để lưu vào database trong RoleRepository
+        // đối tượng ở trong domain nên mình phải tạo ra 1 đối tượng Role mới để lưu vào
+        // database trong RoleRepository
         userHieuVo.setRole(this.userService.getRoleByName(userHieuVo.getRole().getRoleName()));
         this.userService.handleSaveUser(userHieuVo);
         return "redirect:/admin/user"; // Chuyển hướng sau khi thành công

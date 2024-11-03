@@ -12,7 +12,6 @@ public class ItemController {
 
     @GetMapping("/product/{id}")
     public String getDetailProduct(Model model, @PathVariable Long id) {
-        // Add your logic here to populate the model with product details
         return "client/product/detail";
     }
 

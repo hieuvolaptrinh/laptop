@@ -12,7 +12,7 @@ uri="http://www.springframework.org/tags/form" %>
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Create User</title>
+    <title>Create New Product</title>
     <link href="/css/styles.css" rel="stylesheet" />
 
     <script
@@ -22,18 +22,7 @@ uri="http://www.springframework.org/tags/form" %>
 
     <!-- preview image when upload file  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-      $(document).ready(() => {
-        const avatarFile = $("#avatarFile");
-        avatarFile.change(function (e) {
-          const imgURL = URL.createObjectURL(e.target.files[0]);
-          $("#avatarPreview").attr("src", imgURL);
-          $("#avatarPreview").css({ display: "block" });
-        });
-      });
-    </script>
   </head>
-
   <body class="sb-nav-fixed">
     <jsp:include page="../layout/header.jsp" />
     <div id="layoutSidenav">
@@ -41,100 +30,93 @@ uri="http://www.springframework.org/tags/form" %>
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Manage Users</h1>
+            <h1 class="mt-4">Manage Product</h1>
             <ol class="breadcrumb mb-4">
               <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Users</li>
+              <li class="breadcrumb-item active">Product</li>
             </ol>
             <div class="mt-5">
               <div class="row">
                 <div class="col-md-6 col-12 mx-auto">
-                  <h3>Create a user</h3>
+                  <h3>Create new product</h3>
                   <hr />
                   <form:form
                     method="post"
-                    action="/admin/user/create"
-                    modelAttribute="newUser"
+                    action="/admin/product/create"
+                    modelAttribute="newProduct"
                     class="row"
                     enctype="multipart/form-data"
                   >
                     <!--  enctype="multipart/form-data" để mình có thể tương tác được với file-->
-                    <!-- email -->
                     <div class="mb-3 col-12 col-md-6">
-                      <c:set var="errorEmail">
-                        <form:errors path="email" cssClass="is-invalid" />
-                      </c:set>
-                      <label class="form-label">Email:</label>
+                      <label class="form-label">Name</label>
                       <form:input
-                        cssClass=""
                         type="email"
-                        class="form-control is-invalid ${not empty errorEmail ? 'is-invalid':'' }"
-                        path="email"
+                        class="form-control"
+                        path="productName"
                       />
-                      <td>
-                        <form:errors path="email" cssClass="invalid-feedback" />
-                      </td>
-                    </div>
-                    <!-- password -->
-                    <div class="mb-3 col-12 col-md-6">
-                      <c:set var="errorPassWord">
-                        <form:errors path="password" cssClass="is-invalid" />
-                      </c:set>
-                      <label class="form-label">Password:</label>
-                      <form:input
-                        type="password"
-                        class="form-control ${not empty errorPassWord ? 'is-invalid':'' }"
-                        path="password"
-                      />
-                      <td>
-                        <form:errors
-                          path="password"
-                          cssClass="invalid-feedback"
-                        />
-                      </td>
-                    </div>
-                    <!-- phone number -->
-                    <div class="mb-3 col-12 col-md-6">
-                      <c:set var="errorPhone">
-                        <form:errors path="phone" cssClass="is-invalid" />
-                      </c:set>
-                      <label class="form-label">Phone number:</label>
-                      <form:input
-                        type="text"
-                        class="form-control ${not empty errorPhone ? 'is-invalid':'' }"
-                        path="phone"
-                      />
-                      <td>
-                        <form:errors path="phone" cssClass="invalid-feedback" />
                     </div>
                     <div class="mb-3 col-12 col-md-6">
-                      
-                      <label class="form-label">Full Name:</label>
+                      <label class="form-label">Price:</label>
                       <form:input
                         type="text"
                         class="form-control"
-                        path="fullName"
+                        path="price"
                       />
                     </div>
-                    <div class="mb-3 col-12">
-                      <label class="form-label">Address:</label>
+                    <div class="mb-3 col-12 col-md-12">
+                      <label class="form-label">Detail description:</label>
                       <form:input
                         type="text"
                         class="form-control"
-                        path="address"
+                        path="detailDesc"
+                      />
+                    </div>
+                    <div class="mb-3 col-12 col-md-6">
+                      <label class="form-label"
+                        >Short Detail Description:</label
+                      >
+                      <form:input
+                        type="text"
+                        class="form-control"
+                        path="shortDesc"
+                      />
+                    </div>
+                    <div class="mb-3 col-12 col-md-6">
+                      <label class="form-label">Quantity:</label>
+                      <form:input
+                        type="text"
+                        class="form-control"
+                        path="quantity"
                       />
                     </div>
                     <!-- -----------------------------------role ------------------------------------------->
                     <div class="mb-3 col-12 col-md-6">
-                      <label class="form-label">Role:</label>
-                      <form:select class="form-select" path="role.roleName">
-                        <form:option value="ADMIN">ADMIN</form:option>
-                        <form:option value="USER">USER</form:option>
+                      <label class="form-label">Factory:</label>
+                      <form:select class="form-select" path="factory">
+                        <form:option value="ADMIN">HP</form:option>
+                        <form:option value="USER">ASUS</form:option>
+                        <form:option value="ADMIN">Apple(MacBook)</form:option>
+                        <form:option value="USER">ROG</form:option>
+                        <form:option value="ADMIN">Lenovo</form:option>
+                        <form:option value="USER">Acer</form:option>
+                      </form:select>
+                    </div>
+                    <!-- taget -->
+                    <div class="mb-3 col-12 col-md-6">
+                      <label class="form-label">Target:</label>
+                      <form:select class="form-select" path="target">
+                        <form:option value="ADMIN">Văn Phòng</form:option>
+                        <form:option value="USER">Gaming</form:option>
+                        <form:option value="ADMIN">Thiết kế đồ họa</form:option>
+                        <form:option value="USER">Mỏng nhẹ</form:option>
+                        <form:option value="ADMIN">Doanh nhân</form:option>
+                        <form:option value="USER">Sinh Viên</form:option>
                       </form:select>
                     </div>
                     <!-- -----------------------------------avatar ------------------------------------------->
                     <div class="mb-3 col-12 col-md-6">
-                      <label for="avatarFile" class="form-label">Avatar:</label>
+                      <label for="avatarFile" class="form-label">Image:</label>
                       <input
                         name="hieuvoFile"
                         class="form-control"
@@ -167,9 +149,20 @@ uri="http://www.springframework.org/tags/form" %>
             </div>
           </div>
         </main>
+        <!-- footer -->
         <jsp:include page="../layout/footer.jsp" />
       </div>
     </div>
+    <script>
+      $(document).ready(() => {
+        const avatarFile = $("#avatarFile");
+        avatarFile.change(function (e) {
+          const imgURL = URL.createObjectURL(e.target.files[0]);
+          $("#avatarPreview").attr("src", imgURL);
+          $("#avatarPreview").css({ display: "block" });
+        });
+      });
+    </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       crossorigin="anonymous"
