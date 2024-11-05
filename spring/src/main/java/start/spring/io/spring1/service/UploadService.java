@@ -42,30 +42,31 @@ public class UploadService {
         return finalName;
     }
 
-    public void multiple_handleSaveUploadFile(MultipartFile[] files, String tagetFolder) {
-        // relative path : absolute path
+    public void multiple_handleSaveUploadFile(MultipartFile[] files, String targetFolder) {
+        // đường dẫn tương đối: đường dẫn tuyệt đối
         String rootPath = this.servletContext.getRealPath("/resources/images");
         try {
-            File dir = new File(rootPath + File.separator + "avatar");
-            // Tạo thư mục nếu chưa tồn tại
+            // Tạo thư mục với tên thư mục được chỉ định
+            File dir = new File(rootPath + File.separator + targetFolder);
             if (!dir.exists()) {
-                dir.mkdirs();
+                dir.mkdirs(); // Tạo thư mục nếu chưa tồn tại
             }
             // Duyệt qua từng file trong mảng `files`
             for (MultipartFile file : files) {
                 if (!file.isEmpty()) { // Kiểm tra nếu file không rỗng
                     byte[] bytes = file.getBytes();
-                    // Tạo tên file với timestamp để tránh trùng lặp
-                    File serverFile = new File(dir.getAbsolutePath() + File.separator + System.currentTimeMillis() + "-"
-                            + file.getOriginalFilename());
+                    // Tạo tên file duy nhất bằng timestamp để tránh trùng lặp
+                    String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+                    File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
                     // Lưu file lên server
-                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-                    stream.write(bytes);
-                    stream.close();
+                    try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile))) {
+                        stream.write(bytes);
+                    }
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Xử lý lỗi khi lưu file
         }
     }
+
 }

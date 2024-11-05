@@ -66,9 +66,8 @@ uri="http://www.springframework.org/tags/form" %>
                       </c:set>
                       <label class="form-label">Email:</label>
                       <form:input
-                        cssClass=""
                         type="email"
-                        class="form-control is-invalid ${not empty errorEmail ? 'is-invalid':'' }"
+                        class="form-control ${not empty errorEmail ? 'is-invalid':'' }"
                         path="email"
                       />
                       <td>
@@ -106,9 +105,10 @@ uri="http://www.springframework.org/tags/form" %>
                       />
                       <td>
                         <form:errors path="phone" cssClass="invalid-feedback" />
+                      </td>
                     </div>
+                    <!-- full name -->
                     <div class="mb-3 col-12 col-md-6">
-                      
                       <label class="form-label">Full Name:</label>
                       <form:input
                         type="text"

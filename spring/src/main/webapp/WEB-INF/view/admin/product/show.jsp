@@ -67,31 +67,34 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
                   </tr>
                 </thead>
                 <tbody>
-                  <c:forEach var="product" items="${usersArray}">
+                  <c:forEach var="product" items="${products}">
                     <tr>
-                      <td>${user.id}</td>
-                      <td>${user.email}</td>
-                      <td>${user.fullName}</td>
-                      <td>${user.role.roleName}</td>
-                      <!-- <td
+                      <td>${product.productId}</td>
+                      <td>${product.productName}</td>
+                      <td>${product.price}</td>
+                      <td>${product.factory}</td>
+                      <td
                         class="d-flex justify-content-around align-items-center"
                       >
                         <button class="btn btn-success">
-                          <a class="text-dark" href="/admin/user/${user.id}">
+                          <a
+                            class="text-dark"
+                            href="/admin/user/${product.productId}"
+                          >
                             <i class="fas fa-eye"></i> View</a
                           >
                         </button>
                         <button class="btn btn-warning mx-2">
-                          <a href="/admin/user/update/${user.id}"
+                          <a href="/admin/user/update/${product.productId}"
                             ><i class="fas fa-pencil-alt"></i> Update</a
                           >
                         </button>
                         <button class="btn btn-danger">
-                          <a href="/admin/user/delete/${user.id}"
+                          <a href="/admin/user/delete/${product.productId}"
                             ><i class="fas fa-trash"></i> Delete</a
                           >
                         </button>
-                      </td> -->
+                      </td>
                     </tr>
                   </c:forEach>
                 </tbody>

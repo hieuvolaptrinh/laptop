@@ -49,20 +49,35 @@ uri="http://www.springframework.org/tags/form" %>
                   >
                     <!--  enctype="multipart/form-data" để mình có thể tương tác được với file-->
                     <div class="mb-3 col-12 col-md-6">
-                      <label class="form-label">Name</label>
+                      <c:set var="errorEmail">
+                        <form:errors path="productName" cssClass="is-invalid" />
+                      </c:set>
+                      <label class="form-label">Name Product</label>
                       <form:input
-                        type="email"
-                        class="form-control"
+                        type="text"
+                        class="form-control ${not empty errorEmail ? 'is-invalid' : ''}"
                         path="productName"
                       />
+                      <td>
+                        <form:errors
+                          path="productName"
+                          cssClass="invalid-feedback"
+                        />
+                      </td>
                     </div>
                     <div class="mb-3 col-12 col-md-6">
+                      <c:set var="errorPrice">
+                        <form:errors path="price" cssClass="is-invalid" />
+                      </c:set>
                       <label class="form-label">Price:</label>
                       <form:input
                         type="text"
-                        class="form-control"
+                        class="form-control ${not empty errorPrice ? 'is-invalid' : ''}"
                         path="price"
                       />
+                      <td>
+                        <form:errors path="price" cssClass="invalid-feedback" />
+                      </td>
                     </div>
                     <div class="mb-3 col-12 col-md-12">
                       <label class="form-label">Detail description:</label>
@@ -94,34 +109,36 @@ uri="http://www.springframework.org/tags/form" %>
                     <div class="mb-3 col-12 col-md-6">
                       <label class="form-label">Factory:</label>
                       <form:select class="form-select" path="factory">
-                        <form:option value="ADMIN">HP</form:option>
-                        <form:option value="USER">ASUS</form:option>
-                        <form:option value="ADMIN">Apple(MacBook)</form:option>
-                        <form:option value="USER">ROG</form:option>
-                        <form:option value="ADMIN">Lenovo</form:option>
-                        <form:option value="USER">Acer</form:option>
+                        <form:option value="HP">HP</form:option>
+                        <form:option value="ASUS">ASUS</form:option>
+                        <form:option value="Apple">Apple(MacBook)</form:option>
+                        <form:option value="ROG">ROG</form:option>
+                        <form:option value="Lenovo">Lenovo</form:option>
+                        <form:option value="Acer">Acer</form:option>
                       </form:select>
                     </div>
                     <!-- taget -->
                     <div class="mb-3 col-12 col-md-6">
                       <label class="form-label">Target:</label>
                       <form:select class="form-select" path="target">
-                        <form:option value="ADMIN">Văn Phòng</form:option>
-                        <form:option value="USER">Gaming</form:option>
-                        <form:option value="ADMIN">Thiết kế đồ họa</form:option>
-                        <form:option value="USER">Mỏng nhẹ</form:option>
-                        <form:option value="ADMIN">Doanh nhân</form:option>
-                        <form:option value="USER">Sinh Viên</form:option>
+                        <form:option value="Văn Phòng">Văn Phòng</form:option>
+                        <form:option value="Gaming">Gaming</form:option>
+                        <form:option value="Thiết kế đồ họa"
+                          >Thiết kế đồ họa</form:option
+                        >
+                        <form:option value="Mỏng nhẹ">Mỏng nhẹ</form:option>
+                        <form:option value="Doanh nhân">Doanh nhân</form:option>
+                        <form:option value="Sinh Viên">Sinh Viên</form:option>
                       </form:select>
                     </div>
                     <!-- -----------------------------------avatar ------------------------------------------->
                     <div class="mb-3 col-12 col-md-6">
-                      <label for="avatarFile" class="form-label">Image:</label>
+                      <label for="file" class="form-label">Image:</label>
                       <input
-                        name="hieuvoFile"
+                        name="productImage"
                         class="form-control"
                         type="file"
-                        id="avatarFile"
+                        id="file"
                         multiple
                         accept=".png, .jpg, .jpeg"
                       />
@@ -140,7 +157,7 @@ uri="http://www.springframework.org/tags/form" %>
                     </div>
                     <div class="col-12 mb-5">
                       <button type="submit" class="btn btn-primary">
-                        Create
+                        Create new product
                       </button>
                     </div>
                   </form:form>

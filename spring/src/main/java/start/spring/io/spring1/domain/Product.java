@@ -1,11 +1,16 @@
 package start.spring.io.spring1.domain;
 
 import java.util.*;
+
+import org.hibernate.annotations.Check;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "products")
@@ -14,12 +19,25 @@ public class Product {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private long productId;
 
+    @NotNull(message = "Tên sản phẩm không được để trống")
     private String productName;
+
+    @NotNull(message = "Giá sản phẩm không được để trống")
     private double price;
+
     private String image;
+
+    @NotNull(message = "Mô tả sản phẩm không được để trống")
     private String detailDesc;
+
+    @NotNull
     private String shortDesc;
-    private int quantity;
+
+    @NotNull
+    @DecimalMin(value = "0", inclusive = false, message = "Giá phải lớn hơn 0")
+    private long quantity;
+
+    // @Check(constraints = "sold >=0")
     private String sold;
     private String factory;
     private String target;
@@ -77,11 +95,11 @@ public class Product {
         this.shortDesc = shortDesc;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(long quantity) {
         this.quantity = quantity;
     }
 
