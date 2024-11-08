@@ -57,7 +57,7 @@ class ProductController {
         for (FieldError field : newProductBindingResult.getFieldErrors()) {
             System.out.println("field: " + field);
         }
-        model.addAttribute("newProduct", new Product());
+        
 
         // lưu file nhiều hình ảnh
         String imgProduct = this.uploadService.handleSaveUploadFile(prducFile, "product");
