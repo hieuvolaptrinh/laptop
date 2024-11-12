@@ -21,7 +21,6 @@ import jakarta.validation.Valid;
 import start.spring.io.spring1.domain.Product;
 import start.spring.io.spring1.service.ProductService;
 import start.spring.io.spring1.service.UploadService;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 class ProductController {
@@ -53,7 +52,7 @@ class ProductController {
     @PostMapping("/admin/product/create")
     public String postCreateProduct(Model model, @ModelAttribute("newProduct") @Valid Product hieuvoProduct,
             BindingResult newProductBindingResult,
-            @RequestParam("productImage") MultipartFile prducFile) {
+            @RequestParam("productImage") MultipartFile producFile) {
         if (newProductBindingResult.hasErrors()) {
             return "admin/product/create";
         }
@@ -61,8 +60,8 @@ class ProductController {
             System.out.println("field: " + field);
 
         }
-        String imgProduct = this.uploadService.handleSaveUploadFile(prducFile, "product"); // để chỉ lấy 1 file lưu
-                                                                                           // ten ở csdl
+        String imgProduct = this.uploadService.handleSaveUploadFile(producFile, "product"); // để chỉ lấy 1 file lưu
+                                                                                            // ten ở csdl
         // this.uploadService.multiple_handleSaveUploadFile(prducFiles, "product");
         // lưu file nhiều hình ảnh
 
@@ -80,21 +79,69 @@ class ProductController {
             model.addAttribute("product", productOptional.get());
             return "admin/product/detail";
         } else {
-            return "error/404";
+            return "admin/error";
         }
     }
 
     // xóa sản phẩm
     @GetMapping("/admin/product/delete/{id}")
-    public String getMethodName(Model model, @PathVariable long id) {
+    public String getDeleteProduct(Model model, @PathVariable long id) {
         model.addAttribute("productId", id);
         model.addAttribute("newProduct", new Product());
         return "admin/product/delete";
     }
 
     @PostMapping("/admin/product/delete")
-    public String postMethodName(Model model, @ModelAttribute("newProduct") Product pr) {
+    public String postDeleteProduct(Model model, @ModelAttribute("newProduct") Product pr) {
         this.productService.deleteProductById(pr.getProductId());
+        return "redirect:/admin/product";
+    }
+
+    // cập nhật sản phẩms
+    @GetMapping("/admin/product/update/{id}")
+    public String getUpdateProductPage(Model model, @PathVariable long id) {
+        Optional<Product> currentProduct = this.productService.fetchProductById(id);
+        if (currentProduct.isPresent()) {
+            model.addAttribute("newProduct", currentProduct.get());
+            return "admin/product/update";
+        } else {
+            // Handle the case where the product is not found
+            model.addAttribute("error", "Product not found");
+            return "admin/product/error";
+        }
+    }
+
+    @PostMapping("/admin/product/update")
+    public String postUpdateProduct(@ModelAttribute("newProduct") Product pr,
+            BindingResult newProductBindingResult,
+            @RequestParam("productImage") MultipartFile productFile,
+            Model model) {
+
+        if (newProductBindingResult.hasErrors()) {
+            return "admin/product/update";
+        }
+        // Tìm sản phẩm theo ID và kiểm tra nếu có tồn tại
+        Optional<Product> optionalProduct = this.productService.fetchProductById(pr.getProductId());
+        if (optionalProduct.isEmpty()) {
+            model.addAttribute("error", "Product not found");
+            return "admin/error";
+        }
+        Product currentProduct = optionalProduct.get();
+
+        // Cập nhật thông tin sản phẩm
+        if (!productFile.isEmpty()) {
+            String imgProduct = this.uploadService.handleSaveUploadFile(productFile, "product");
+            currentProduct.setImage(imgProduct);
+        }
+        currentProduct.setProductName(pr.getProductName());
+        currentProduct.setPrice(pr.getPrice());
+        currentProduct.setQuantity(pr.getQuantity());
+        currentProduct.setDetailDesc(pr.getDetailDesc());
+        currentProduct.setShortDesc(pr.getShortDesc());
+        currentProduct.setFactory(pr.getFactory());
+        currentProduct.setTarget(pr.getTarget());
+        this.productService.createProduct(currentProduct);
+
         return "redirect:/admin/product";
     }
 

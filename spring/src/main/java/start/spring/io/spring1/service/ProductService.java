@@ -13,21 +13,21 @@ import start.spring.io.spring1.repository.ProductRepository;
 public class ProductService {
     private final ProductRepository productRepository;
 
+    public Product createProduct(Product pr) {
+        return this.productRepository.save(pr);
+    }
+
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
-    public Product createProduct(Product product) {
-        Product sanpham = this.productRepository.save(product);
-        return sanpham;
-    }
 
     public List<Product> fetchProducts() {
         return this.productRepository.findAll();
     }
 
     public Optional<Product> fetchProductById(Long id) {
-        return this.productRepository.findByProductId(id);
+        return this.productRepository.findById(id);
     }
 
     public void deleteProductById(Long id) {

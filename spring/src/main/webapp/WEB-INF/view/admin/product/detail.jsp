@@ -77,7 +77,7 @@ uri="http://www.springframework.org/tags/form" %>
                         <img
                           src="${pageContext.request.contextPath}/images/product/${product.image}"
                           alt="Avatar"
-                          style="max-width: 100%; max-height: 100%"
+                          style="max-height: 300px"
                         />
                       </c:if>
                       <c:if test="${empty product.image}">

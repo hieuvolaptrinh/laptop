@@ -63,7 +63,7 @@ uri="http://www.springframework.org/tags/form" %>
                         path="productId"
                       />
                     </div>
-                    <button class="btn btn-danger">Confirm</button>
+                    <button class="btn btn-danger"> Confirm</button>
                   </form:form>
                 </div>
               </div>

@@ -11,7 +11,7 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <title>Dashboard - Hiếu Võ</title>
+    <title>Manage Product</title>
     <!-- này để tạo phân trang table nè -->
     <link
       href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
