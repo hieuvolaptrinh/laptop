@@ -79,18 +79,18 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
                         <button class="btn btn-success">
                           <a
                             class="text-dark"
-                            href="/admin/user/${product.productId}"
+                            href="/admin/product/${product.productId}"
                           >
                             <i class="fas fa-eye"></i> View</a
                           >
                         </button>
                         <button class="btn btn-warning mx-2">
-                          <a href="/admin/user/update/${product.productId}"
+                          <a href="/admin/product/update/${product.productId}"
                             ><i class="fas fa-pencil-alt"></i> Update</a
                           >
                         </button>
                         <button class="btn btn-danger">
-                          <a href="/admin/user/delete/${product.productId}"
+                          <a href="/admin/product/delete/${product.productId}"
                             ><i class="fas fa-trash"></i> Delete</a
                           >
                         </button>

@@ -1,6 +1,8 @@
 package start.spring.io.spring1.service;
 
+import java.lang.classfile.ClassFile.Option;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -24,4 +26,11 @@ public class ProductService {
         return this.productRepository.findAll();
     }
 
+    public Optional<Product> fetchProductById(Long id) {
+        return this.productRepository.findByProductId(id);
+    }
+
+    public void deleteProductById(Long id) {
+        this.productRepository.deleteById(id);
+    }
 }

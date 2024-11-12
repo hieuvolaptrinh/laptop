@@ -1,6 +1,8 @@
 package start.spring.io.spring1.repository;
 
+import java.lang.classfile.ClassFile.Option;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
@@ -16,4 +18,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByProductName(String productName);
 
+    Optional<Product> findByProductId(Long id);
+
+    void deleteById(Long id);
 }

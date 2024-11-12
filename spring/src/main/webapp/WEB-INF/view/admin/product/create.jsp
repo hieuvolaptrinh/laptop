@@ -52,6 +52,7 @@ uri="http://www.springframework.org/tags/form" %>
                       <c:set var="errorEmail">
                         <form:errors path="productName" cssClass="is-invalid" />
                       </c:set>
+                      <!-- tên sp -->
                       <label class="form-label">Name Product</label>
                       <form:input
                         type="text"
@@ -65,6 +66,7 @@ uri="http://www.springframework.org/tags/form" %>
                         />
                       </td>
                     </div>
+                    <!-- giá -->
                     <div class="mb-3 col-12 col-md-6">
                       <c:set var="errorPrice">
                         <form:errors path="price" cssClass="is-invalid" />
@@ -79,6 +81,7 @@ uri="http://www.springframework.org/tags/form" %>
                         <form:errors path="price" cssClass="invalid-feedback" />
                       </td>
                     </div>
+                    <!-- miêu tả cụ thể -->
                     <div class="mb-3 col-12 col-md-12">
                       <label class="form-label">Detail description:</label>
                       <form:input
@@ -87,23 +90,42 @@ uri="http://www.springframework.org/tags/form" %>
                         path="detailDesc"
                       />
                     </div>
+                    <!-- miêu tả ngắn -->
                     <div class="mb-3 col-12 col-md-6">
+                      <c:set var="errorShortDetail">
+                        <form:errors path="shortDesc" cssClass="is-invalid" />
+                      </c:set>
                       <label class="form-label"
                         >Short Detail Description:</label
                       >
                       <form:input
                         type="text"
-                        class="form-control"
+                        class="form-control ${not empty errorShortDetail ? 'is-invalid' : ''}"
                         path="shortDesc"
                       />
+                      <td>
+                        <form:errors
+                          path="shortDesc"
+                          cssClass="invalid-feedback"
+                        />
+                      </td>
                     </div>
                     <div class="mb-3 col-12 col-md-6">
+                      <c:set var="errorQuantity">
+                        <form:errors path="quantity" cssClass="is-invalid" />
+                      </c:set>
                       <label class="form-label">Quantity:</label>
                       <form:input
                         type="text"
-                        class="form-control"
+                        class="form-control ${not empty errorQuantity ? 'is-invalid' : ''}"
                         path="quantity"
                       />
+                      <td>
+                        <form:errors
+                          path="quantity"
+                          cssClass="invalid-feedback"
+                        />
+                      </td>
                     </div>
                     <!-- -----------------------------------role ------------------------------------------->
                     <div class="mb-3 col-12 col-md-6">

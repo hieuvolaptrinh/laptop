@@ -31,11 +31,10 @@ public class Product {
 
     private String image;
 
-    @NotNull
-    @NotEmpty(message = "shortDesc không được để trống")
     private String detailDesc;
 
     @NotNull
+    @NotEmpty(message = "shortDesc không được để trống")
     private String shortDesc;
 
     @NotNull
