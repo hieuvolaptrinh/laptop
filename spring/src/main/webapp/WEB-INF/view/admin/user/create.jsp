@@ -108,13 +108,22 @@ uri="http://www.springframework.org/tags/form" %>
                       </td>
                     </div>
                     <!-- full name -->
+                    <c:set var="errorName">
+                      <form:errors path="fullName" cssClass="is-invalid" />
+                    </c:set>
                     <div class="mb-3 col-12 col-md-6">
                       <label class="form-label">Full Name:</label>
                       <form:input
                         type="text"
-                        class="form-control"
+                        class="form-control ${not empty errorName ? 'is-invalid':'' }"
                         path="fullName"
                       />
+                      <td>
+                        <form:errors
+                          path="fullName"
+                          cssClass="invalid-feedback"
+                        />
+                      </td>
                     </div>
                     <div class="mb-3 col-12">
                       <label class="form-label">Address:</label>

@@ -112,37 +112,86 @@ class ProductController {
     }
 
     @PostMapping("/admin/product/update")
-    public String postUpdateProduct(@ModelAttribute("newProduct") Product pr,
+    public String handleUpdateProduct(@ModelAttribute("newProduct") @Valid Product pr,
             BindingResult newProductBindingResult,
-            @RequestParam("productImage") MultipartFile productFile,
-            Model model) {
+            @RequestParam("productImage") MultipartFile file) {
 
+        // validate
         if (newProductBindingResult.hasErrors()) {
             return "admin/product/update";
         }
-        // Tìm sản phẩm theo ID và kiểm tra nếu có tồn tại
-        Optional<Product> optionalProduct = this.productService.fetchProductById(pr.getProductId());
-        if (optionalProduct.isEmpty()) {
-            model.addAttribute("error", "Product not found");
-            return "admin/error";
-        }
-        Product currentProduct = optionalProduct.get();
 
-        // Cập nhật thông tin sản phẩm
-        if (!productFile.isEmpty()) {
-            String imgProduct = this.uploadService.handleSaveUploadFile(productFile, "product");
-            currentProduct.setImage(imgProduct);
-        }
-        currentProduct.setProductName(pr.getProductName());
-        currentProduct.setPrice(pr.getPrice());
-        currentProduct.setQuantity(pr.getQuantity());
-        currentProduct.setDetailDesc(pr.getDetailDesc());
-        currentProduct.setShortDesc(pr.getShortDesc());
-        currentProduct.setFactory(pr.getFactory());
-        currentProduct.setTarget(pr.getTarget());
-        this.productService.createProduct(currentProduct);
+        Product currentProduct = this.productService.fetchProductById(pr.getProductId()).get();
+        if (currentProduct != null) {
+            // update new image
+            if (!file.isEmpty()) {
+                String img = this.uploadService.handleSaveUploadFile(file, "product");
+                currentProduct.setImage(img);
+            }
 
+            currentProduct.setProductName(pr.getProductName());
+            currentProduct.setPrice(pr.getPrice());
+            currentProduct.setQuantity(pr.getQuantity());
+            currentProduct.setDetailDesc(pr.getDetailDesc());
+            currentProduct.setShortDesc(pr.getShortDesc());
+            currentProduct.setFactory(pr.getFactory());
+            currentProduct.setTarget(pr.getTarget());
+
+            this.productService.createProduct(currentProduct);
+        }
+        
         return "redirect:/admin/product";
     }
+    /*
+     * @PostMapping("/admin/product/update")
+     * public String postUpdateProduct(@ModelAttribute("newProduct") Product pr,
+     * BindingResult newProductBindingResult,
+     * 
+     * @RequestParam("productImage") MultipartFile productFile,
+     * Model model) {
+     * 
+     * // Kiểm tra lỗi xác thực
+     * if (newProductBindingResult.hasErrors()) {
+     * // Nếu có lỗi, trả về trang cập nhật với thông tin sản phẩm hiện tại
+     * // model.addAttribute("newProduct", pr); // Đảm bảo rằng thông tin sản phẩm
+     * được
+     * // giữ lại
+     * return "admin/product/update"; // Trả về trang cập nhật
+     * }
+     * 
+     * // Tìm sản phẩm theo ID
+     * Optional<Product> optionalProduct =
+     * this.productService.fetchProductById(pr.getProductId());
+     * if (optionalProduct.isEmpty()) {
+     * model.addAttribute("error", "Product not found");
+     * return "admin/error";
+     * }
+     * 
+     * Product currentProduct = optionalProduct.get();
+     * if (currentProduct != null) {
+     * System.out.println("currentProduct: " + currentProduct);
+     * // Cập nhật thông tin sản phẩm
+     * if (!productFile.isEmpty()) {
+     * String imgProduct = this.uploadService.handleSaveUploadFile(productFile,
+     * "product");
+     * currentProduct.setImage(imgProduct);
+     * }
+     * 
+     * // Cập nhật các trường khác
+     * currentProduct.setProductName(pr.getProductName());
+     * currentProduct.setPrice(pr.getPrice());
+     * currentProduct.setQuantity(pr.getQuantity());
+     * currentProduct.setDetailDesc(pr.getDetailDesc());
+     * currentProduct.setShortDesc(pr.getShortDesc());
+     * currentProduct.setFactory(pr.getFactory());
+     * currentProduct.setTarget(pr.getTarget());
+     * 
+     * // Lưu sản phẩm
+     * this.productService.createProduct(currentProduct);
+     * }
+     * 
+     * return "redirect:/admin/product";
+     * }
+     */
 
 }
