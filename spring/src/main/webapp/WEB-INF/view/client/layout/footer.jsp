@@ -118,16 +118,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
         <span class="text-light"
           ><a href="#"
-            ><i class="fas fa-copyright text-light me-2"></i>Tên trang của
-            bạn</a
-          >, Tất cả quyền được bảo lưu.</span
+            ><i class="fas fa-copyright text-light me-2"></i>Hiếu Võ</a
+          >, codeER.</span
         >
       </div>
       <div class="col-md-6 my-auto text-center text-md-end text-white">
         Designed By
-        <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
-        Distributed By
-        <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+        <a class="border-bottom" href="https://htmlcodex.com">Hiếu Võ</a>
       </div>
     </div>
   </div>

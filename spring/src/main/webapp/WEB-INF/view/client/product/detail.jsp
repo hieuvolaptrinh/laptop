@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- format number -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <html lang="en">
   <head>
@@ -36,7 +38,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     <!-- Template Stylesheet -->
     <link href="/client/css/style.css" rel="stylesheet" />
-    <title>Home</title>
+    <title>LaptopShop - ${product.productName}</title>
   </head>
 
   <body>
@@ -101,7 +103,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <div class="border rounded">
                   <a href="#">
                     <img
-                      src="/client/img/single-item.jpg"
+                      src="/images/product/${product.image}"
                       class="img-fluid rounded"
                       alt="Image"
                     />
@@ -109,9 +111,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 </div>
               </div>
               <div class="col-lg-6">
-                <h4 class="fw-bold mb-3">Brocoli</h4>
-                <p class="mb-3">Category: Vegetables</p>
-                <h5 class="fw-bold mb-3">3,35 $</h5>
+                <h4 class="fw-bold mb-3">${product.productName}</h4>
+                <p class="mb-3">${product.factory}</p>
+                <h5 class="fw-bold mb-3">
+                  <fmt:formatNumber value="${product.price}" type="number" /> đ
+                </h5>
                 <div class="d-flex mb-4">
                   <i class="fa fa-star text-secondary"></i>
                   <i class="fa fa-star text-secondary"></i>
@@ -119,15 +123,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <i class="fa fa-star text-secondary"></i>
                   <i class="fa fa-star"></i>
                 </div>
-                <p class="mb-4">
-                  The generated Lorem Ipsum is therefore always free from
-                  repetition injected humour, or non-characteristic words etc.
-                </p>
-                <p class="mb-4">
-                  Susp endisse ultricies nisi vel quam suscipit. Sabertooth
-                  peacock flounder; chain pickerel hatchetfish, pencilfish
-                  snailfish
-                </p>
+                <p class="mb-4">${product.shortDesc}</p>
+                <p class="mb-4">${product.detailDesc}</p>
                 <div class="input-group quantity mb-5" style="width: 100px">
                   <div class="input-group-btn">
                     <button
@@ -169,7 +166,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       aria-controls="nav-about"
                       aria-selected="true"
                     >
-                      Description
+                      Mô Tả Sản Phẩm
                     </button>
                     <button
                       class="nav-link border-white border-bottom-0"
@@ -181,7 +178,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       aria-controls="nav-mission"
                       aria-selected="false"
                     >
-                      Reviews
+                      Đánh Giá Của Khách Hàng
                     </button>
                   </div>
                 </nav>
@@ -192,18 +189,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     role="tabpanel"
                     aria-labelledby="nav-about-tab"
                   >
-                    <p>
-                      The generated Lorem Ipsum is therefore always free from
-                      repetition injected humour, or non-characteristic words
-                      etc. Susp endisse ultricies nisi vel quam suscipit
-                    </p>
-                    <p>
-                      Sabertooth peacock flounder; chain pickerel hatchetfish,
-                      pencilfish snailfish filefish Antarctic icefish goldeye
-                      aholehole trumpetfish pilot fish airbreathing catfish,
-                      electric ray sweeper.
-                    </p>
-                    <div class="px-2">
+                    <p>${product.detailDesc}</p>
+
+                    <!-- <div class="px-2">
                       <div class="row g-4">
                         <div class="col-6">
                           <div
@@ -258,8 +246,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
+                  <!-- đánh giá sản phẩm phần review -->
                   <div
                     class="tab-pane"
                     id="nav-mission"
@@ -288,10 +277,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                           </div>
                         </div>
                         <p>
-                          The generated Lorem Ipsum is therefore always free
-                          from repetition injected humour, or non-characteristic
-                          words etc. Susp endisse ultricies nisi vel quam
-                          suscipit
+                          Đây là một sản phẩm rất tốt, tôi đã sử dụng nó trong
+                          một thời gian dài và nó luôn hoạt động tốt. Tôi rất
+                          thích
                         </p>
                       </div>
                     </div>
@@ -317,10 +305,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                           </div>
                         </div>
                         <p class="text-dark">
-                          The generated Lorem Ipsum is therefore always free
-                          from repetition injected humour, or non-characteristic
-                          words etc. Susp endisse ultricies nisi vel quam
-                          suscipit
+                          Đây là một sản phẩm rất tốt, tôi đã sử dụng nó trong
+                          một thời gian dài và nó luôn hoạt động tốt. Tôi rất
+                          thích
                         </p>
                       </div>
                     </div>
