@@ -94,8 +94,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     <jsp:include page="../layout/banner.jsp" />
 
-    <jsp:include page="../layout/feature.jsp" />
-
     <!-- Fruits Shop Start-->
     <!-- <div class="container-fluid fruite py-5">
       <div class="container py-5">
@@ -903,7 +901,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- Fruits Shop End-->
 
     <!-- Vesitable Shop Start-->
-    <div class="container-fluid fruite py-5">
+    <div class="container-fluid fruite">
       <div class="container py-5">
         <div class="tab-class text-center">
           <div class="row g-4">
@@ -995,6 +993,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         </div>
       </div>
     </div>
+    <jsp:include page="../layout/feature.jsp" />
     <!-- Vesitable Shop End -->
 
     <!-- Bestsaler Product Start -->

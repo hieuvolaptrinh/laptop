@@ -57,7 +57,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <a href="cart.html" class="dropdown-item">Cart</a>
               <a href="chackout.html" class="dropdown-item">Chackout</a>
               <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-              <a href="404.html" class="dropdown-item">404 Page</a>
+              <a href="/view/admin/error.jsp" class="dropdown-item">404 Page</a>
             </div>
           </div>
           <a href="contact.html" class="nav-item nav-link">Contact</a>
