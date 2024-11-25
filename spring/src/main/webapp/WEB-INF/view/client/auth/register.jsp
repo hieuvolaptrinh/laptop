@@ -36,82 +36,8 @@ uri="http://www.springframework.org/tags/form" %>
 
     <!-- Template Stylesheet -->
     <link href="/client/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/client/css/register.css" />
     <title>LaptopShop - Đăng kí</title>
-    <style>
-      body {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        height: 100vh; /* Chiều cao 100% của viewport */
-        margin: 0;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        overflow: hidden; /* Ngăn scroll */
-      }
-
-      body {
-        background: linear-gradient(135deg, #313234 0%, #1f033a 100%);
-        /* min-height: 100vh; */
-      }
-      .card {
-        backdrop-filter: blur(10px);
-        background-color: rgba(255, 255, 255, 0.9);
-        border: none;
-        border-radius: 15px;
-      }
-      .form-control {
-        border-radius: 10px;
-        padding: 12px;
-        border: 2px solid #e1e1e1;
-        transition: all 0.3s ease;
-      }
-      .form-control:focus {
-        border-color: #764ba2;
-        box-shadow: 0 0 0 0.2rem rgba(118, 75, 162, 0.25);
-      }
-      .btn-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border: none;
-        padding: 12px;
-        border-radius: 10px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-      .btn-primary:hover {
-        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      }
-      .card-header {
-        background: transparent;
-        border-bottom: none;
-        padding-top: 40px;
-      }
-      .form-floating label {
-        padding-left: 13px;
-      }
-      .social-links a {
-        width: 40px;
-        height: 40px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        margin: 0 5px;
-        text-decoration: none;
-        color: white;
-        transition: all 0.3s ease;
-      }
-      .facebook {
-        background: #3b5998;
-      }
-      .google {
-        background: #db4437;
-      }
-      .twitter {
-        background: #1da1f2;
-      }
-    </style>
   </head>
   <body>
     <div class="container py-5">
@@ -138,6 +64,15 @@ uri="http://www.springframework.org/tags/form" %>
                 action="/register"
                 modelAttribute="registerUser"
               >
+                <c:set var="errorPassword">
+                  <form:errors
+                    path="confirmPassword"
+                    cssClass="invalid-feedback"
+                  />
+                </c:set>
+                <c:set var="errorEmail">
+                  <form:errors path="email" cssClass="invalid-feedback" />
+                </c:set>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-floating">
@@ -173,7 +108,7 @@ uri="http://www.springframework.org/tags/form" %>
                     <div class="form-floating">
                       <form:input
                         type="email"
-                        class="form-control"
+                        class="form-control ${not empty errorEmail ? 'is-invalid' : ''}"
                         id="email"
                         placeholder="Email"
                         path="email"
@@ -182,14 +117,15 @@ uri="http://www.springframework.org/tags/form" %>
                         ><i class="fas fa-envelope me-2"></i>Email
                         address</label
                       >
+                      <form:errors path="email" cssClass="text-danger" />
                     </div>
                   </div>
                   <div class="col-md-6 mb-4">
                     <div class="form-floating">
                       <form:input
                         type="password"
-                        class="form-control"
                         id="password"
+                        class="form-control"
                         placeholder="Password"
                         path="password"
                         required="required"
@@ -203,7 +139,7 @@ uri="http://www.springframework.org/tags/form" %>
                     <div class="form-floating">
                       <form:input
                         type="password"
-                        class="form-control"
+                        class="form-control ${not empty errorPassword ? 'is-invalid' : ''}"
                         id="confirmPassword"
                         placeholder="Confirm Password"
                         path="confirmPassword"
@@ -211,6 +147,10 @@ uri="http://www.springframework.org/tags/form" %>
                       <label for="confirmPassword"
                         ><i class="fas fa-lock me-2"></i>Confirm Password</label
                       >
+                      <form:errors
+                        path="confirmPassword"
+                        cssClass="text-danger"
+                      />
                     </div>
                   </div>
                   <div class="col-12 mb-2">

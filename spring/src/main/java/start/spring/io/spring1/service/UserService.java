@@ -25,6 +25,7 @@ public class UserService {
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
     public List<User> getAllUsers() {
         return this.userRepository.findAll();
     }
@@ -62,5 +63,10 @@ public class UserService {
         user.setPassword(registerDTO.getPassword());
         return user;
 
+    }
+
+    // hàm kiểm tra email đã tồn tại trong database chưa ?
+    public boolean checkEmailExist(String email) {
+        return this.userRepository.existsByEmail(email);
     }
 }

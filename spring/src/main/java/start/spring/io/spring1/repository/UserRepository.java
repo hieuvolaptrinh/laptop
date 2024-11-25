@@ -20,4 +20,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findById(long id);
 
     void deleteById(long id);
+
+    // kiểm tra email đã tồn tại chưa
+    boolean existsByEmail(String email); // existsBy + fieldName
 }

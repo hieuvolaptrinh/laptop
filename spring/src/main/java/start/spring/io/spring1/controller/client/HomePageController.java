@@ -54,9 +54,8 @@ public class HomePageController {
                                                                                                // annotation
                                                                                                // @RegisterChecked
             , BindingResult bindingResult) {
-        List<FieldError> errors = bindingResult.getFieldErrors();
-        for (FieldError fieldError : errors) {
-            System.out.println(fieldError.getField() + " : " + fieldError.getDefaultMessage());
+        if (bindingResult.hasErrors()) {
+            return "client/auth/register";
         }
 
         User user = this.userService.registerDTOtoUser(registerDTO);
