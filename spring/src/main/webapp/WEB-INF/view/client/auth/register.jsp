@@ -1,7 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- format number -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="form"
+uri="http://www.springframework.org/tags/form" %>
 
 <html lang="en">
   <head>
@@ -144,7 +143,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <div class="form-floating">
                       <!-- form-floating để ấn vào là cái first name nó hiện nhỏ lại rồi bay lên trên
                        tăng UI -->
-                      <input
+                      <form:input
                         type="text"
                         class="form-control"
                         id="firstName"
@@ -158,7 +157,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   </div>
                   <div class="col-md-6 mb-4">
                     <div class="form-floating">
-                      <input
+                      <form:input
                         type="text"
                         class="form-control"
                         id="lastName"
@@ -172,7 +171,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   </div>
                   <div class="col-12 mb-4">
                     <div class="form-floating">
-                      <input
+                      <form:input
                         type="email"
                         class="form-control"
                         id="email"
@@ -187,12 +186,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   </div>
                   <div class="col-md-6 mb-4">
                     <div class="form-floating">
-                      <input
+                      <form:input
                         type="password"
                         class="form-control"
                         id="password"
                         placeholder="Password"
                         path="password"
+                        required="required"
                       />
                       <label for="password"
                         ><i class="fas fa-lock me-2"></i>Password</label
@@ -201,7 +201,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   </div>
                   <div class="col-md-6 mb-4">
                     <div class="form-floating">
-                      <input
+                      <form:input
                         type="password"
                         class="form-control"
                         id="confirmPassword"
@@ -215,15 +215,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   </div>
                   <div class="col-12 mb-2">
                     <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="terms"
-                      />
-                      <label class="form-check-label text-muted" for="terms">
-                        Tôi đồng ý với <a href="#">Điều Khoản Dịch Vụ</a> và
-                        <a href="#">Chính sách quyền riêng tư</a>
-                      </label>
+                      Tôi đồng ý với <a href="#">Điều Khoản Dịch Vụ</a> và
+                      <a href="#">Chính sách quyền riêng tư</a>
                     </div>
                   </div>
                   <div class="col-12">

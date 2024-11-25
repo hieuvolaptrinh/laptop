@@ -16,6 +16,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import start.spring.io.spring1.service.validator.StrongPassword;
 
 @Entity // biến class thành table trong database
 @Table(name = "users")
@@ -30,8 +31,8 @@ public class User {
     private String email;
 
     @NotNull(message = "Password không được để trống")
-    @Size(min = 6, message = "Password phải lớn hơn 6 ký tự")
-    private String password;
+    @StrongPassword(message = "Password phải chứa ít nhất 1 chữ số, 1 chữ cái viết thường, 1 chữ cái viết hoa, 1 ký tự đặc biệt và dài hơn 8 ký tự")
+    private String password; // StrongPassword là cái anotion mình tự định nghĩa
 
     @Size(min = 2, message = "Fullname phải từ 2 kí tự trở lên")
     private String fullName;

@@ -4,10 +4,12 @@ import java.lang.String;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import start.spring.io.spring1.domain.Role;
 import start.spring.io.spring1.domain.User;
+import start.spring.io.spring1.domain.DTO.RegisterDTO;
 import start.spring.io.spring1.repository.RoleRepository;
 import start.spring.io.spring1.repository.UserRepository;
 
@@ -16,16 +18,13 @@ public class UserService {
     // DI: dependency injection
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder; // mã hóa mật khẩu hash password
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
-
-    // public String handelHello() {
-    // return "hello from service";
-    // }
-
     public List<User> getAllUsers() {
         return this.userRepository.findAll();
     }
@@ -53,5 +52,15 @@ public class UserService {
     //
     public Role getRoleByName(String name) {
         return this.roleRepository.findByRoleName(name);
+    }
+
+    // DTO : data transfer object
+    public User registerDTOtoUser(RegisterDTO registerDTO) {
+        User user = new User();
+        user.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
+        user.setEmail(registerDTO.getEmail());
+        user.setPassword(registerDTO.getPassword());
+        return user;
+
     }
 }
