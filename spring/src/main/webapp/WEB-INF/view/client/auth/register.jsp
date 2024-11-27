@@ -59,7 +59,17 @@ uri="http://www.springframework.org/tags/form"%>
                   method="post"
                   action="/register"
                   modelAttribute="registerUser"
-                  ><c:set var="errorPassword">
+                >
+                  <c:set var="errorFirstName">
+                    <form:errors path="firstName" cssClass="invalid-feedback" />
+                  </c:set>
+                  <c:set var="errorPassword">
+                    <form:errors
+                      path="confirmPassword"
+                      cssClass="invalid-feedback"
+                    />
+                  </c:set>
+                  <c:set var="errorPassword">
                     <form:errors
                       path="confirmPassword"
                       cssClass="invalid-feedback"
@@ -73,7 +83,7 @@ uri="http://www.springframework.org/tags/form"%>
                       <div class="form-floating">
                         <form:input
                           type="text"
-                          class="form-control"
+                          class="form-control ${not empty errorFirstName ? 'is-invalid' : ''}"
                           id="firstName"
                           placeholder="First Name"
                           path="firstName"
@@ -81,6 +91,7 @@ uri="http://www.springframework.org/tags/form"%>
                         <label for="firstName"
                           ><i class="fas fa-user me-2"></i>First Name</label
                         >
+                        <form:errors path="firstName" cssClass="text-danger" />
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">

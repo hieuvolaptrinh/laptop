@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     User save(User user);
 
-    List<User> findByEmail(String email);
+    List<User> findOneByEmail(String email);
 
     User findFirstByEmail(String email);
 
@@ -23,4 +23,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // kiểm tra email đã tồn tại chưa
     boolean existsByEmail(String email); // existsBy + fieldName
+
+    // tìm kiếm người dùng dựa vào email <cái email là duy nhất>
+    User findByEmail(String email);
 }
