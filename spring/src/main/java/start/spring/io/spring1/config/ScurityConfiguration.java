@@ -87,5 +87,6 @@ public class ScurityConfiguration { // Chỉnh sửa tên lớp ở đây
                         .failureUrl("/login?error")
                         .permitAll());
         return http.build();
+        // video 117
     }
 }
