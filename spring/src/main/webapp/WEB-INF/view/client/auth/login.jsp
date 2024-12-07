@@ -54,16 +54,25 @@ uri="http://www.springframework.org/tags/form"%>
             <div class="card bg-glass">
               <div class="card-body px-4 py-5 px-md-5">
                 <h2 class="fw-bold mb-5">Đăng Nhập</h2>
-                <form>
+                <form method="post" action="/login">
+                  <c:if test="${param.error != null}">
+                    <div class="my-2" style="color: red">
+                      Invalid email or password.
+                    </div>
+                  </c:if>
+                  <!-- cái action login javaspring nó tự định nghĩa cho mình rồi nên ghi thẳng vào thôi -->
                   <div class="form-outline mb-4">
                     <label class="form-label" for="email"
                       ><i class="fas fa-envelope me-2"></i>Email</label
                     >
+                    <!-- vì mình customize lại trang login nên cái name của phần emali mình phải ghi là username 
+                     để nó phù hợp với cái login của javascurity mặt định -->
                     <input
                       type="email"
                       id="email"
                       class="form-control"
                       placeholder="name@example.com"
+                      name="username"
                       required
                     />
                   </div>
@@ -72,15 +81,31 @@ uri="http://www.springframework.org/tags/form"%>
                     <label class="form-label" for="password"
                       ><i class="fas fa-lock me-2"></i>Mật khẩu</label
                     >
+                    <!-- vì mình customize lại trang login nên cái password của phần pass mình phải ghi là password 
+                     để nó phù hợp với cái login của javascurity mặt định
+                     khác với lúc trước làm là mình ghi path 
+                     -->
                     <input
                       type="password"
                       id="password"
                       class="form-control"
                       placeholder="Mật Khẩu "
                       required
+                      name="password"
                     />
                   </div>
-
+                  <div>
+                    <!-- phải có cái này vì javaspring sử dụng scurity nó có 3 trường luôn
+                    Csrf token: token ứng với lượt truy cập web của user. Cần token này để phòng tránh
+                    CSRF (Cross Site Request Forgery) . Hiểu 1 cách đơn giản, là tăng độ an toàn cho
+                    website của bạn 
+                    -->
+                    <input
+                      type="hidden"
+                      name="${_csrf.parameterName}"
+                      value="${_csrf.token}"
+                    />
+                  </div>
                   <div class="row mb-4">
                     <div class="col d-flex justify-content-center">
                       <div class="form-check">
