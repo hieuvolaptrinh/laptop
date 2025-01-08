@@ -55,11 +55,11 @@ uri="http://www.springframework.org/tags/form"%>
               <div class="card-body px-4 py-5 px-md-5">
                 <h2 class="fw-bold mb-5">Đăng Nhập</h2>
                 <form method="post" action="/login">
-                  <c:if test="${param.error != null}">
+                  <!-- <c:if test="${param.error != null}">
                     <div class="my-2" style="color: red">
-                      Invalid email or password.
+                      Mật khẩu hoặc tài khoản bị sai.
                     </div>
-                  </c:if>
+                  </c:if> -->
                   <!-- cái action login javaspring nó tự định nghĩa cho mình rồi nên ghi thẳng vào thôi -->
                   <div class="form-outline mb-4">
                     <label class="form-label" for="email"
@@ -105,6 +105,13 @@ uri="http://www.springframework.org/tags/form"%>
                       name="${_csrf.parameterName}"
                       value="${_csrf.token}"
                     />
+                  </div>
+                  <div class="my-2">
+                    <c:if test="${param.error != null}">
+                      <div style="color: red">
+                        <p>Mật khẩu hoặc tài khoản bị sai.</p>
+                      </div>
+                    </c:if>
                   </div>
                   <div class="row mb-4">
                     <div class="col d-flex justify-content-center">

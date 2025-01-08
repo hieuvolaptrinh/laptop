@@ -20,7 +20,7 @@ public class Role {
     private String description;
 
     // role -> many user
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role") // mappedBy là tên biến Role trong class User
     private List<User> users;
 
     public long getRoleId() {

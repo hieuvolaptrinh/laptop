@@ -10,7 +10,7 @@ public class RegisterDTO {
     // nó là pattern để lưu trữ thông tin đăng ký
     // không phải là entity để lưu trữ thông tin đăng ký
     // để lưu trữ thông tin đăng ký
-    @Size(min = 3, message = "Tên phải có ít nhất 3 ký tự")
+    @Size(min = 3, message = "Tên phải có ít nhất 3 ký tự.............")
     @NotNull(message = "Tên không được để trống")
     private String firstName;
     private String lastName;

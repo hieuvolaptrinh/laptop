@@ -42,7 +42,7 @@ public class User {
     // roleId;
     // User many -> to one Role
     @ManyToOne
-    @JoinColumn(name = "roleId")
+    @JoinColumn(name = "roleId")  // Tên cột trong bảng user liên kết tới bảng role
     private Role role;
 
     // User -> many order
