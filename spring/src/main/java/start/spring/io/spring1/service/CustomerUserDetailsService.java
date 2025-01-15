@@ -31,7 +31,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
         return new User( // user này là của scurity spring mà nó implement cái inter face UserDetail
                 user.getEmail(),
                 user.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getRoleName()))); // ở đây mình
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_"+user.getRole().getRoleName()))); // ở đây mình
                                                                                                       // truyền role
                                                                                                       // vào;
     }

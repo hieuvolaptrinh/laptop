@@ -31,7 +31,9 @@ public class User {
     private String email;
 
     @NotNull(message = "Password không được để trống")
-    @StrongPassword(message = "Password phải chứa ít nhất 1 chữ số, 1 chữ cái viết thường, 1 chữ cái viết hoa, 1 ký tự đặc biệt và dài hơn 8 ký tự")
+    @Size(min = 6, message = "Mật khẩu phải có ít nhất 6 ký tự")
+    // @StrongPassword(message = "Password phải chứa ít nhất 1 chữ số, 1 chữ cái
+    // viết thường, 1 chữ cái viết hoa, 1 ký tự đặc biệt và dài hơn 8 ký tự")
     private String password; // StrongPassword là cái anotion mình tự định nghĩa
 
     @Size(min = 2, message = "Fullname phải từ 2 kí tự trở lên")
@@ -42,7 +44,7 @@ public class User {
     // roleId;
     // User many -> to one Role
     @ManyToOne
-    @JoinColumn(name = "roleId")  // Tên cột trong bảng user liên kết tới bảng role
+    @JoinColumn(name = "roleId") // Tên cột trong bảng user liên kết tới bảng role
     private Role role;
 
     // User -> many order

@@ -75,12 +75,19 @@ public class ScurityConfiguration { // Chỉnh sửa tên lớp ở đây
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(authorize -> authorize.dispatcherTypeMatchers(DispatcherType.FORWARD,
-                        DispatcherType.INCLUDE).permitAll()
-                        .requestMatchers("/", "register", "/login", "/client/**", "/css/**", "/js/**",
+                .authorizeHttpRequests(authorize -> authorize
+                        .dispatcherTypeMatchers(DispatcherType.FORWARD,
+                                DispatcherType.INCLUDE)
+                        .permitAll()
+
+                        .requestMatchers("/", "register", "/login", "/product/**", "/client/**", "/css/**", "/js/**",
                                 "/images/**") // thêm cái này để nó không cần xác thực vì mình gọi nó sẽmatch qua ở
                         // controller=> nó sẽ chặn
-                        .permitAll().anyRequest().authenticated())
+                        .permitAll()
+
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+
+                        .anyRequest().authenticated())
                 // .anyRequest().permitAll())// anyRequest().authenticated()
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
