@@ -2,8 +2,10 @@ package start.spring.io.spring1.controller.admin;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +26,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
+import org.springframework.boot.web.reactive.error.ErrorAttributes;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -32,13 +36,14 @@ public class UserController {
     // DI: dependency injection
     private final UserService userService;
     private final UploadService uploadService;
-    private final PasswordEncoder passwordEncoder; // mã hóa mật khẩu hash password
+    private final PasswordEncoder passwordEncoder;
 
     public UserController(UserService userService, UploadService uploadService,
             PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.uploadService = uploadService;
         this.passwordEncoder = passwordEncoder;
+
     }
 
     @PostMapping("/create")
@@ -85,7 +90,7 @@ public class UserController {
     }
 
     // render list user
-    @RequestMapping(value = "/admin/user", method = RequestMethod.GET)
+    @GetMapping("/admin/user")
     public String getUserPage(Model model) {
         List<User> users = this.userService.getAllUsers();
         model.addAttribute("usersArray", users);// truyền dữ liệu từ controller sang view

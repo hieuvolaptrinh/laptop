@@ -21,10 +21,8 @@ import start.spring.io.spring1.service.UserService;
 
 @Configuration
 @EnableWebSecurity // HttpSecurity http mới hoạt động được vì phiên bản mới
-// mình méo biết chỉnh
 @EnableMethodSecurity(securedEnabled = true)
 public class ScurityConfiguration { // Chỉnh sửa tên lớp ở đây
-
     // @Bean
     // public UserDetailsService userDetailsService() {
     // InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
@@ -56,6 +54,8 @@ public class ScurityConfiguration { // Chỉnh sửa tên lớp ở đây
         return new CustomerUserDetailsService(userService);
     }
 
+    // cho phép sử dụng tài khoản và mật khẩu được lưu trữ trong cơ sở dữ liệu
+    // (CSDL) để đăng nhập
     @Bean
     public DaoAuthenticationProvider authProvider(
             PasswordEncoder passwordEncoder,
@@ -69,7 +69,7 @@ public class ScurityConfiguration { // Chỉnh sửa tên lớp ở đây
 
     // để sử dụng cái giao diện login của mình thay vì của thằng spring
     // SecurityFilterChainConfiguration vào đó đọc sẽ thấy nó
-    // anyRequest()).authenticated(); là phải xá thực hết, ở đây mình đang override
+    // anyRequest()).authenticated(); là phải xác thực hết, ở đây mình đang override
     // nó lại
 
     @Bean
@@ -77,9 +77,9 @@ public class ScurityConfiguration { // Chỉnh sửa tên lớp ở đây
         http
                 .authorizeHttpRequests(authorize -> authorize.dispatcherTypeMatchers(DispatcherType.FORWARD,
                         DispatcherType.INCLUDE).permitAll()
-                        .requestMatchers("/", "/login", "/client/**", "/css/**", "/js/**",
-                                "/images/**") // thêm cái này để nó không cần xác thực vì mình gọi nó sẽ match qua ở
-                                              // controller=> nó sẽ chặn
+                        .requestMatchers("/", "register", "/login", "/client/**", "/css/**", "/js/**",
+                                "/images/**") // thêm cái này để nó không cần xác thực vì mình gọi nó sẽmatch qua ở
+                        // controller=> nó sẽ chặn
                         .permitAll().anyRequest().authenticated())
                 // .anyRequest().permitAll())// anyRequest().authenticated()
                 .formLogin(formLogin -> formLogin
@@ -87,6 +87,7 @@ public class ScurityConfiguration { // Chỉnh sửa tên lớp ở đây
                         .failureUrl("/login?error")
                         .permitAll());
         return http.build();
-        // video 117
+        // 117
     }
+
 }

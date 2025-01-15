@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
+// nhớ details có s ở cuối
 public class CustomerUserDetailsService implements UserDetailsService {
 
     private final UserService userService;
@@ -27,10 +28,12 @@ public class CustomerUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
 
-        return new User( // user này là của scurity spring 
+        return new User( // user này là của scurity spring mà nó implement cái inter face UserDetail
                 user.getEmail(),
                 user.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+                Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getRoleName()))); // ở đây mình
+                                                                                                      // truyền role
+                                                                                                      // vào;
     }
 
 }
