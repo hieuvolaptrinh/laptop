@@ -23,20 +23,26 @@ public class UploadService {
         String rootPath = this.servletContext.getRealPath("/resources/images");
         String finalName = "";
         try {
-            byte[] bytes = file.getBytes();
-            File dir = new File(rootPath + File.separator + targetFolder);
-            if (!dir.exists())
-                dir.mkdirs();
-            // Create the file on server
-            finalName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
-            File serverFile = new File(dir.getAbsolutePath() + File.separator + finalName);
-            // uuid
-            BufferedOutputStream stream = new BufferedOutputStream(
-                    new FileOutputStream(serverFile));
-            stream.write(bytes);
-            stream.close();
+            // Kiểm tra file và tên file
+            if (file != null && !file.isEmpty()) {
+                String originalFilename = file.getOriginalFilename();
+                if (originalFilename != null && !originalFilename.isEmpty()) {
+                    byte[] bytes = file.getBytes();
+                    File dir = new File(rootPath + File.separator + targetFolder);
+                    if (!dir.exists())
+                        dir.mkdirs();
+
+                    // Tạo tên file với timestamp
+                    finalName = System.currentTimeMillis() + "-" + originalFilename;
+
+                    File serverFile = new File(dir.getAbsolutePath() + File.separator + finalName);
+                    BufferedOutputStream stream = new BufferedOutputStream(
+                            new FileOutputStream(serverFile));
+                    stream.write(bytes);
+                    stream.close();
+                }
+            }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return finalName;

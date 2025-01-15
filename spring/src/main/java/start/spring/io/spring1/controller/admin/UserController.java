@@ -71,7 +71,7 @@ public class UserController {
             System.out.println("error: " + error.getField() + " " + error.getDefaultMessage());
         }
         if (newUserBindingResult.hasErrors()) {
-            return "/admin/user/create";
+            return "admin/user/create";
         }
         String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
         // mã hóa mật khẩu
@@ -89,15 +89,23 @@ public class UserController {
     // render list user
     @GetMapping("/admin/user")
     public String getUserPage(Model model) {
-        List<User> users = this.userService.getAllUsers();
-        model.addAttribute("usersArray", users);// truyền dữ liệu từ controller sang view
-        return "/admin/user/show";
+        System.out.println("loi o day");
+        try {
+            List<User> users = this.userService.getAllUsers();
+            System.out.println("Users retrieved: " + users); // Add logging
+            model.addAttribute("usersArray", users);
+            return "admin/user/show";
+        } catch (Exception e) {
+            System.out.println("Error in getUserPage: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @GetMapping("/admin/user/create")
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
-        return "/admin/user/create";
+        return "admin/user/create";
     }
 
     // show user detail
@@ -115,7 +123,7 @@ public class UserController {
             model.addAttribute("errorMessage", "User not found");
             return "error";
         }
-        return "/admin/user/detail";
+        return "admin/user/detail";
     }
 
     // update user
@@ -129,7 +137,7 @@ public class UserController {
             // Xử lý khi người dùng không tồn tại
             return "error"; // hoặc điều hướng đến trang khác
         }
-        return "/admin/user/update";
+        return "admin/user/update";
     }
 
     // update user
@@ -160,7 +168,7 @@ public class UserController {
         // user.setId(id); // để lấy đươc user có id mình lấy ở path
         // model.addAttribute("newUser", user);
         model.addAttribute("newUser", new User());
-        return "/admin/user/delete";
+        return "admin/user/delete";
     }
 
     @PostMapping("/admin/user/delete")
