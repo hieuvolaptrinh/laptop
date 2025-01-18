@@ -53,13 +53,11 @@ uri="http://www.springframework.org/tags/form"%>
 
             <div class="card bg-glass">
               <div class="card-body px-4 py-5 px-md-5">
-                <h2 class="fw-bold mb-5">Đăng Nhập</h2>
+                <h2 class="fw-bold mb-2">Đăng Nhập</h2>
                 <form method="post" action="/login">
-                  <!-- <c:if test="${param.error != null}">
-                    <div class="my-2" style="color: red">
-                      Mật khẩu hoặc tài khoản bị sai.
-                    </div>
-                  </c:if> -->
+                  <c:if test="${param.logout != null}">
+                    <p class="text-success">Đăng xuất thành công</p>
+                  </c:if>
                   <!-- cái action login javaspring nó tự định nghĩa cho mình rồi nên ghi thẳng vào thôi -->
                   <div class="form-outline mb-4">
                     <label class="form-label" for="email"

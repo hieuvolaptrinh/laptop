@@ -1,6 +1,7 @@
 package start.spring.io.spring1.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -21,9 +22,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     void deleteById(long id);
 
-    // kiểm tra email đã tồn tại chưa
     boolean existsByEmail(String email); // existsBy + fieldName
 
-    // tìm kiếm người dùng dựa vào email <cái email là duy nhất>
+
     User findByEmail(String email);
+
 }

@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import jakarta.servlet.DispatcherType;
 import start.spring.io.spring1.service.CustomerUserDetailsService;
@@ -92,9 +93,15 @@ public class ScurityConfiguration { // Chỉnh sửa tên lớp ở đây
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .failureUrl("/login?error")
+                        .successHandler(cutomSuccessHandler())
                         .permitAll());
         return http.build();
         // 117
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler cutomSuccessHandler() {
+        return new CustomSuccessHandler();
     }
 
 }

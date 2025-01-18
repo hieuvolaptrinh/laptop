@@ -99,9 +99,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <div class="col-lg-3 col-md-6">
         <div class="footer-item">
           <h4 class="text-light mb-3">Liên hệ</h4>
-          <p>Địa chỉ: 1429 Netus Rd, NY 48247</p>
-          <p>Email: example@gmail.com</p>
-          <p>Điện thoại: +0123 4567 8910</p>
+          <p>Địa chỉ: Gia Lai</p>
+          <p>Email: Vndhieuak@gmail.com</p>
+          <p>Điện thoại: 0911735883</p>
           <p>Phương thức thanh toán</p>
           <img src="/client/img/payment.png" class="img-fluid" alt="" />
         </div>
@@ -119,7 +119,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <span class="text-light"
           ><a href="#"
             ><i class="fas fa-copyright text-light me-2"></i>Hiếu Võ</a
-          >, codeER.</span
+          >~~ codeER.</span
         >
       </div>
       <div class="col-md-6 my-auto text-center text-md-end text-white">

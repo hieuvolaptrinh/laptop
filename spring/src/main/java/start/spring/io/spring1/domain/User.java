@@ -49,7 +49,7 @@ public class User {
 
     // User -> many order
     @OneToMany(mappedBy = "user")
-    private List<Order> order;
+    private List<Order> orders;
 
     public long getId() {
         return id;
@@ -116,11 +116,11 @@ public class User {
     }
 
     public List<Order> getOrder() {
-        return order;
+        return orders;
     }
 
     public void setOrder(List<Order> order) {
-        this.order = order;
+        this.orders = order;
     }
 
     @Override
