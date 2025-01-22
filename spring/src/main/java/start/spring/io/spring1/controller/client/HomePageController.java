@@ -67,10 +67,15 @@ public class HomePageController {
         return "redirect:/login";
     }
 
-    //
+    // cấu hình form login của mình
     @GetMapping("/login")
     public String getLoginPage(Model model) {
         return "client/auth/login";
+    }
+
+    @GetMapping("/access-denied")
+    public String getDenyPage() {
+        return "client/auth/deny";
     }
 
 }

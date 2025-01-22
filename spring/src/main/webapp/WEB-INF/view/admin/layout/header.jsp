@@ -48,7 +48,16 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
         <li>
           <hr class="dropdown-divider" />
         </li>
-        <li><a class="dropdown-item" href="#!">Logout</a></li>
+        <li>
+          <form action="/logout" method="post">
+            <input
+              type="hidden"
+              name="${_csrf.parameterName}"
+              value="${_csrf.token}"
+            />
+            <button class="dropdown-item btn">Logout</button>
+          </form>
+        </li>
       </ul>
     </li>
   </ul>

@@ -94,7 +94,8 @@ public class ScurityConfiguration { // Chỉnh sửa tên lớp ở đây
                         .loginPage("/login")
                         .failureUrl("/login?error")
                         .successHandler(cutomSuccessHandler())
-                        .permitAll());
+                        .permitAll())
+                .exceptionHandling(ex -> ex.accessDeniedPage("/access-denied"));// nếu không có quyền thì chuyển đến
         return http.build();
         // 117
     }

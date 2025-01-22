@@ -106,7 +106,7 @@ public class UserController {
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
         return "admin/user/create";
-    }
+    }    
 
     // show user detail
     @GetMapping("/admin/user/{id}")
