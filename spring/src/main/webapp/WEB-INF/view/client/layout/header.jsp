@@ -54,8 +54,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               href="#"
               class="nav-link dropdown-toggle"
               data-bs-toggle="dropdown"
-              >Cá Nhâ<n></n
-            ></a>
+              >Cá Nhân
+            </a>
             <div class="dropdown-menu m-0 bg-secondary rounded-0">
               <a href="cart.html" class="dropdown-item">Giỏ Hàng</a>
               <a href="chackout.html" class="dropdown-item">Thanh Toán</a>

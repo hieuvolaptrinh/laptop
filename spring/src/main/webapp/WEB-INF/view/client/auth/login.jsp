@@ -114,10 +114,12 @@ uri="http://www.springframework.org/tags/form"%>
                   <div class="row mb-4">
                     <div class="col d-flex justify-content-center">
                       <div class="form-check">
+                        <!-- sử dụng để gi nhớ đăng nhập trong security -->
+                        <!-- thuộc tính name="remember-me" là quan trọng vì Spring Security mặc định sử dụng trường này để kích hoạt chức năng "Remember Me". -->
                         <input
                           class="form-check-input"
                           type="checkbox"
-                          value=""
+                          name="remember-me"
                           id="rememberMe"
                         />
                         <label class="form-check-label" for="rememberMe"

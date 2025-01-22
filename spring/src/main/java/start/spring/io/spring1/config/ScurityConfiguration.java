@@ -1,8 +1,9 @@
 package start.spring.io.spring1.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -23,7 +24,15 @@ import start.spring.io.spring1.service.UserService;
 @Configuration
 @EnableWebSecurity // HttpSecurity http mới hoạt động được vì phiên bản mới
 @EnableMethodSecurity(securedEnabled = true)
-public class ScurityConfiguration { // Chỉnh sửa tên lớp ở đây
+public class ScurityConfiguration {
+
+    private final UserService userService;
+
+    public ScurityConfiguration(@Lazy UserService userService) { // Sử dụng @Lazy để tránh vòng lặp
+        this.userService = userService;
+    }
+
+    // Chỉnh sửa tên lớp ở đây
     // @Bean
     // public UserDetailsService userDetailsService() {
     // InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
@@ -95,6 +104,12 @@ public class ScurityConfiguration { // Chỉnh sửa tên lớp ở đây
                         .failureUrl("/login?error")
                         .successHandler(cutomSuccessHandler())
                         .permitAll())
+                // .rememberMe(rememberMe -> rememberMe // sử dụng cookie Remember Me=> mình sử
+                // dụng spring -session thì oke hơn
+                // .key("uniqueAndSecret")// Key để mã hóa cookie Remember Me
+                // .userDetailsService(userDetailsService(userService)) // Cung cấp
+                // userDetailsService
+                // .tokenValiditySeconds(7 * 24 * 60 * 60)) // Thời gian hiệu lực (7 ngày)
                 .exceptionHandling(ex -> ex.accessDeniedPage("/access-denied"));// nếu không có quyền thì chuyển đến
         return http.build();
         // 117
