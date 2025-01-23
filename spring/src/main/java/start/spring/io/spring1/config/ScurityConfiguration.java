@@ -9,13 +9,14 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
 import jakarta.servlet.DispatcherType;
 import start.spring.io.spring1.service.CustomerUserDetailsService;
@@ -25,12 +26,6 @@ import start.spring.io.spring1.service.UserService;
 @EnableWebSecurity // HttpSecurity http mới hoạt động được vì phiên bản mới
 @EnableMethodSecurity(securedEnabled = true)
 public class ScurityConfiguration {
-
-    private final UserService userService;
-
-    public ScurityConfiguration(@Lazy UserService userService) { // Sử dụng @Lazy để tránh vòng lặp
-        this.userService = userService;
-    }
 
     // Chỉnh sửa tên lớp ở đây
     // @Bean
@@ -77,11 +72,19 @@ public class ScurityConfiguration {
         return authProvider;
     }
 
+    @Bean // CONFIGURE REMEMBER ME
+    public SpringSessionRememberMeServices rememberMeServices() {
+        SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices(); // default 30 days
+        // Tùy chọn tùy chỉnh
+        rememberMeServices.setAlwaysRemember(true);
+        // rememberMeServices.setValiditySeconds(7 * 24 * 60 * 60); // 7 ngày
+        return rememberMeServices;
+    }
+
     // để sử dụng cái giao diện login của mình thay vì của thằng spring
     // SecurityFilterChainConfiguration vào đó đọc sẽ thấy nó
     // anyRequest()).authenticated(); là phải xác thực hết, ở đây mình đang override
     // nó lại
-
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -104,10 +107,16 @@ public class ScurityConfiguration {
                         .failureUrl("/login?error")
                         .successHandler(cutomSuccessHandler())
                         .permitAll())
-                // .rememberMe(rememberMe -> rememberMe // sử dụng cookie Remember Me=> mình sử
-                // dụng spring -session thì oke hơn
-                // .key("uniqueAndSecret")// Key để mã hóa cookie Remember Me
-                // .userDetailsService(userDetailsService(userService)) // Cung cấp
+                // cấu hình quản lý phiên (session)
+                .sessionManagement((sessionManagement) -> sessionManagement
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                        .invalidSessionUrl("/logout?expired")
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(false))
+                .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
+                .rememberMe(rememberMe -> rememberMe // sử dụng cookie Remember Me=> mình sử dụng spring -session thì
+                                                     // oke hơn
+                        .rememberMeServices(rememberMeServices())) // Cung cấp
                 // userDetailsService
                 // .tokenValiditySeconds(7 * 24 * 60 * 60)) // Thời gian hiệu lực (7 ngày)
                 .exceptionHandling(ex -> ex.accessDeniedPage("/access-denied"));// nếu không có quyền thì chuyển đến
