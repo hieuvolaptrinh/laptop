@@ -917,7 +917,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                             </h4>
                             <p style="font-size: 13px">${product.shortDesc}</p>
                             <div
-                              class="d-flex justify-content-between flex-lg-wrap"
+                              class="d-flex justify-content-center flex-lg-wrap"
                             >
                               <p
                                 class="text-dark fs-5 fw-bold mb-3"
@@ -933,14 +933,17 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                 />
                                 đ
                               </p>
-                              <a
-                                href="#"
-                                class="mx-auto btn border border-secondary rounded-pill px-3 text-primary"
-                                ><i
-                                  class="fa fa-shopping-bag me-2 text-primary"
-                                ></i>
-                                Add to cart</a
-                              >
+                              <form method="post" action="/add-product-to-cart">
+                                <button
+                                  href="#"
+                                  class="mx-auto btn border border-secondary rounded-pill px-3 text-primary"
+                                >
+                                  <i
+                                    class="fa fa-shopping-bag me-2 text-primary"
+                                  ></i>
+                                  Add to cart
+                                </button>
+                              </form>
                             </div>
                           </div>
                         </div>
