@@ -1,6 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib
-uri="http://www.springframework.org/tags/form" prefix="form" %>
+uri="http://www.springframework.org/tags/form" prefix="form" %> <%@ taglib
+uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -71,7 +72,14 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
                     <tr>
                       <td>${product.productId}</td>
                       <td>${product.productName}</td>
-                      <td>${product.price}</td>
+                      <td>
+                        <fmt:formatNumber
+                          value="${product.price}"
+                          type="number"
+                          pattern="#,##0.##"
+                        />
+                      </td>
+
                       <td>${product.factory}</td>
                       <td
                         class="d-flex justify-content-around align-items-center"

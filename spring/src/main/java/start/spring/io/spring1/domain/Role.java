@@ -16,7 +16,9 @@ import jakarta.persistence.Table;
 public class Role {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private long roleId;
+    @Column(name = "role_id")
+    private long id;
+
     private String roleName;
 
     @Column(columnDefinition = "NVARCHAR(255)")
@@ -26,12 +28,21 @@ public class Role {
     @OneToMany(mappedBy = "role") // mappedBy là tên biến Role trong class User
     private List<User> users;
 
-    public long getRoleId() {
-        return roleId;
+  
+    public long getId() {
+        return id;
     }
 
-    public void setRoleId(long roleId) {
-        this.roleId = roleId;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public String getRoleName() {
@@ -52,7 +63,7 @@ public class Role {
 
     @Override
     public String toString() {
-        return "Role [roleId=" + roleId + ", roleName=" + roleName + ", description=" + description + "]";
+        return "Role [roleId=" + id + ", roleName=" + roleName + ", description=" + description + "]";
     }
 
 }

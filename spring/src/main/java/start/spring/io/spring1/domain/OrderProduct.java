@@ -1,5 +1,4 @@
 package start.spring.io.spring1.domain;
-    
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,43 +14,34 @@ import jakarta.persistence.Table;
 public class OrderProduct {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private long idOrderProduct;
+    @Column(name = "order_product_id")
+    private long id;
 
-    private long orderId;
-    private long productId;
     private long quantity; // số lượng
     private double price; // giá
 
     @ManyToOne
-    @JoinColumn(name = "orderId", insertable = false, updatable = false) // Chỉ định không insert hoặc update
+    @JoinColumn(name = "order_id", insertable = false, updatable = false) // Chỉ định khóa ngoại của bảng Order
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "productId", insertable = false, updatable = false) // Chỉ định không insert hoặc update
+    @JoinColumn(name = "product_id", insertable = false, updatable = false) // Chỉ định khóa ngoại của bảng Product
     private Product product;
 
-    public long getIdOrderProduct() {
-        return idOrderProduct;
+    public long getId() {
+        return id;
     }
 
-    public void setIdOrderProduct(long idOrderProduct) {
-        this.idOrderProduct = idOrderProduct;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public long getOrderId() {
-        return orderId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setOrderId(long orderId) {
-        this.orderId = orderId;
-    }
-
-    public long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(long productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public long getQuantity() {

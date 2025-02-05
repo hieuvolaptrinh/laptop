@@ -93,7 +93,7 @@ class ProductController {
 
     @PostMapping("/admin/product/delete")
     public String postDeleteProduct(Model model, @ModelAttribute("newProduct") Product pr) {
-        this.productService.deleteProductById(pr.getProductId());
+        this.productService.deleteProductById(pr.getId());
         return "redirect:/admin/product";
     }
 
@@ -121,7 +121,7 @@ class ProductController {
             return "admin/product/update";
         }
 
-        Product currentProduct = this.productService.fetchProductById(pr.getProductId()).get();
+        Product currentProduct = this.productService.fetchProductById(pr.getId()).get();
         if (currentProduct != null) {
             // update new image
             if (!file.isEmpty()) {
@@ -139,7 +139,7 @@ class ProductController {
 
             this.productService.createProduct(currentProduct);
         }
-        
+
         return "redirect:/admin/product";
     }
     /*

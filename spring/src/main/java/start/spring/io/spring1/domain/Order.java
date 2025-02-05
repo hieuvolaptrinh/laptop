@@ -1,6 +1,8 @@
 package start.spring.io.spring1.domain;
 
 import java.util.*;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -14,7 +16,8 @@ import jakarta.persistence.Table;
 public class Order {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private long orderId;
+    @Column(name = "order_id")
+    private long id;
 
     private double totalPrice;
 
@@ -27,12 +30,12 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderProduct> orderProducts;
 
-    public long getOrderId() {
-        return orderId;
+    public long getId() {
+        return id;
     }
 
-    public void setOrderId(long orderId) {
-        this.orderId = orderId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public double getTotalPrice() {
@@ -45,7 +48,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order [orderId=" + orderId + ", totalPrice=" + totalPrice + "]";
+        return "Order [id=" + id + ", totalPrice=" + totalPrice + "]";
     }
 
 }

@@ -22,7 +22,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
         List<Product> findByProductName(String productName);
 
-        Optional<Product> findByProductId(Long id);
+        Optional<Product> findById(Long id);
 
         void deleteById(Long id);
 

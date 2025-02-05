@@ -20,7 +20,8 @@ import jakarta.validation.constraints.NotNull;
 public class Product {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private long productId;
+    @Column(name = "product_id")
+    private long id;
 
     @NotNull
     @NotEmpty(message = "Tên sản phẩm không được để trống")
@@ -57,12 +58,15 @@ public class Product {
     // @OneToMany(mappedBy = "product")
     // private List<OrderProduct> orderProducts;
 
-    public long getProductId() {
-        return productId;
+    @OneToMany(mappedBy = "product")
+    private List<CartDetail> cartDetail;
+
+    public long getId() {
+        return id;
     }
 
-    public void setProductId(long productId) {
-        this.productId = productId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getProductName() {
@@ -139,9 +143,17 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product [productId=" + productId + ", productName=" + productName + ", price=" + price + ", image="
+        return "Product [id=" + id + ", productName=" + productName + ", price=" + price + ", image="
                 + image + ", detailDesc=" + detailDesc + ", shortDesc=" + shortDesc + ", quantity=" + quantity
                 + ", sold=" + sold + ", factory=" + factory + ", target=" + target + "]";
+    }
+
+    public List<CartDetail> getCartDetail() {
+        return cartDetail;
+    }
+
+    public void setCartDetail(List<CartDetail> cartDetail) {
+        this.cartDetail = cartDetail;
     }
 
 }
