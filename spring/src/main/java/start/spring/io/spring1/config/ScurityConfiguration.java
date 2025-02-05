@@ -1,9 +1,9 @@
 package start.spring.io.spring1.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
+
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -83,8 +83,6 @@ public class ScurityConfiguration {
 
     // để sử dụng cái giao diện login của mình thay vì của thằng spring
     // SecurityFilterChainConfiguration vào đó đọc sẽ thấy nó
-    // anyRequest()).authenticated(); là phải xác thực hết, ở đây mình đang override
-    // nó lại
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http

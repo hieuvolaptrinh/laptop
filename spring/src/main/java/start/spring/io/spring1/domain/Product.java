@@ -24,6 +24,7 @@ public class Product {
 
     @NotNull
     @NotEmpty(message = "Tên sản phẩm không được để trống")
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String productName;
 
     @NotNull
@@ -34,11 +35,12 @@ public class Product {
 
     @NotNull
     @NotEmpty(message = "detailDesc không được để trống")
-    @Column(columnDefinition = "MEDIUMTEXT")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String detailDesc;
 
     @NotNull
     @NotEmpty(message = "shortDesc không được để trống")
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String shortDesc;
 
     @NotNull
@@ -46,7 +48,7 @@ public class Product {
     private long quantity;
 
     // @Check(constraints = "sold >=0")
-    private String sold;
+    private long sold;
     private String factory;
     private String target;
 
@@ -111,11 +113,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getSold() {
+    public long getSold() {
         return sold;
     }
 
-    public void setSold(String sold) {
+    public void setSold(long sold) {
         this.sold = sold;
     }
 

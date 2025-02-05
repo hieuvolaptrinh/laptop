@@ -31,7 +31,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <div class="container px-0">
     <nav class="navbar navbar-light bg-white navbar-expand-xl">
       <a href="/" class="navbar-brand"
-        ><h1 class="text-primary display-6">Laptop Shop</h1></a
+        ><h1 class="text-primary display-6">Shop Hiếu Võ</h1></a
       >
       <button
         class="navbar-toggler py-2 px-3"

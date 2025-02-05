@@ -5,6 +5,7 @@ import org.hibernate.annotations.ManyToAny;
 import java.util.List;
 
 import jakarta.annotation.Generated;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -33,13 +34,18 @@ public class User {
     @NotNull(message = "Password không được để trống")
     @Size(min = 6, message = "Mật khẩu phải có ít nhất 6 ký tự")
     // @StrongPassword(message = "Password phải chứa ít nhất 1 chữ số, 1 chữ cái
-    // viết thường, 1 chữ cái viết hoa, 1 ký tự đặc biệt và dài hơn 8 ký tự")
+
     private String password; // StrongPassword là cái anotion mình tự định nghĩa
 
+    @Column(columnDefinition = "NVARCHAR(255)")
     @Size(min = 2, message = "Fullname phải từ 2 kí tự trở lên")
     private String fullName;
+
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String address;
+
     private String phone;
+
     private String avatar;
     // roleId;
     // User many -> to one Role
