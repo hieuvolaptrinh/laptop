@@ -1,5 +1,6 @@
 package start.spring.io.spring1.controller.client;
 
+import java.net.http.HttpRequest;
 import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import start.spring.io.spring1.domain.Product;
 import start.spring.io.spring1.domain.User;
@@ -35,9 +38,12 @@ public class HomePageController {
     }
 
     @GetMapping("/")
-    public String getMethodName(Model model) {
+    public String getMethodName(Model model, HttpServletRequest request) {
         List<Product> products = this.productService.fetchProducts();
         model.addAttribute("products", products);
+        // get user từ session
+        // HttpSession session = request.getSession(false);
+        // session.getAttribute("fullName");
         return "client/homepage/show";
     }
 

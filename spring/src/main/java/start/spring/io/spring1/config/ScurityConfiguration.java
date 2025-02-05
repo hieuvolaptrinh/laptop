@@ -75,7 +75,7 @@ public class ScurityConfiguration {
     @Bean // CONFIGURE REMEMBER ME
     public SpringSessionRememberMeServices rememberMeServices() {
         SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices(); // default 30 days
-        // Tùy chọn tùy chỉnh
+        // tùy chỉnh
         rememberMeServices.setAlwaysRemember(true);
         // rememberMeServices.setValiditySeconds(7 * 24 * 60 * 60); // 7 ngày
         return rememberMeServices;
@@ -107,7 +107,7 @@ public class ScurityConfiguration {
                         .failureUrl("/login?error")
                         .successHandler(cutomSuccessHandler())
                         .permitAll())
-                // cấu hình quản lý phiên (session)
+                //  (session)
                 .sessionManagement((sessionManagement) -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                         .invalidSessionUrl("/logout?expired")
@@ -118,7 +118,7 @@ public class ScurityConfiguration {
                                                      // oke hơn
                         .rememberMeServices(rememberMeServices())) // Cung cấp
                 // userDetailsService
-                // .tokenValiditySeconds(7 * 24 * 60 * 60)) // Thời gian hiệu lực (7 ngày)
+                // .tokenValiditySeconds(7 * 24 * 60 * 60)) // (7 ngày)
                 .exceptionHandling(ex -> ex.accessDeniedPage("/access-denied"));// nếu không có quyền thì chuyển đến
         return http.build();
         // 117

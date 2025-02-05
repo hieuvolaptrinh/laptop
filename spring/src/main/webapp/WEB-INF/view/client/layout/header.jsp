@@ -118,9 +118,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       border-radius: 50%;
                       overflow: hidden;
                     "
-                    src="/images/hieuvo.jpg"
+                    src="/images/avatar/${sessionScope.avatar}"
                   />
-                  <c:out value="${pageContext.request.userPrincipal.name}" />
+
+                  <!-- lấy name bằng security-->
+                  <!-- <c:out value="${pageContext.request.userPrincipal.name}" /> -->
+                  <!-- lấy bằng session -->
+                  <c:out value="${sessionScope.fullName}" />
                 </li>
                 <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
                 <li><a class="dropdown-item" href="#">Lịch sử mua hàng</a></li>
