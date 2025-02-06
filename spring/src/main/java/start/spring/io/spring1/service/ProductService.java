@@ -13,6 +13,7 @@ import start.spring.io.spring1.domain.User;
 import start.spring.io.spring1.repository.CartDetailRepository;
 import start.spring.io.spring1.repository.CartRepository;
 import start.spring.io.spring1.repository.ProductRepository;
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class ProductService {
@@ -47,7 +48,7 @@ public class ProductService {
     }
 
     //
-    public void handleAddProductToCart(String email, long productId) {
+    public void handleAddProductToCart(String email, long productId, HttpSession session) {
         User user = this.userService.getUserByEmail(email);
         if (user != null) {
             // check user đá có Cart chửa ? chưa=> tạo
@@ -73,9 +74,14 @@ public class ProductService {
                     cartDetail.setPrice(realProduct.getPrice());
                     cartDetail.setQuantity(1);
                     this.cartDetailRepository.save(cartDetail);
+
                     // update cart total quantity
                     cart.setTotalQuantity(cart.getTotalQuantity() + 1);
                     this.cartRepository.save(cart);
+
+                    // update session totalQuantity
+                    session.setAttribute("totalQuantity", cart.getTotalQuantity());
+                    
                 } else {
                     oldCartDetail.setQuantity(oldCartDetail.getQuantity() + 1);
                     this.cartDetailRepository.save(oldCartDetail);

@@ -17,6 +17,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import start.spring.io.spring1.domain.Cart;
 import start.spring.io.spring1.domain.User;
 import start.spring.io.spring1.service.UserService;
 
@@ -56,7 +57,14 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             session.setAttribute("avatar", user.getAvatar());
             session.setAttribute("email", user.getEmail());
             session.setAttribute("id", user.getId());
+            Cart cartUser = user.getCart(); // lỗi vì chưa có cart nên phải check null
 
+            if (cartUser != null) {
+                long totalQuantity = cartUser.getTotalQuantity();
+                // phải update lại totalQuantity trong session mỗi lần truyền qua view để cập
+                // nhật số lượng ở bên service
+                session.setAttribute("totalQuantity", totalQuantity);
+            }
         }
     }
 

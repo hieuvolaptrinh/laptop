@@ -57,7 +57,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               >Cá Nhân
             </a>
             <div class="dropdown-menu m-0 bg-secondary rounded-0">
-              <a href="cart.html" class="dropdown-item">Giỏ Hàng</a>
+              <a href="/cart" class="dropdown-item">Giỏ Hàng</a>
               <a href="chackout.html" class="dropdown-item">Thanh Toán</a>
               <a href="testimonial.html" class="dropdown-item">Đánh Giá</a>
               <a href="/view/admin/error.jsp" class="dropdown-item">404 Page</a>
@@ -82,12 +82,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           </div>
           <!-- kiểm tra người dùng có đăng nhập hay không -->
           <c:if test="${not empty pageContext.request.userPrincipal}">
-            <a href="#" class="position-relative me-4 my-auto">
+            <a href="/cart" class="position-relative me-4 my-auto">
               <i class="fa fa-shopping-bag fa-2x"></i>
               <span
                 class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                 style="top: -5px; left: 15px; height: 20px; min-width: 20px"
-                >3
+                >${sessionScope.totalQuantity}
               </span>
             </a>
             <div class="dropdown my-auto">
@@ -144,6 +144,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               </ul>
             </div>
           </c:if>
+          <!-- nếu chưa đăng nhập -->
           <c:if test="${ empty pageContext.request.userPrincipal}">
             <div class="d-flex justify-content-between">
               <a
