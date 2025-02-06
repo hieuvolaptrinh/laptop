@@ -9,4 +9,5 @@ import start.spring.io.spring1.domain.User;
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
     Cart findByUser(User user);
+
 }
