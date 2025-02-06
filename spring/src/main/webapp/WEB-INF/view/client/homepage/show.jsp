@@ -911,7 +911,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                             class="p-4 border border-secondary border-top-0 rounded-bottom"
                           >
                             <h4 style="font-size: 15px">
-                              <a href="/product/${product.productId}">
+                              <a href="/product/${product.id}">
                                 ${product.productName}</a
                               >
                             </h4>
@@ -933,7 +933,20 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                 />
                                 đ
                               </p>
-                              <form method="post" action="/add-product-to-cart">
+                              <form
+                                method="post"
+                                action="/add-product-to-cart/${product.id}"
+                              >
+                                <!-- phải có cái này vì javaspring sử dụng scurity nó có 3 trường luôn
+                    Csrf token: token ứng với lượt truy cập web của user. Cần token này để phòng tránh
+                    CSRF (Cross Site Request Forgery) . Hiểu 1 cách đơn giản, là tăng độ an toàn cho
+                    website của bạn 
+                    -->
+                                <input
+                                  type="hidden"
+                                  name="${_csrf.parameterName}"
+                                  value="${_csrf.token}"
+                                />
                                 <button
                                   href="#"
                                   class="mx-auto btn border border-secondary rounded-pill px-3 text-primary"

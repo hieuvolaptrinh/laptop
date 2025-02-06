@@ -42,7 +42,7 @@ uri="http://www.springframework.org/tags/form" %>
               <div class="row">
                 <div class="col-12 mx-auto">
                   <div class="d-flex justify-content-between">
-                    <h3>Delete the product with id = ${productId}</h3>
+                    <h3>Delete the product with id = ${id}</h3>
                   </div>
 
                   <hr />
@@ -57,13 +57,13 @@ uri="http://www.springframework.org/tags/form" %>
                     <div class="mb-3" style="display: none">
                       <label class="form-label">Id:</label>
                       <form:input
-                        value="${productId}"
+                        value="${id}"
                         type="text"
                         class="form-control"
-                        path="productId"
+                        path="id"
                       />
                     </div>
-                    <button class="btn btn-danger"> Confirm</button>
+                    <button class="btn btn-danger">Confirm</button>
                   </form:form>
                 </div>
               </div>

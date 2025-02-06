@@ -70,7 +70,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 <tbody>
                   <c:forEach var="product" items="${products}">
                     <tr>
-                      <td>${product.productId}</td>
+                      <td>${product.id}</td>
                       <td>${product.productName}</td>
                       <td>
                         <fmt:formatNumber
@@ -87,18 +87,18 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         <button class="btn btn-success">
                           <a
                             class="text-dark"
-                            href="/admin/product/${product.productId}"
+                            href="/admin/product/${product.id}"
                           >
                             <i class="fas fa-eye"></i> View</a
                           >
                         </button>
                         <button class="btn btn-warning mx-2">
-                          <a href="/admin/product/update/${product.productId}"
+                          <a href="/admin/product/update/${product.id}"
                             ><i class="fas fa-pencil-alt"></i> Update</a
                           >
                         </button>
                         <button class="btn btn-danger">
-                          <a href="/admin/product/delete/${product.productId}"
+                          <a href="/admin/product/delete/${product.id}"
                             ><i class="fas fa-trash"></i> Delete</a
                           >
                         </button>

@@ -47,9 +47,7 @@ uri="http://www.springframework.org/tags/form" %>
                       <div class="card">
                         <div class="card-header">Thông tin sản phẩm</div>
                         <ul class="list-group list-group-flush">
-                          <li class="list-group-item">
-                            ID: ${product.productId}
-                          </li>
+                          <li class="list-group-item">ID: ${product.id}</li>
                           <li class="list-group-item">
                             Price : ${product.price}
                           </li>

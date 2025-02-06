@@ -22,7 +22,7 @@ public class Cart {
     @Column(name = "cart_id")
     private long id;
 
-    @Min(value = 0) // Tổng số lượng sản phẩm trong giỏ hàng phải lớn hơn hoặc bằng 0
+    @Min(value = 0) // Tổng số (loại) sản phẩm trong giỏ hàng phải lớn hơn hoặc bằng 0
     private long totalQuantity;
 
     @OneToOne
@@ -39,8 +39,6 @@ public class Cart {
     public void setId(long id) {
         this.id = id;
     }
-
-  
 
     public User getUser() {
         return user;
