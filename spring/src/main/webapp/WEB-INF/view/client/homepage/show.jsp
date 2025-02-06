@@ -974,7 +974,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- Vesitable Shop End -->
 
     <!-- Bestsaler Product Start -->
-    <div class="container-fluid py-5">
+    <!-- <div class="container-fluid py-5">
       <div class="container py-5">
         <div class="text-center mx-auto mb-5" style="max-width: 700px">
           <h1 class="display-4">Bestseller Products</h1>
@@ -1270,7 +1270,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- Bestsaler Product End -->
     <!-- Tastimonial Start -->
     <div class="container-fluid testimonial py-5">

@@ -163,6 +163,12 @@
     const input = button.parent().parent().find("input");
     input.val(newVal);
 
+    // lấy số lượng từ input cartdetail để gán cho form ảo => gửi lên server
+
+    const index = input.attr("data-cart-detail-index");
+    const el = document.getElementById(`cartDetails${index}.quantity`);
+    $(el).val(newVal);
+
     //get price
     const price = input.attr("data-cart-detail-price");
     const id = input.attr("data-cart-detail-id");
@@ -174,6 +180,7 @@
     }
 
     // update tổng tiền
+
     const totalPriceElement = $(`p[data-cart-total-price]`);
 
     if (totalPriceElement && totalPriceElement.length) {
@@ -204,13 +211,15 @@
   });
 
   function formatCurrency(value) {
+    // Use the 'vi-VN' locale to format the number according to Vietnamese currency format
+    // and 'VND' as the currency type for Vietnamese đồng
     const formatter = new Intl.NumberFormat("vi-VN", {
       style: "decimal",
-      minimumFractionDigits: 0, //không có số thập phân
+      minimumFractionDigits: 0, // No decimal part for whole numbers
     });
 
     let formatted = formatter.format(value);
-    //   thay thế dấu chấm bằng dấu phẩy
+    // Replace dots with commas for thousands separator
     formatted = formatted.replace(/\./g, ",");
     return formatted;
   }

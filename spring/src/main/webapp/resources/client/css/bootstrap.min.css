@@ -237,12 +237,14 @@ sup {
 }
 
 a {
-  color: #81c408;
+  color: #cc00ff;
+  font-weight: 700;
+  font-size: 1.2rem;
   text-decoration: none;
 }
 
 a:hover {
-  color: #679d06;
+  color: #c3d501;
 }
 
 a:not([href]):not([class]),
