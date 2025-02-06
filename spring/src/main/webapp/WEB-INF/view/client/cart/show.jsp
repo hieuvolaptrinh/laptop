@@ -80,6 +80,11 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               </tr>
             </thead>
             <tbody>
+              <c:if test="${ empty cartDetails}">
+                <tr>
+                  <td colspan="6">Không có sản phẩm trong giỏ hàng</td>
+                </tr>
+              </c:if>
               <c:forEach var="cartDetail" items="${cartDetails}">
                 <tr>
                   <th scope="row">
@@ -121,10 +126,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                           <i class="fa fa-minus"></i>
                         </button>
                       </div>
+                      <!-- sử dụng html atribute để tăng giảm số lượng thì nó gửi thông tin tự động cập nhật tổng tiền -->
                       <input
                         type="text"
                         class="form-control form-control-sm text-center border-0"
                         value="${cartDetail.quantity}"
+                        data-cart-detail-price="${cartDetail.price}"
+                        data-cart-detail-id="${cartDetail.id}"
                       />
 
                       <div class="input-group-btn">
@@ -137,7 +145,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     </div>
                   </td>
                   <td>
-                    <p class="mb-0 mt-4">
+                    <p class="mb-0 mt-4" data-cart-detail-id="${cartDetail.id}">
                       <fmt:formatNumber
                         type="number"
                         value="${cartDetail.price * cartDetail.quantity}"
@@ -157,44 +165,46 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             </tbody>
           </table>
         </div>
-
-        <div class="mt-5 row g-4 justify-content-start">
-          <div class="col-12 col-md-8">
-            <div class="bg-light rounded">
-              <div class="p-4">
-                <h1 class="display-6 mb-4">
-                  Thông Tin <span class="fw-normal">Đơn Hàng</span>
-                </h1>
-                <div class="d-flex justify-content-between mb-4">
-                  <h5 class="mb-0 me-4">Tạm tính:</h5>
-                  <p class="mb-0">
+        <!-- thông tin thanh toán -->
+        <c:if test="${not empty cartDetails}">
+          <div class="mt-5 row g-4 justify-content-start">
+            <div class="col-12 col-md-8">
+              <div class="bg-light rounded">
+                <div class="p-4">
+                  <h1 class="display-6 mb-4">
+                    Thông Tin <span class="fw-normal">Đơn Hàng</span>
+                  </h1>
+                  <div class="d-flex justify-content-between mb-4">
+                    <h5 class="mb-0 me-4">Tạm tính:</h5>
+                    <p class="mb-0" data-cart-total-price="${totalPrice}">
+                      <fmt:formatNumber type="number" value="${totalPrice}" /> đ
+                    </p>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <h5 class="mb-0 me-4">Phí vận chuyển</h5>
+                    <div class="">
+                      <p class="mb-0">0 đ</p>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="py-4 mb-4 border-top border-bottom d-flex justify-content-between"
+                >
+                  <h5 class="mb-0 ps-4 me-4">Tổng số tiền</h5>
+                  <p class="mb-0 pe-4" data-cart-total-price="${totalPrice}">
                     <fmt:formatNumber type="number" value="${totalPrice}" /> đ
                   </p>
                 </div>
-                <div class="d-flex justify-content-between">
-                  <h5 class="mb-0 me-4">Phí vận chuyển</h5>
-                  <div class="">
-                    <p class="mb-0">0 đ</p>
-                  </div>
-                </div>
+                <button
+                  class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
+                  type="button"
+                >
+                  Xác nhận đặt hàng
+                </button>
               </div>
-              <div
-                class="py-4 mb-4 border-top border-bottom d-flex justify-content-between"
-              >
-                <h5 class="mb-0 ps-4 me-4">Tổng số tiền</h5>
-                <p class="mb-0 pe-4">
-                  <fmt:formatNumber type="number" value="${totalPrice}" /> đ
-                </p>
-              </div>
-              <button
-                class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
-                type="button"
-              >
-                Xác nhận đặt hàng
-              </button>
             </div>
           </div>
-        </div>
+        </c:if>
       </div>
     </div>
     <!-- Cart Page End -->

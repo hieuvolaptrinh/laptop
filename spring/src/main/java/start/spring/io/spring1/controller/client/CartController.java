@@ -1,5 +1,6 @@
 package start.spring.io.spring1.controller.client;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Controller;
@@ -44,9 +45,10 @@ public class CartController {
     public String getCartPage(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         User curentUser = this.userService.getUserById((long) session.getAttribute("id")).get();
-        Cart cart = curentUser.getCart();
 
-        List<CartDetail> cartDetails = cart.getCartDetails();
+        Cart cart = curentUser.getCart(); // cart is null => cartDetails is null => bug
+
+        List<CartDetail> cartDetails = cart == null ? new ArrayList<CartDetail>() : cart.getCartDetails();
 
         double totalPrice = 0;
         for (CartDetail cartDetail : cartDetails) {
