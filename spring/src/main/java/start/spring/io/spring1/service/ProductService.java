@@ -81,7 +81,7 @@ public class ProductService {
 
                     // update session totalQuantity
                     session.setAttribute("totalQuantity", cart.getTotalQuantity());
-                    
+
                 } else {
                     oldCartDetail.setQuantity(oldCartDetail.getQuantity() + 1);
                     this.cartDetailRepository.save(oldCartDetail);
@@ -90,5 +90,23 @@ public class ProductService {
             }
 
         }
+    }
+
+    public void handleRemoveCartDetail(long cartDetailId, HttpSession session) {
+        Optional<CartDetail> cartDetailOptional = this.cartDetailRepository.findById(cartDetailId);
+        if (cartDetailOptional.isPresent()) {
+            CartDetail cartDetail = cartDetailOptional.get();
+            Cart cart = cartDetail.getCart();
+            this.cartDetailRepository.deleteById(cartDetailId);
+            if (cart.getTotalQuantity() > 1) {
+                cart.setTotalQuantity(cart.getTotalQuantity() - 1);
+                this.cartRepository.save(cart); // update cart
+                session.setAttribute("totalQuantity", cart.getTotalQuantity());
+            } else {
+                this.cartRepository.delete(cart);
+                session.setAttribute("totalQuantity", 0);
+            }
+        }
+
     }
 }

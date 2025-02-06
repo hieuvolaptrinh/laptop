@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import start.spring.io.spring1.domain.Cart;
 import start.spring.io.spring1.domain.CartDetail;
 import start.spring.io.spring1.domain.User;
+import start.spring.io.spring1.repository.CartDetailRepository;
 import start.spring.io.spring1.service.ProductService;
 import start.spring.io.spring1.service.UserService;
 
@@ -25,10 +26,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CartController {
     private final ProductService productService;
     private final UserService userService;
+    private final CartDetailRepository cartDetailRepository;
 
-    public CartController(ProductService productService, UserService userService) {
+    public CartController(ProductService productService, UserService userService,
+            CartDetailRepository cartDetailRepository) {
         this.productService = productService;
         this.userService = userService;
+        this.cartDetailRepository = cartDetailRepository;
     }
 
     @PostMapping("/add-product-to-cart/{id}")
@@ -57,6 +61,13 @@ public class CartController {
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("cartDetails", cartDetails);
         return "client/cart/show";
+    }
+
+    @PostMapping("/delete-cart-product/{id}")
+    public String deleteCartDetail(@PathVariable long id, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        this.productService.handleRemoveCartDetail(id, session);
+        return "redirect:/cart";
     }
 
 }
