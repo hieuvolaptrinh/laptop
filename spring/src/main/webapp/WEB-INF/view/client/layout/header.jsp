@@ -47,8 +47,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       >
         <div class="navbar-nav">
           <a href="/" class="nav-item nav-link active">Trang Chủ</a>
-          <a href="shop.html" class="nav-item nav-link">Sản Phẩm</a>
-          <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
+          <a href="/shop" class="nav-item nav-link">Sản Phẩm</a>
+
           <div class="nav-item dropdown">
             <a
               href="#"
@@ -58,7 +58,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             </a>
             <div class="dropdown-menu m-0 bg-secondary rounded-0">
               <a href="/cart" class="dropdown-item">Giỏ Hàng</a>
-              <a href="chackout.html" class="dropdown-item">Thanh Toán</a>
+              <a href="/checkout" class="dropdown-item">Thanh Toán</a>
               <a href="testimonial.html" class="dropdown-item">Đánh Giá</a>
               <a href="/view/admin/error.jsp" class="dropdown-item">404 Page</a>
             </div>

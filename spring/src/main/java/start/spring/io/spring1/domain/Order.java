@@ -21,12 +21,16 @@ public class Order {
 
     private double totalPrice;
 
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String receiverName;
 
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String receiverAddress;
 
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String receiverPhone;
 
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String status;
     // many order -> one user
     @ManyToOne
@@ -35,7 +39,7 @@ public class Order {
 
     // 1 : n order_Product
     @OneToMany(mappedBy = "order")
-    private List<OrderProduct> orderProducts;
+    private List<OrderDetail> orderDetails;
 
     public String getReceiverName() {
         return receiverName;
@@ -77,14 +81,6 @@ public class Order {
         this.user = user;
     }
 
-    public List<OrderProduct> getOrderProducts() {
-        return orderProducts;
-    }
-
-    public void setOrderProducts(List<OrderProduct> orderProducts) {
-        this.orderProducts = orderProducts;
-    }
-
     public long getId() {
         return id;
     }
@@ -104,6 +100,14 @@ public class Order {
     @Override
     public String toString() {
         return "Order [id=" + id + ", totalPrice=" + totalPrice + "]";
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
 }

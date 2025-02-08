@@ -11,7 +11,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <div class="row g-4">
         <div class="col-lg-3">
           <a href="#">
-            <h1 class="text-primary mb-0">Laptop Shop</h1>
+            <h1 class="text-primary mb-0">Shop Hiếu Võ</h1>
             <p class="text-secondary mb-0">Hàng chính hãng, chất lượng cao</p>
           </a>
         </div>
@@ -63,10 +63,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <h4 class="text-light mb-3">
             Tại sao mọi người yêu thích chúng tôi!
           </h4>
-          <p class="mb-4">
-            Chúng tôi cung cấp sản phẩm tươi ngon và dịch vụ khách hàng tốt
-            nhất.
-          </p>
+          <p class="mb-4">Hàng uy tín, chất lượng cao, giá cả hợp lý</p>
           <a
             href=""
             class="btn border-secondary py-2 px-4 rounded-pill text-primary"

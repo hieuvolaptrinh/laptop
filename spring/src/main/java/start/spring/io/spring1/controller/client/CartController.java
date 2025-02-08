@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CartController {
     private final ProductService productService;
     private final UserService userService;
-    private final CartDetailRepository cartDetailRepository; 
+    private final CartDetailRepository cartDetailRepository;
 
     public CartController(ProductService productService, UserService userService,
             CartDetailRepository cartDetailRepository) {
@@ -108,8 +108,15 @@ public class CartController {
             @RequestParam("receiverName") String receiverName,
             @RequestParam("receiverAddress") String receiverAddress,
             @RequestParam("receiverPhone") String receiverPhone) {
+
+        User currentUser = new User();// null
+
         HttpSession session = request.getSession(false); // true => create new session if not exist
 
-        return "redirect:/";
+        long id = (long) session.getAttribute("id");
+        currentUser.setId(id);
+
+        this.productService.handlePlaceOrder(currentUser, session, receiverName, receiverAddress, receiverPhone);
+        return "client/cart/thanks";
     }
 }

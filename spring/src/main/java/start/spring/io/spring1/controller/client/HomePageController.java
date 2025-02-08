@@ -84,4 +84,12 @@ public class HomePageController {
         return "client/auth/deny";
     }
 
+    @GetMapping("/shop")
+    public String getShop(Model model, HttpServletRequest request) {
+        List<Product> products = this.productService.fetchProducts();
+        model.addAttribute("products", products);
+
+        return "client/homepage/shop";
+    }
+
 }

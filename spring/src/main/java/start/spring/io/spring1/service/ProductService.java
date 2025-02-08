@@ -8,10 +8,14 @@ import org.springframework.stereotype.Service;
 
 import start.spring.io.spring1.domain.Cart;
 import start.spring.io.spring1.domain.CartDetail;
+import start.spring.io.spring1.domain.Order;
+import start.spring.io.spring1.domain.OrderDetail;
 import start.spring.io.spring1.domain.Product;
 import start.spring.io.spring1.domain.User;
 import start.spring.io.spring1.repository.CartDetailRepository;
 import start.spring.io.spring1.repository.CartRepository;
+import start.spring.io.spring1.repository.OrderDetailRepository;
+import start.spring.io.spring1.repository.OrderRepository;
 import start.spring.io.spring1.repository.ProductRepository;
 import jakarta.servlet.http.HttpSession;
 
@@ -20,15 +24,19 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
     private final CartDetailRepository cartDetailRepository;
-
     private final UserService userService;
+    private final OrderRepository orderRepository;
+    private final OrderDetailRepository orderDetailRepository;
 
     public ProductService(ProductRepository productRepository, CartRepository cartRepository,
-            CartDetailRepository cartDetailRepository, UserService userService) {
+            CartDetailRepository cartDetailRepository, UserService userService, OrderRepository orderRepository,
+            OrderDetailRepository orderDetailRepository) {
         this.productRepository = productRepository;
         this.cartRepository = cartRepository;
         this.cartDetailRepository = cartDetailRepository;
         this.userService = userService;
+        this.orderRepository = orderRepository;
+        this.orderDetailRepository = orderDetailRepository;
     }
 
     public Product createProduct(Product pr) {
@@ -120,6 +128,41 @@ public class ProductService {
                 CartDetail currentCartDetail = cdOptional.get();
                 currentCartDetail.setQuantity(cartDetail.getQuantity());
                 this.cartDetailRepository.save(currentCartDetail);
+            }
+        }
+    }
+
+    public void handlePlaceOrder(User currentUser, HttpSession session, String receiverName, String receiverAddress,
+            String receiverPhone) {
+        // create order
+        Order order = new Order();
+        order.setUser(currentUser);
+        order.setReceiverName(receiverName);
+        order.setReceiverAddress(receiverAddress);
+        order.setReceiverPhone(receiverPhone);
+        order.setStatus("Đã đặt hàng");
+        order = this.orderRepository.save(order); // gắn để lấy ra được id từ csdl
+
+        // create order detail
+        Cart cart = this.cartRepository.findByUser(currentUser);
+        if (cart != null) {
+            List<CartDetail> cartDetails = cart.getCartDetails();
+            if (cartDetails != null) {
+                for (CartDetail cartDetail : cartDetails) {
+                    OrderDetail orderDetail = new OrderDetail();
+                    orderDetail.setOrder(order);
+                    orderDetail.setPrice(cartDetail.getPrice());
+                    orderDetail.setQuantity(cartDetail.getQuantity());
+                    orderDetail.setProduct(cartDetail.getProduct());
+                    this.orderDetailRepository.save(orderDetail);
+                }
+                // delete cart details -> cart
+                for (CartDetail cartDetail : cartDetails)
+                    this.cartDetailRepository.deleteById(cartDetail.getId());
+
+                this.cartRepository.deleteById(cart.getId());
+
+                session.setAttribute("totalQuantity", 0);
             }
         }
     }
