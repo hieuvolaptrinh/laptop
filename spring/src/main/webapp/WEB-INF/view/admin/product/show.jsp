@@ -12,7 +12,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <title>Manage Product</title>
+    <title>Quản Lý Đơn Hàng</title>
     <!-- này để tạo phân trang table nè -->
     <link
       href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
@@ -37,22 +37,21 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Dashboard</h1>
+            <h1 class="mt-4">Trang quản trị</h1>
             <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
+              <li class="breadcrumb-item">
+                <a href="/admin">Trang quản trị</a>
+              </li>
+              <li class="breadcrumb-item active">Trang quản trị</li>
             </ol>
           </div>
         </main>
-        <!-- bảng sản phẩm  -->
+        <!--  List Order   -->
         <div class="mt-5">
           <div class="row">
             <div class="col-12 mx-auto">
               <div class="d-flex justify-content-between mx-3">
-                <h3>List Product</h3>
-                <a href="/admin/product/create" class="btn btn-primary"
-                  >Create Product</a
-                >
+                <h3>Danh sách đơn hàng</h3>
               </div>
               <hr />
               <table
@@ -60,16 +59,16 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               >
                 <thead class="thead-light">
                   <tr class="table-success">
-                    <th class="text-center">ProductID</th>
-                    <th class="text-center">Product Name</th>
-                    <th class="text-center">Product Price</th>
-                    <th class="text-center">Factory</th>
-                    <th class="text-center">Action</th>
+                    <th class="text-center">Mã sản phẩm</th>
+                    <th class="text-center">Tên sản phẩm</th>
+                    <th class="text-center">Giá</th>
+                    <th class="text-center">Tên công ty</th>
+                    <th class="text-center">Điều chỉnh</th>
                   </tr>
                 </thead>
                 <tbody>
                   <c:forEach var="product" items="${products}">
-                    <tr>
+                    <tr class="table-light text-center">
                       <td>${product.id}</td>
                       <td>${product.productName}</td>
                       <td>

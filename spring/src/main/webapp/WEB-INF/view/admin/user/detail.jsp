@@ -32,43 +32,43 @@ uri="http://www.springframework.org/tags/form" %>
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Manage Users</h1>
+            <h1 class="mt-4">Quản lý người dùng</h1>
             <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Users</li>
+              <li class="breadcrumb-item">
+                <a href="/admin">Trang quản trị</a>
+              </li>
+              <li class="breadcrumb-item active">Người dùng</li>
             </ol>
             <div class="container mt-5">
               <div class="row">
                 <div class="col-12 mx-auto">
                   <div class="d-flex justify-content-between">
-                    <h3>User detail with id = ${id}</h3>
+                    <h3>Thông tin người dùng: ${id}</h3>
                   </div>
 
                   <hr />
 
                   <div class="card" style="width: 60%">
-                    <div class="card-header">User information</div>
+                    <div class="card-header">Thông tin người dùng</div>
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item">ID: ${user.id}</li>
                       <li class="list-group-item">
                         Role: ${user.role.roleName}
                       </li>
                       <li class="list-group-item">Email: ${user.email}</li>
+                      <li class="list-group-item">Tên: ${user.fullName}</li>
+                      <li class="list-group-item">Địa chỉ: ${user.address}</li>
                       <li class="list-group-item">
-                        FullName: ${user.fullName}
-                      </li>
-                      <li class="list-group-item">Address: ${user.address}</li>
-                      <li class="list-group-item">
-                            <c:if test="${not empty user.avatar}">
-                                <img
-                                src="${pageContext.request.contextPath}/images/avatar/${user.avatar}"
-                                alt="Avatar"
-                                style="max-width: 150px; max-height: 150px"
-                                />
-                            </c:if>
-                            <c:if test="${empty user.avatar}">
-                                <p>avater is empty</p>
-                            </c:if>
+                        <c:if test="${not empty user.avatar}">
+                          <img
+                            src="${pageContext.request.contextPath}/images/avatar/${user.avatar}"
+                            alt="Avatar"
+                            style="max-width: 150px; max-height: 150px"
+                          />
+                        </c:if>
+                        <c:if test="${empty user.avatar}">
+                          <p>avater is empty</p>
+                        </c:if>
                       </li>
                     </ul>
                   </div>

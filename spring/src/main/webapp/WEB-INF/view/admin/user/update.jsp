@@ -32,10 +32,12 @@ uri="http://www.springframework.org/tags/form" %>
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Manage Users</h1>
+            <h1 class="mt-4">Quản lý người dùng</h1>
             <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Users</li>
+              <li class="breadcrumb-item">
+                <a href="/admin">Trang quản trị</a>
+              </li>
+              <li class="breadcrumb-item active">Người dùng</li>
             </ol>
           </div>
           <!-- update -->
@@ -44,7 +46,7 @@ uri="http://www.springframework.org/tags/form" %>
               <div
                 class="col-xxl-10 col-lg-9 col-md-8 col-sm-10 col-12 mx-auto"
               >
-                <h2 class="text-center mb-4">Update User</h2>
+                <h2 class="text-center mb-4">Cập nhật người dùng</h2>
                 <form:form
                   method="post"
                   action="/admin/user/update"

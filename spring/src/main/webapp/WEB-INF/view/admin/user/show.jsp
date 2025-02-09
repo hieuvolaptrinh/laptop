@@ -36,10 +36,12 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Manage User</h1>
+            <h1 class="mt-4">Quản lý người dùng</h1>
             <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Manage User</li>
+              <li class="breadcrumb-item">
+                <a href="/admin">Trang quản trị</a>
+              </li>
+              <li class="breadcrumb-item active">Người dùng</li>
             </ol>
             <div class="mt-5">
               <div class="row">
@@ -47,7 +49,7 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
                   <div class="d-flex justify-content-between">
                     <h3>Table users</h3>
                     <a href="/admin/user/create" class="btn btn-primary"
-                      >Create a user</a
+                      >Tạo mới người dùng</a
                     >
                   </div>
 
@@ -59,9 +61,9 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
                       <tr class="table-success">
                         <th class="text-center">ID</th>
                         <th class="text-center">Email</th>
-                        <th class="text-center">Full Name</th>
+                        <th class="text-center">Tên</th>
                         <th class="text-center">Role</th>
-                        <th class="text-center">Action</th>
+                        <th class="text-center">Điều chỉnh</th>
                       </tr>
                     </thead>
                     <tbody>

@@ -41,15 +41,17 @@ uri="http://www.springframework.org/tags/form" %>
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Manage Users</h1>
+            <h1 class="mt-4">Quản lý người dùng</h1>
             <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Users</li>
+              <li class="breadcrumb-item">
+                <a href="/admin">Trang quản trị</a>
+              </li>
+              <li class="breadcrumb-item active">Người dùng</li>
             </ol>
             <div class="mt-5">
               <div class="row">
                 <div class="col-md-6 col-12 mx-auto">
-                  <h3>Create a user</h3>
+                  <h3>Tạo mới tài khoản</h3>
                   <hr />
                   <form:form
                     method="post"
@@ -79,7 +81,7 @@ uri="http://www.springframework.org/tags/form" %>
                       <c:set var="errorPassWord">
                         <form:errors path="password" cssClass="is-invalid" />
                       </c:set>
-                      <label class="form-label">Password:</label>
+                      <label class="form-label">Mật khẩu:</label>
                       <form:input
                         type="password"
                         class="form-control ${not empty errorPassWord ? 'is-invalid':'' }"
@@ -97,7 +99,7 @@ uri="http://www.springframework.org/tags/form" %>
                       <c:set var="errorPhone">
                         <form:errors path="phone" cssClass="is-invalid" />
                       </c:set>
-                      <label class="form-label">Phone number:</label>
+                      <label class="form-label">Số điện thoại:</label>
                       <form:input
                         type="text"
                         class="form-control ${not empty errorPhone ? 'is-invalid':'' }"
@@ -112,7 +114,7 @@ uri="http://www.springframework.org/tags/form" %>
                       <form:errors path="fullName" cssClass="is-invalid" />
                     </c:set>
                     <div class="mb-3 col-12 col-md-6">
-                      <label class="form-label">Full Name:</label>
+                      <label class="form-label">Tên:</label>
                       <form:input
                         type="text"
                         class="form-control ${not empty errorName ? 'is-invalid':'' }"
@@ -126,7 +128,7 @@ uri="http://www.springframework.org/tags/form" %>
                       </td>
                     </div>
                     <div class="mb-3 col-12">
-                      <label class="form-label">Address:</label>
+                      <label class="form-label">Địa chỉ:</label>
                       <form:input
                         type="text"
                         class="form-control"
@@ -135,7 +137,7 @@ uri="http://www.springframework.org/tags/form" %>
                     </div>
                     <!-- -----------------------------------role ------------------------------------------->
                     <div class="mb-3 col-12 col-md-6">
-                      <label class="form-label">Role:</label>
+                      <label class="form-label">Quyền:</label>
                       <form:select class="form-select" path="role.roleName">
                         <form:option value="ADMIN">ADMIN</form:option>
                         <form:option value="USER">USER</form:option>
