@@ -1,5 +1,6 @@
 package start.spring.io.spring1.controller.admin;
 
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,16 +12,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import start.spring.io.spring1.domain.Order;
+import start.spring.io.spring1.domain.User;
 import start.spring.io.spring1.service.OrderService;
+import start.spring.io.spring1.service.UserService;
 
 @Controller
 public class OrderController {
 
     private final OrderService orderService;
+    private final UserService userService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, UserService userService) {
         this.orderService = orderService;
+        this.userService = userService;
     }
 
     @GetMapping("/admin/order")
@@ -30,6 +37,7 @@ public class OrderController {
         return "admin/order/show";
     }
 
+    // admin CRUD
     @GetMapping("/admin/order/{id}")
     public String getOrderDetailPage(Model model, @PathVariable long id) {
         Order order = this.orderService.fetchOrderById(id).get();
@@ -63,6 +71,15 @@ public class OrderController {
     public String handleUpdateOrder(@ModelAttribute("newOrder") Order order) {
         this.orderService.updateOrder(order);
         return "redirect:/admin/order";
+    }
+
+    @GetMapping("/order-history")
+    public String getOrderHistory(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = this.userService.getUserById((long) session.getAttribute("id")).get();
+        List<Order> orders = this.orderService.fetchOrderByUser(user);
+        model.addAttribute("orders", orders);
+        return "client/cart/order-history";
     }
 
 }

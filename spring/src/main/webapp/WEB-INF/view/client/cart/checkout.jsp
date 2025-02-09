@@ -32,7 +32,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <link href="/client/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Template Stylesheet -->
     <link href="/client/css/style.css" rel="stylesheet" />
-    <title>Check Out</title>
+    <title>Thanh toán</title>
   </head>
   <body>
     <!-- Spinner Start -->

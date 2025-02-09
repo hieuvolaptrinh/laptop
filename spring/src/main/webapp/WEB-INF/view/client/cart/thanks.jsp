@@ -37,7 +37,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
     <!-- Template Stylesheet -->
     <link href="/client/css/style.css" rel="stylesheet" />
-    <title>Home</title>
+    <title>Giỏ Hàng</title>
     <style>
       .success-container {
         min-height: 100vh;

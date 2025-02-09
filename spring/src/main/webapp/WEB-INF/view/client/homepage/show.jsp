@@ -878,7 +878,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     href="#tab-1"
                   >
                     <span class="text-dark" style="width: 130px"
-                      >All Products</span
+                      >Tất cả sản phẩm</span
                     >
                   </a>
                 </li>
@@ -954,7 +954,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                   <i
                                     class="fa fa-shopping-bag me-2 text-primary"
                                   ></i>
-                                  Add to cart
+                                  Mua Ngay
                                 </button>
                               </form>
                             </div>

@@ -1,5 +1,6 @@
 package start.spring.io.spring1.domain;
 
+import java.sql.Date;
 import java.util.*;
 
 import jakarta.persistence.Column;
@@ -32,6 +33,8 @@ public class Order {
 
     @Column(columnDefinition = "NVARCHAR(MAX)")
     private String status;
+
+    private Date orderDate;
     // many order -> one user
     @ManyToOne
     @JoinColumn(name = "userId")
@@ -64,6 +67,8 @@ public class Order {
     public void setReceiverPhone(String receiverPhone) {
         this.receiverPhone = receiverPhone;
     }
+
+    
 
     public String getStatus() {
         return status;
@@ -108,6 +113,14 @@ public class Order {
 
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 
 }

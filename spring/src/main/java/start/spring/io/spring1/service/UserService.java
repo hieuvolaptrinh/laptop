@@ -26,6 +26,10 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public long countUser() {
+        return this.userRepository.count();
+    }
+
     public List<User> getAllUsers() {
         return this.userRepository.findAll();
     }

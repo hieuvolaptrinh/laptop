@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import start.spring.io.spring1.domain.Order;
 import start.spring.io.spring1.domain.OrderDetail;
+import start.spring.io.spring1.domain.User;
 import start.spring.io.spring1.repository.OrderDetailRepository;
 import start.spring.io.spring1.repository.OrderRepository;
 
@@ -23,12 +24,20 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    public long countOrder() {
+        return this.orderRepository.count();
+    }
+
     public List<Order> fetchAllOrders() {
         return this.orderRepository.findAll();
     }
 
     public Optional<Order> fetchOrderById(long id) {
         return this.orderRepository.findById(id);
+    }
+
+    public List<Order> fetchOrderByUser(User user) {
+        return this.orderRepository.findByUser(user);
     }
 
     public void deleteOrderById(long id) {

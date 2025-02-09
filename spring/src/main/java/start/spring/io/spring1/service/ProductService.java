@@ -1,5 +1,6 @@
 package start.spring.io.spring1.service;
 
+import java.sql.Date;
 // import java.lang.classfile.ClassFile.Option;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +40,11 @@ public class ProductService {
         this.orderDetailRepository = orderDetailRepository;
     }
 
+    public long countProduct() {
+        return this.productRepository.count();
+
+    }
+
     public Product createProduct(Product pr) {
         return this.productRepository.save(pr);
     }
@@ -60,7 +66,7 @@ public class ProductService {
     }
 
     //
-    public void handleAddProductToCart(String email, long productId, HttpSession session) {
+    public void handleAddProductToCart(String email, long productId, HttpSession session, long quantity) {
         User user = this.userService.getUserByEmail(email);
         if (user != null) {
             // check user đá có Cart chửa ? chưa=> tạo
@@ -84,7 +90,7 @@ public class ProductService {
                     cartDetail.setCart(cart);
                     cartDetail.setProduct(realProduct);
                     cartDetail.setPrice(realProduct.getPrice());
-                    cartDetail.setQuantity(1);
+                    cartDetail.setQuantity(quantity);
                     this.cartDetailRepository.save(cartDetail);
 
                     // update cart total quantity
@@ -95,7 +101,7 @@ public class ProductService {
                     session.setAttribute("totalQuantity", cart.getTotalQuantity());
 
                 } else {
-                    oldCartDetail.setQuantity(oldCartDetail.getQuantity() + 1);
+                    oldCartDetail.setQuantity(oldCartDetail.getQuantity() + quantity);
                     this.cartDetailRepository.save(oldCartDetail);
                 }
 
@@ -146,6 +152,7 @@ public class ProductService {
                 order.setReceiverName(receiverName);
                 order.setReceiverAddress(receiverAddress);
                 order.setReceiverPhone(receiverPhone);
+                order.setOrderDate(new java.sql.Date(System.currentTimeMillis()));
                 order.setStatus("PENDING");
                 double totalPrice = 0;
                 for (CartDetail cartDetail : cartDetails) {

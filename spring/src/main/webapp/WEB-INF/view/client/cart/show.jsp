@@ -38,7 +38,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
     <!-- Template Stylesheet -->
     <link href="/client/css/style.css" rel="stylesheet" />
-    <title>Home</title>
+    <title>Giỏ Hàng</title>
   </head>
 
   <body>
@@ -218,7 +218,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     name="${_csrf.parameterName}"
                     value="${_csrf.token}"
                   />
-                  <div style="display: block">
+                  <!-- none -->
+                  <div style="display: none">
                     <c:forEach
                       var="cartDetail"
                       items="${cart.cartDetails}"
