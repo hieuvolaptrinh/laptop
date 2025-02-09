@@ -3,7 +3,7 @@ uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib
 uri="http://www.springframework.org/tags/form" prefix="form" %>
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
   <!-- Navbar Brand-->
-  <a class="navbar-brand ps-3" href="/admin">Laptopshop</a>
+  <a class="navbar-brand ps-3" href="/admin">Shop Hiếu Võ</a>
   <!-- Sidebar Toggle-->
   <button
     class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
@@ -36,7 +36,7 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
         class="dropdown-menu dropdown-menu-end"
         aria-labelledby="navbarDropdown"
       >
-        <li><a class="dropdown-item" href="#!">Settings</a></li>
+        <li><a class="dropdown-item" href="#!">Cài Đặt</a></li>
 
         <li>
           <hr class="dropdown-divider" />
@@ -48,7 +48,7 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
               name="${_csrf.parameterName}"
               value="${_csrf.token}"
             />
-            <button class="dropdown-item btn">Logout</button>
+            <button class="dropdown-item btn">Đăng Xuất</button>
           </form>
         </li>
       </ul>

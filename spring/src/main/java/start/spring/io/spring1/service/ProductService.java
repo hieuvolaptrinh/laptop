@@ -134,20 +134,26 @@ public class ProductService {
 
     public void handlePlaceOrder(User currentUser, HttpSession session, String receiverName, String receiverAddress,
             String receiverPhone) {
-        // create order
-        Order order = new Order();
-        order.setUser(currentUser);
-        order.setReceiverName(receiverName);
-        order.setReceiverAddress(receiverAddress);
-        order.setReceiverPhone(receiverPhone);
-        order.setStatus("Đã đặt hàng");
-        order = this.orderRepository.save(order); // gắn để lấy ra được id từ csdl
 
         // create order detail
         Cart cart = this.cartRepository.findByUser(currentUser);
         if (cart != null) {
             List<CartDetail> cartDetails = cart.getCartDetails();
             if (cartDetails != null) {
+                // create order
+                Order order = new Order();
+                order.setUser(currentUser);
+                order.setReceiverName(receiverName);
+                order.setReceiverAddress(receiverAddress);
+                order.setReceiverPhone(receiverPhone);
+                order.setStatus("PENDING");
+                double totalPrice = 0;
+                for (CartDetail cartDetail : cartDetails) {
+                    totalPrice += cartDetail.getPrice() * cartDetail.getQuantity();
+                }
+                order.setTotalPrice(totalPrice);
+                order = this.orderRepository.save(order); // gắn để lấy ra được id từ csdl
+
                 for (CartDetail cartDetail : cartDetails) {
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.setOrder(order);

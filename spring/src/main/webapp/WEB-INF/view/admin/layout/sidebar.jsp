@@ -5,39 +5,39 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
   <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
     <div class="sb-sidenav-menu">
       <div class="nav">
-        <div class="sb-sidenav-menu-heading">Features</div>
+        <div class="sb-sidenav-menu-heading">Quản lý bán hàng</div>
         <a class="nav-link" href="/admin">
           <div class="sb-nav-link-icon">
             <i class="fas fa-tachometer-alt"></i>
           </div>
-          Dashboard
+          Trung tâm quản lý
         </a>
 
         <a class="nav-link" href="/admin/user">
           <div class="sb-nav-link-icon">
             <i class="fas fa-tachometer-alt"></i>
           </div>
-          User
+          Người dùng
         </a>
 
         <a class="nav-link" href="/admin/product">
           <div class="sb-nav-link-icon">
             <i class="fas fa-tachometer-alt"></i>
           </div>
-          Product
+          Sản phẩm
         </a>
 
         <a class="nav-link" href="/admin/order">
           <div class="sb-nav-link-icon">
             <i class="fas fa-tachometer-alt"></i>
           </div>
-          Order
+          Đơn hàng
         </a>
       </div>
     </div>
     <div class="sb-sidenav-footer">
       <div class="small">Logged in as:</div>
-      Hiếu Vó
+      Hiếu Võ
     </div>
   </nav>
 </div>

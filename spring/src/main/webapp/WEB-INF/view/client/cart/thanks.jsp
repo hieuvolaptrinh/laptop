@@ -130,7 +130,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <jsp:include page="../layout/header.jsp" />
 
     <div
-      class="success-container d-flex align-items-center justify-content-center"
+      class="success-container d-flex align-items-center justify-content-center mt-5"
     >
       <div class="success-box">
         <div class="success-icon">
@@ -146,7 +146,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         </a>
       </div>
     </div>
-
+    <jsp:include page="../layout/feature.jsp" />
     <jsp:include page="../layout/footer.jsp" />
 
     <!-- JavaScript Libraries -->
