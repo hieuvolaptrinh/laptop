@@ -55,6 +55,10 @@ public class ProductService {
         return this.productRepository.findAll(pageable);
     }
 
+    public List<Product> fetchProducts() {
+        return this.productRepository.findAll();
+    }
+
     public Optional<Product> fetchProductById(Long id) {
         return this.productRepository.findById(id);
     }
