@@ -6,6 +6,9 @@ import java.util.Optional;
 
 import javax.naming.Binding;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,13 +37,17 @@ class ProductController {
     }
 
     @GetMapping("/admin/product")
-    public String getProduct(Model model) {
-        List<Product> products = this.productService.fetchProducts();
+    public String getProduct(Model model,
+            @RequestParam(name = "page", defaultValue = "0") int page) {
+        Pageable pageable = PageRequest.of(page - 1, 4);
+
+        Page<Product> pagePproducts = this.productService.fetchProducts(pageable);
+        List<Product> products = pagePproducts.getContent();
+
         model.addAttribute("products", products);
         return "admin/product/show";
     }
 
-    // hiện ra giao diện tạo sp
     @GetMapping("/admin/product/create")
     public String getCreateProduct(Model model) {
         model.addAttribute("newProduct", new Product());
