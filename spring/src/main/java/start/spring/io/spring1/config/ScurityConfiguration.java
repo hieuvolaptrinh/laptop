@@ -1,6 +1,5 @@
 package start.spring.io.spring1.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,104 +26,100 @@ import start.spring.io.spring1.service.UserService;
 @EnableMethodSecurity(securedEnabled = true)
 public class ScurityConfiguration {
 
-    // Chỉnh sửa tên lớp ở đây
-    // @Bean
-    // public UserDetailsService userDetailsService() {
-    // InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-    // manager.createUser(User.withUsername("hieuvo")
-    // .password(passwordEncoder().encode("hieuvo123"))
-    // .roles("USER")
-    // .build());
-    // return manager;
-    // }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                // return NoOpPasswordEncoder.getInstance(); // tạm thời tắt mã hóa mật khẩu
+                return new BCryptPasswordEncoder();
+        }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        // return NoOpPasswordEncoder.getInstance(); // tạm thời tắt mã hóa mật khẩu
-        return new BCryptPasswordEncoder();
-    }
+        // spiring scurity
+        // bằng cách sẽ lấy userName và password từ database chứ không phải mặt định
+        // mình
+        // config nữa
+        @Bean
+        public UserDetailsService userDetailsService(UserService userService) { // ghi đè lại cái userDetailService của
+                                                                                // thằng spring bằng
+                                                                                // CustomerUserDetailsService mà mình
+                                                                                // tạo ra
+                                                                                // còn cái đối số truyền vào là
+                                                                                // userService
+                                                                                // là vì CustomerUserDetailsService mình
+                                                                                // tạo
+                                                                                // code dependecy injection mình truyền
+                                                                                // vào
+                                                                                // luôn
+                return new CustomerUserDetailsService(userService);
+        }
 
-    // viết lại để nói với thằng spring mình sẽ đăng nhập spiring scurity
-    // bằng cách sẽ lấy userName và password từ database chứ không phải mặt định
-    // mình
-    // config nữa
-    @Bean
-    public UserDetailsService userDetailsService(UserService userService) { // ghi đè lại cái userDetailService của
-                                                                            // thằng spring bằng
-                                                                            // CustomerUserDetailsService mà mình tạo ra
-                                                                            // còn cái đối số truyền vào là userService
-                                                                            // là vì CustomerUserDetailsService mình tạo
-                                                                            // code dependecy injection mình truyền vào
-                                                                            // luôn
-        return new CustomerUserDetailsService(userService);
-    }
+        // cho phép sử dụng tài khoản và mật khẩu được lưu trữ trong cơ sở dữ liệu
+        // (CSDL) để đăng nhập
+        @Bean
+        public DaoAuthenticationProvider authProvider(
+                        PasswordEncoder passwordEncoder,
+                        UserDetailsService userDetailsService) {
+                DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+                authProvider.setUserDetailsService(userDetailsService);
+                authProvider.setPasswordEncoder(passwordEncoder);
+                authProvider.setHideUserNotFoundExceptions(false);
+                return authProvider;
+        }
 
-    // cho phép sử dụng tài khoản và mật khẩu được lưu trữ trong cơ sở dữ liệu
-    // (CSDL) để đăng nhập
-    @Bean
-    public DaoAuthenticationProvider authProvider(
-            PasswordEncoder passwordEncoder,
-            UserDetailsService userDetailsService) {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder);
-        authProvider.setHideUserNotFoundExceptions(false);
-        return authProvider;
-    }
+        @Bean // CONFIGURE REMEMBER ME
+        public SpringSessionRememberMeServices rememberMeServices() {
+                SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices(); // default
+                                                                                                            // 30 days
+                // tùy chỉnh
+                rememberMeServices.setAlwaysRemember(true);
+                // rememberMeServices.setValiditySeconds(7 * 24 * 60 * 60); // 7 ngày
+                return rememberMeServices;
+        }
 
-    @Bean // CONFIGURE REMEMBER ME
-    public SpringSessionRememberMeServices rememberMeServices() {
-        SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices(); // default 30 days
-        // tùy chỉnh
-        rememberMeServices.setAlwaysRemember(true);
-        // rememberMeServices.setValiditySeconds(7 * 24 * 60 * 60); // 7 ngày
-        return rememberMeServices;
-    }
+        // SecurityFilterChainConfiguration vào đó đọc sẽ thấy nó
+        @Bean
+        SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                http
+                                .authorizeHttpRequests(authorize -> authorize
+                                                .dispatcherTypeMatchers(DispatcherType.FORWARD,
+                                                                DispatcherType.INCLUDE)
+                                                .permitAll()
 
-    // để sử dụng cái giao diện login của mình thay vì của thằng spring
-    // SecurityFilterChainConfiguration vào đó đọc sẽ thấy nó
-    @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                        .dispatcherTypeMatchers(DispatcherType.FORWARD,
-                                DispatcherType.INCLUDE)
-                        .permitAll()
+                                                .requestMatchers("/", "register", "/login", "/product/**", "/client/**",
+                                                                "/css/**", "/js/**",
+                                                                "/images/**")
+                                                .permitAll()
 
-                        .requestMatchers("/", "register", "/login", "/product/**", "/client/**", "/css/**", "/js/**",
-                                "/images/**") // thêm cái này để nó không cần xác thực vì mình gọi nó sẽmatch qua ở
-                        // controller=> nó sẽ chặn
-                        .permitAll()
+                                                .requestMatchers("/admin/**").hasRole("ADMIN")
 
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                                                .anyRequest().authenticated())
+                                // .anyRequest().permitAll())// anyRequest().authenticated()
+                                .formLogin(formLogin -> formLogin
+                                                // để sử dụng cái giao diện login của mình thay vì của thằng spring
+                                                .loginPage("/login")
+                                                .failureUrl("/login?error")
+                                                .successHandler(cutomSuccessHandler())
+                                                .permitAll())
+                                // (session)
+                                .sessionManagement((sessionManagement) -> sessionManagement
+                                                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                                                .invalidSessionUrl("/logout?expired")
+                                                .maximumSessions(1)
+                                                .maxSessionsPreventsLogin(false))
+                                .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
+                                .rememberMe(rememberMe -> rememberMe // sử dụng cookie Remember Me=> mình sử dụng spring
+                                                                     // -session thì
+                                                                     // oke hơn
+                                                .rememberMeServices(rememberMeServices())) // Cung cấp
+                                // userDetailsService
+                                // .tokenValiditySeconds(7 * 24 * 60 * 60)) // (7 ngày)
+                                .exceptionHandling(ex -> ex.accessDeniedPage("/access-denied"));// nếu không có quyền
+                                                                                                // thì chuyển đến
+                return http.build();
+                // 117
+        }
 
-                        .anyRequest().authenticated())
-                // .anyRequest().permitAll())// anyRequest().authenticated()
-                .formLogin(formLogin -> formLogin
-                        .loginPage("/login")
-                        .failureUrl("/login?error")
-                        .successHandler(cutomSuccessHandler())
-                        .permitAll())
-                //  (session)
-                .sessionManagement((sessionManagement) -> sessionManagement
-                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                        .invalidSessionUrl("/logout?expired")
-                        .maximumSessions(1)
-                        .maxSessionsPreventsLogin(false))
-                .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
-                .rememberMe(rememberMe -> rememberMe // sử dụng cookie Remember Me=> mình sử dụng spring -session thì
-                                                     // oke hơn
-                        .rememberMeServices(rememberMeServices())) // Cung cấp
-                // userDetailsService
-                // .tokenValiditySeconds(7 * 24 * 60 * 60)) // (7 ngày)
-                .exceptionHandling(ex -> ex.accessDeniedPage("/access-denied"));// nếu không có quyền thì chuyển đến
-        return http.build();
-        // 117
-    }
-
-    @Bean
-    public AuthenticationSuccessHandler cutomSuccessHandler() {
-        return new CustomSuccessHandler();
-    }
+        @Bean
+        public AuthenticationSuccessHandler cutomSuccessHandler() {
+                return new CustomSuccessHandler();
+        }
 
 }

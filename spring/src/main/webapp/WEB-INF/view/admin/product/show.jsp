@@ -57,11 +57,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               <table
                 class="table table-hover table-striped col-12 col-md-9 col-lg-8 mx-auto"
               >
+                <!-- show table -->
                 <thead class="thead-light">
                   <tr class="table-success">
                     <th class="text-center">Mã sản phẩm</th>
                     <th class="text-center">Tên sản phẩm</th>
                     <th class="text-center">Giá</th>
+                    <th class="text-center">Số lượng</th>
                     <th class="text-center">Tên công ty</th>
                     <th class="text-center">Điều chỉnh</th>
                   </tr>
@@ -78,6 +80,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                           pattern="#,##0.##"
                         />
                       </td>
+                      <td>${product.quantity}</td>
 
                       <td>${product.factory}</td>
                       <td
@@ -106,6 +109,32 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   </c:forEach>
                 </tbody>
               </table>
+              <!-- end table -->
+              <nav aria-label="Page navigation example d-flex ">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="/admin/product?page=1">1</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="/admin/product?page=2">2</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="/admin/product?page=3">3</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>

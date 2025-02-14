@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="form"
-uri="http://www.springframework.org/tags/form" %>
+uri="http://www.springframework.org/tags/form" %> <%@ taglib prefix="fmt"
+uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -57,7 +58,7 @@ uri="http://www.springframework.org/tags/form" %>
             <div class="mt-5">
               <div class="row">
                 <div class="col-md-6 col-12 mx-auto">
-                  <h3>Update a product</h3>
+                  <h3>Cập nhật sản phẩm</h3>
                   <hr />
                   <!-- fomr -->
                   <form:form
@@ -101,7 +102,7 @@ uri="http://www.springframework.org/tags/form" %>
                     </div>
 
                     <div class="mb-3 col-12 col-md-6">
-                      <label class="form-label">Name:</label>
+                      <label class="form-label">Tên sản phẩm:</label>
                       <form:input
                         type="text"
                         class="form-control ${not empty errorName ? 'is-invalid' : ''}"
@@ -110,16 +111,24 @@ uri="http://www.springframework.org/tags/form" %>
                       ${errorName}
                     </div>
                     <div class="mb-3 col-12 col-md-6">
-                      <label class="form-label">Price:</label>
+                      <label class="form-label">Giá:</label>
+                      <fmt:formatNumber
+                        var="formattedPrice"
+                        value="${newProduct.price}"
+                        pattern="#"
+                      />
                       <form:input
                         type="number"
                         class="form-control ${not empty errorPrice ? 'is-invalid' : ''}"
                         path="price"
+                        id="price"
+                        value="${formattedPrice}"
                       />
                       ${errorPrice}
                     </div>
+
                     <div class="mb-3 col-12">
-                      <label class="form-label">Detail description:</label>
+                      <label class="form-label">Mô tả:</label>
                       <form:textarea
                         type="text"
                         class="form-control ${not empty errorDetailDesc ? 'is-invalid' : ''}"
@@ -128,7 +137,7 @@ uri="http://www.springframework.org/tags/form" %>
                       ${errorDetailDesc}
                     </div>
                     <div class="mb-3 col-12 col-md-6">
-                      <label class="form-label">Short description:</label>
+                      <label class="form-label">Thông tin:</label>
                       <form:input
                         type="text"
                         class="form-control ${not empty errorShortDesc ? 'is-invalid' : ''}"
@@ -137,7 +146,7 @@ uri="http://www.springframework.org/tags/form" %>
                       ${errorShortDesc}
                     </div>
                     <div class="mb-3 col-12 col-md-6">
-                      <label class="form-label">Quantity:</label>
+                      <label class="form-label">Số lượng:</label>
                       <form:input
                         type="number"
                         class="form-control ${not empty errorQuantity ? 'is-invalid' : ''}"
@@ -147,7 +156,7 @@ uri="http://www.springframework.org/tags/form" %>
                     </div>
 
                     <div class="mb-3 col-12 col-md-6">
-                      <label class="form-label">Factory:</label>
+                      <label class="form-label">Tên công ty:</label>
                       <form:select class="form-select" path="factory">
                         <form:option value="APPLE">Apple (MacBook)</form:option>
                         <form:option value="ASUS">Asus</form:option>
@@ -158,7 +167,7 @@ uri="http://www.springframework.org/tags/form" %>
                       </form:select>
                     </div>
                     <div class="mb-3 col-12 col-md-6">
-                      <label class="form-label">Target:</label>
+                      <label class="form-label">Đối tượng:</label>
                       <form:select class="form-select" path="target">
                         <form:option value="GAMING">Gaming</form:option>
                         <form:option value="SINHVIEN-VANPHONG"
@@ -172,7 +181,9 @@ uri="http://www.springframework.org/tags/form" %>
                       </form:select>
                     </div>
                     <div class="mb-3 col-12 col-md-6">
-                      <label for="avatarFile" class="form-label">Image:</label>
+                      <label for="avatarFile" class="form-label"
+                        >Hình ảnh:</label
+                      >
                       <input
                         class="form-control"
                         type="file"
