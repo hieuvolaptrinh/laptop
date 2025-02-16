@@ -55,7 +55,7 @@ public class ItemController {
         String name = nameOptional.orElse(null);
         Page<Product> pageProducts = null;
         if (name != null && !name.isEmpty()) {
-            pageProducts = this.productService.fetchProducts(pageable, name);
+            pageProducts = this.productService.fetchProductsWithName(pageable, name);
         } else {
             pageProducts = this.productService.fetchProducts(pageable);
         }

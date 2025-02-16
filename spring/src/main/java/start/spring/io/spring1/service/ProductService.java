@@ -22,6 +22,7 @@ import start.spring.io.spring1.repository.CartRepository;
 import start.spring.io.spring1.repository.OrderDetailRepository;
 import start.spring.io.spring1.repository.OrderRepository;
 import start.spring.io.spring1.repository.ProductRepository;
+import start.spring.io.spring1.service.specification.ProductSpec;
 import jakarta.servlet.http.HttpSession;
 
 @Service
@@ -45,12 +46,13 @@ public class ProductService {
     }
 
     // search by name
-    private Specification<Product> nameLike(String name) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(Product_.productName), "%" + name + "%");
-    }
+    // private Specification<Product> nameLike(String name) {
+    // return (root, query, criteriaBuilder) ->
+    // criteriaBuilder.like(root.get(Product_.productName), "%" + name + "%");
+    // }
 
-    public Page<Product> fetchProducts(Pageable pageable, String name) {
-        return this.productRepository.findAll(this.nameLike(name), pageable);
+    public Page<Product> fetchProductsWithName(Pageable pageable, String name) {
+        return this.productRepository.findAll(ProductSpec.nameLike(name), pageable);
     }
 
     // private Specification queryByName(String name) {

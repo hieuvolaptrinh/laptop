@@ -298,7 +298,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <!--  -->
                 <div class="col-md-8 col-12">
                   <div class="row g-4">
-                    <!-- duyệt qua mỗi sản phẩm từ csdl -->
+                    <!-- list product -->
                     <div class="col-12">
                       <div class="row">
                         <c:forEach var="product" items="${products}">
