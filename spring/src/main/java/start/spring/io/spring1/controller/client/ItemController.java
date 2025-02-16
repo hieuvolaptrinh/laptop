@@ -36,20 +36,32 @@ public class ItemController {
     }
 
     @GetMapping("/shop")
-    public String getUserPage(Model model, @RequestParam(name = "page") Optional<String> optionPage) {
+    public String getUserPage(Model model,
+            @RequestParam(name = "page") Optional<String> pageOptional,
+            @RequestParam(name = "name") Optional<String> nameOptional) {
         int page = 1;
 
         try {
-            if (optionPage.isPresent()) {
-                page = Integer.parseInt(optionPage.get());
+            if (pageOptional.isPresent()) {
+                page = Integer.parseInt(pageOptional.get());
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+
         Pageable pageable = PageRequest.of(page - 1, 6);
 
-        Page<Product> pageProducts = this.productService.fetchProducts(pageable);
+        // search by name
+        String name = nameOptional.orElse(null);
+        Page<Product> pageProducts = null;
+        if (name != null && !name.isEmpty()) {
+            pageProducts = this.productService.fetchProducts(pageable, name);
+        } else {
+            pageProducts = this.productService.fetchProducts(pageable);
+        }
+
         List<Product> products = pageProducts.getContent();
+
         model.addAttribute("products", products);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", pageProducts.getTotalPages());

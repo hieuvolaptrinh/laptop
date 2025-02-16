@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import start.spring.io.spring1.domain.Cart;
@@ -14,6 +15,7 @@ import start.spring.io.spring1.domain.CartDetail;
 import start.spring.io.spring1.domain.Order;
 import start.spring.io.spring1.domain.OrderDetail;
 import start.spring.io.spring1.domain.Product;
+import start.spring.io.spring1.domain.Product_;
 import start.spring.io.spring1.domain.User;
 import start.spring.io.spring1.repository.CartDetailRepository;
 import start.spring.io.spring1.repository.CartRepository;
@@ -41,6 +43,21 @@ public class ProductService {
         this.orderRepository = orderRepository;
         this.orderDetailRepository = orderDetailRepository;
     }
+
+    // search by name
+    private Specification<Product> nameLike(String name) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(Product_.productName), "%" + name + "%");
+    }
+
+    public Page<Product> fetchProducts(Pageable pageable, String name) {
+        return this.productRepository.findAll(this.nameLike(name), pageable);
+    }
+
+    // private Specification queryByName(String name) {
+    // return (root, query, builder) -> {
+
+    // };
+    // }
 
     public long countProduct() {
         return this.productRepository.count();
