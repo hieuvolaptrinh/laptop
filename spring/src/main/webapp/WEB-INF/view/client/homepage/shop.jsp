@@ -60,102 +60,376 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <div class="container py-5">
         <div class="tab-class text-center">
           <div class="row g-4">
-            <div class="col-lg-4 text-start">
-              <h1>Sản phẩm nổi bật</h1>
-            </div>
-            <div class="col-lg-8 text-end">
-              <ul class="nav nav-pills d-inline-flex text-center mb-5">
-                <li class="nav-item">
-                  <a
-                    class="d-flex m-2 py-2 bg-light rounded-pill active"
-                    data-bs-toggle="pill"
-                    href="#tab-1"
-                  >
-                    <span class="text-dark" style="width: 130px"
-                      >All Products</span
-                    >
-                  </a>
-                </li>
-              </ul>
+            <div class="mb-3">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Tất cả sản phẩm
+                  </li>
+                </ol>
+              </nav>
             </div>
           </div>
           <div class="tab-content">
             <div id="tab-1" class="tab-pane fade show p-0 active">
               <div class="row g-4">
-                <div class="col-lg-12">
+                <div class="col-md-4 col-12">
+                  <div class="row g-4">
+                    <!-- factory -->
+                    <div class="col-12 text-start">
+                      <div class="mb-2"><b>Hãng sản xuất</b></div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="factory-1"
+                          value="APPLE"
+                        />
+                        <label class="form-check-label" for="factory-1"
+                          >Apple</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="factory-2"
+                          value="ASUS"
+                        />
+                        <label class="form-check-label" for="factory-2"
+                          >Asus</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="factory-3"
+                          value="LENOVO"
+                        />
+                        <label class="form-check-label" for="factory-3"
+                          >Lenovo</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="factory-4"
+                          value="DELL"
+                        />
+                        <label class="form-check-label" for="factory-4"
+                          >Dell</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="factory-5"
+                          value="LG"
+                        />
+                        <label class="form-check-label" for="factory-5"
+                          >LG</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="factory-6"
+                          value="ACER"
+                        />
+                        <label class="form-check-label" for="factory-6"
+                          >Acer</label
+                        >
+                      </div>
+                    </div>
+                    <!-- Price -->
+                    <div class="col-12 text-start">
+                      <div class="mb-2"><b>Mục đích</b></div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="tagert-1"
+                          value="GAMING"
+                        />
+                        <label class="form-check-label" for="tagert-1"
+                          >Gaming</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="tagert-1"
+                          value="SINHVIEN-VANPHONG"
+                        />
+                        <label class="form-check-label" for="tagert-2"
+                          >Sinh Viên - Văn Phòng
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="tagert-3"
+                          value="THIET-KE-DO-HOA"
+                        />
+                        <label class="form-check-label" for="tagert-3"
+                          >Thiết kế đồ họa
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="tagert-4"
+                          value="MONG-NHE"
+                        />
+                        <label class="form-check-label" for="tagert-4"
+                          >Mỏng Nhẹ
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="tagert-5"
+                          value="MONG-NHE"
+                        />
+                        <label class="form-check-label" for="tagert-5"
+                          >Doanh Nhân</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-12 text-start">
+                      <div class="mb-2"><b>Mức Giá</b></div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="price-2"
+                          value="duoi-10-trieu"
+                        />
+                        <label class="form-check-label" for="price-2"
+                          >Dưới 10 triệu</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="price-3"
+                          value="10-15-trieu"
+                        />
+                        <label class="form-check-label" for="price-3"
+                          >Từ 10 - 15 triệu</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="price-4"
+                          value="15-20-trieu"
+                        />
+                        <label class="form-check-label" for="price-4"
+                          >Từ 15 - 20 triệu</label
+                        >
+                      </div>
+
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="price-5"
+                          value="tren-20-trieu"
+                        />
+                        <label class="form-check-label" for="price-5"
+                          >Trên 20 triệu</label
+                        >
+                      </div>
+                    </div>
+                    <!-- SORT  -->
+                    <div class="col-12 text-start">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="flexRadioDefault"
+                          id="gia-tang-dan"
+                        />
+                        <label class="form-check-label" for="gia-tang-dan">
+                          Giá tăng dần
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="flexRadioDefault"
+                          id="gia-giam-dan"
+                          checked
+                        />
+                        <label class="form-check-label" for="gia-giam-dan">
+                          Giá giảm dần
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="flexRadioDefault"
+                          id="khong-sap-xep"
+                          checked
+                        />
+                        <label class="form-check-label" for="khong-sap-xep">
+                          Không sắp xếp
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--  -->
+
+                <!--  -->
+                <div class="col-md-8 col-12">
                   <div class="row g-4">
                     <!-- duyệt qua mỗi sản phẩm từ csdl -->
-                    <c:forEach var="product" items="${products}">
-                      <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="rounded position-relative fruite-item">
-                          <div class="fruite-img">
-                            <img
-                              src="/images/product/${product.image}"
-                              class="img-fluid w-100 rounded-top"
-                              alt=""
-                            />
-                          </div>
-                          <div
-                            class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                            style="top: 10px; left: 10px"
-                          >
-                            Laptop
-                          </div>
-                          <div
-                            class="p-4 border border-secondary border-top-0 rounded-bottom"
-                          >
-                            <h4 style="font-size: 15px">
-                              <a href="/product/${product.id}">
-                                ${product.productName}</a
-                              >
-                            </h4>
-                            <p style="font-size: 13px">${product.shortDesc}</p>
+                    <div class="col-12">
+                      <div class="row">
+                        <c:forEach var="product" items="${products}">
+                          <div class="col-md-4 col-lg-4 col-xl-4 mt-2">
                             <div
-                              class="d-flex justify-content-center flex-lg-wrap"
+                              class="rounded position-relative fruite-item d-flex flex-column"
+                              style="height: 100%"
                             >
-                              <p
-                                class="text-dark fs-5 fw-bold mb-3"
-                                style="
-                                  font-size: 15px;
-                                  text-align: center;
-                                  width: 100%;
-                                "
-                              >
-                                <fmt:formatNumber
-                                  value="${product.price}"
-                                  type="number"
+                              <div class="fruite-img">
+                                <img
+                                  src="/images/product/${product.image}"
+                                  class="img-fluid w-100 rounded-top"
+                                  alt=""
                                 />
-                                đ
-                              </p>
-                              <form
-                                method="post"
-                                action="/add-product-to-cart/${product.id}"
+                              </div>
+                              <div
+                                class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                style="top: 10px; left: 10px"
                               >
-                                <!-- phải có cái này vì javaspring sử dụng scurity nó có 3 trường luôn
-                    Csrf token: token ứng với lượt truy cập web của user. Cần token này để phòng tránh
-                    CSRF (Cross Site Request Forgery) . Hiểu 1 cách đơn giản, là tăng độ an toàn cho
-                    website của bạn 
-                    -->
-                                <input
-                                  type="hidden"
-                                  name="${_csrf.parameterName}"
-                                  value="${_csrf.token}"
-                                />
-                                <button
-                                  href="#"
-                                  class="mx-auto btn border border-secondary rounded-pill px-3 text-primary"
+                                Laptop
+                              </div>
+                              <div
+                                class="p-4 border border-secondary border-top-0 rounded-bottom d-flex flex-column justify-content-between"
+                                style="flex: 1"
+                              >
+                                <h4
+                                  class="text-truncate"
+                                  style="font-size: 15px"
                                 >
-                                  <i
-                                    class="fa fa-shopping-bag me-2 text-primary"
-                                  ></i>
-                                  Add to cart
-                                </button>
-                              </form>
+                                  <a
+                                    href="/product/${product.id}"
+                                    class="text-dark text-decoration-none"
+                                    >${product.productName}</a
+                                  >
+                                </h4>
+                                <p
+                                  class="text-truncate"
+                                  style="
+                                    font-size: 13px;
+                                    max-height: 40px;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                  "
+                                >
+                                  ${product.shortDesc}
+                                </p>
+                                <div
+                                  class="d-flex flex-column align-items-center mt-auto"
+                                >
+                                  <p
+                                    class="text-dark fs-5 fw-bold mb-3"
+                                    style="font-size: 15px; text-align: center"
+                                  >
+                                    <fmt:formatNumber
+                                      value="${product.price}"
+                                      type="number"
+                                    />
+                                    đ
+                                  </p>
+                                  <form
+                                    method="post"
+                                    action="/add-product-to-cart/${product.id}"
+                                  >
+                                    <input
+                                      type="hidden"
+                                      name="${_csrf.parameterName}"
+                                      value="${_csrf.token}"
+                                    />
+                                    <button
+                                      class="btn border border-secondary rounded-pill px-3 text-primary"
+                                    >
+                                      <i
+                                        class="fa fa-shopping-bag me-2 text-primary"
+                                      ></i>
+                                      Add to cart
+                                    </button>
+                                  </form>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        </c:forEach>
                       </div>
-                    </c:forEach>
+                    </div>
+                    <!-- page -->
+                    <div class="col-12">
+                      <!-- page -->
+                      <nav aria-label="Page navigation example ">
+                        <ul
+                          class="d-flex justify-content-center"
+                          style="list-style: none"
+                        >
+                          <li
+                            class="page-item ${1 eq currentPage ? 'disabled' : ''}"
+                          >
+                            <a
+                              class="page-link rounded"
+                              href="/shop?page=${currentPage-1}"
+                              aria-label="Previous"
+                              >&laquo;</a
+                            >
+                          </li>
+                          <c:forEach
+                            begin="0"
+                            end="${totalPages-1}"
+                            varStatus="loop"
+                          >
+                            <li
+                              class="page-item ${ (loop.index+1) eq currentPage ? 'active' : '' }"
+                            >
+                              <a
+                                class="page-link rounded text-truncate"
+                                style="min-width: 40px"
+                                href="/shop?page=${loop.index+1}"
+                                >${loop.index+1}</a
+                              >
+                            </li>
+                          </c:forEach>
+                          <li
+                            class="page-item ${totalPages eq currentPage ? 'disabled' : ''}"
+                          >
+                            <a
+                              class="page-link rounded"
+                              href="/shop?page=${currentPage+1}"
+                              aria-label="Next"
+                              >&raquo;</a
+                            >
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -3,10 +3,13 @@ package start.spring.io.spring1.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import start.spring.io.spring1.domain.Order;
 import start.spring.io.spring1.domain.OrderDetail;
+import start.spring.io.spring1.domain.Product;
 import start.spring.io.spring1.domain.User;
 import start.spring.io.spring1.repository.OrderDetailRepository;
 import start.spring.io.spring1.repository.OrderRepository;
@@ -30,6 +33,10 @@ public class OrderService {
 
     public List<Order> fetchAllOrders() {
         return this.orderRepository.findAll();
+    }
+
+    public Page<Order> fetchAllOrders(Pageable pageable) {
+        return this.orderRepository.findAll(pageable);
     }
 
     public Optional<Order> fetchOrderById(long id) {

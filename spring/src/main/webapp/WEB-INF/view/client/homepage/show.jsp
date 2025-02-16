@@ -873,9 +873,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <ul class="nav nav-pills d-inline-flex text-center mb-5">
                 <li class="nav-item">
                   <a
-                    class="d-flex m-2 py-2 bg-light rounded-pill active"
-                    data-bs-toggle="pill"
-                    href="#tab-1"
+                    class="d-flex m-2 py-2 bg-light rounded-pill active text-decoration-none"
+                    href="/shop"
                   >
                     <span class="text-dark" style="width: 130px"
                       >Tất cả sản phẩm</span

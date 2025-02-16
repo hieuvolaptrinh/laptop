@@ -1,11 +1,11 @@
 package start.spring.io.spring1.controller.admin;
 
-import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.boot.web.error.ErrorAttributeOptions;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -30,7 +29,7 @@ import jakarta.validation.Valid;
 
 @Controller
 public class UserController {
-    // DI: dependency injection
+
     private final UserService userService;
     private final UploadService uploadService;
     private final PasswordEncoder passwordEncoder;
@@ -45,14 +44,10 @@ public class UserController {
 
     @PostMapping("/create")
     public ResponseEntity<String> createUser(@RequestBody User newUser) {
-        // Ví dụ: Lưu người dùng mới vào database
-        // this.userService.handleSaveUser(newUser);
-        // Trả về phản hồi thành công
         return ResponseEntity.ok("User created successfully: " + newUser.getFullName());
     }
 
-    // end
-    @RequestMapping("/") // mặt định nó là method GET
+    @RequestMapping("/")
     public String getHomePage(Model model) {
         List<User> arrUsers = this.userService.getAllUsersByEmail("vndhieuak@gmail.com");
         System.out.println("arUsers: " + arrUsers);
@@ -60,7 +55,28 @@ public class UserController {
         return "hello";
     }
 
-    // create new user
+    @GetMapping("/admin/user")
+    public String getUserPage(Model model, @RequestParam(name = "page") Optional<String> optionPage) {
+        int page = 1;
+
+        try {
+            if (optionPage.isPresent()) {
+                page = Integer.parseInt(optionPage.get());
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        Pageable pageable = PageRequest.of(page - 1, 1);
+        Page<User> pageUsers = this.userService.getAllUsers(pageable);
+
+        List<User> users = pageUsers.getContent();
+
+        model.addAttribute("usersArray", users);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", pageUsers.getTotalPages());
+        return "admin/user/show";
+    }
+
     @PostMapping("/admin/user/create")
     public String createUserPage(Model model, @ModelAttribute("newUser") @Valid User userHieuVo,
             BindingResult newUserBindingResult,
@@ -74,7 +90,7 @@ public class UserController {
             return "admin/user/create";
         }
         String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
-        // mã hóa mật khẩu
+
         String hashPassword = this.passwordEncoder.encode(userHieuVo.getPassword());
         userHieuVo.setPassword(hashPassword);
         userHieuVo.setAvatar(avatar);
@@ -83,43 +99,27 @@ public class UserController {
         // database trong RoleRepository
         userHieuVo.setRole(this.userService.getRoleByName(userHieuVo.getRole().getRoleName()));
         this.userService.handleSaveUser(userHieuVo);
-        return "redirect:/admin/user"; // Chuyển hướng sau khi thành công
-    }
-
-    // render list user
-    @GetMapping("/admin/user")
-    public String getUserPage(Model model) {
-        System.out.println("loi o day");
-        try {
-            List<User> users = this.userService.getAllUsers();
-            System.out.println("Users retrieved: " + users); // Add logging
-            model.addAttribute("usersArray", users);
-            return "admin/user/show";
-        } catch (Exception e) {
-            System.out.println("Error in getUserPage: " + e.getMessage());
-            e.printStackTrace();
-            throw e;
-        }
+        return "redirect:/admin/user";
     }
 
     @GetMapping("/admin/user/create")
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
         return "admin/user/create";
-    }    
+    }
 
     // show user detail
     @GetMapping("/admin/user/{id}")
     public String getUserDetailPage(Model model, @PathVariable long id) {
         System.out.println("check path id " + id); // lấy ra được động id rồi
         model.addAttribute("idUser", id);
-        // Lấy thông tin user
+
         Optional<User> userOptional = this.userService.getUserById(id);
-        // Kiểm tra xem user có tồn tại không
+
         if (userOptional.isPresent()) {
-            model.addAttribute("user", userOptional.get()); // phải có .get() để lấy ra user
+            model.addAttribute("user", userOptional.get());
         } else {
-            // Xử lý khi không tìm thấy user
+
             model.addAttribute("errorMessage", "User not found");
             return "error";
         }
@@ -131,11 +131,11 @@ public class UserController {
     public String getUpdateUserPage(Model model, @PathVariable long id) {
         Optional<User> currentUserOptional = this.userService.getUserById(id);
         if (currentUserOptional.isPresent()) {
-            User currentUser = currentUserOptional.get(); // Lấy giá trị User từ Optional
-            model.addAttribute("user", currentUser); // Thêm đối tượng User vào model
+            User currentUser = currentUserOptional.get();
+            model.addAttribute("user", currentUser);
         } else {
-            // Xử lý khi người dùng không tồn tại
-            return "error"; // hoặc điều hướng đến trang khác
+
+            return "error";
         }
         return "admin/user/update";
     }
@@ -146,8 +146,6 @@ public class UserController {
         Optional<User> currentUser = this.userService.getUserById(user.getId());
         System.out.println("check user trước: " + user);
         if (currentUser != null) {
-            // currentUser.setFullName(user.getFullName()); // vì mình sử dụng Optional
-            // .get() để trả về giá trị bên trong nó
             currentUser.get().setFullName(user.getFullName());
             currentUser.get().setAddress(user.getAddress());
             currentUser.get().setPhone(user.getPhone());
@@ -164,9 +162,7 @@ public class UserController {
     @GetMapping("/admin/user/delete/{id}")
     public String getDeleteUserPage(Model model, @PathVariable long id) {
         model.addAttribute("id", id);
-        // User user = new User();
-        // user.setId(id); // để lấy đươc user có id mình lấy ở path
-        // model.addAttribute("newUser", user);
+
         model.addAttribute("newUser", new User());
         return "admin/user/delete";
     }

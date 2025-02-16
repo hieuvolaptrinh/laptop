@@ -46,7 +46,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         id="navbarCollapse"
       >
         <div class="navbar-nav">
-          <a href="/" class="nav-item nav-link active">Trang Chủ</a>
+          <a href="/" class="nav-item nav-link">Trang Chủ</a>
           <a href="/shop" class="nav-item nav-link">Sản Phẩm</a>
 
           <div class="nav-item dropdown">

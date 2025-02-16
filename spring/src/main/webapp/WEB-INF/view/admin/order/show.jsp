@@ -93,6 +93,45 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   </c:forEach>
                 </tbody>
               </table>
+              <!-- page -->
+              <nav aria-label="Page navigation example d-flex ">
+                <ul class="pagination justify-content-center">
+                  <!-- previous page -->
+                  <li class="page-item">
+                    <a
+                      class="${1 eq currentPage ? 'disabled page-link ' : 'page-link'}"
+                      href="/admin/order?page=${currentPage-1}"
+                      aria-label="Previous"
+                    >
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  <!-- render page index -->
+                  <c:forEach begin="0" end="${totalPages-1}" varStatus="loop">
+                    <li class="page-item">
+                      <!-- active pageNumber -->
+                      <a
+                        class="${(loop.index+1) eq currentPage ? 'active page-link ' : 'page-link'}"
+                        href="/admin/order?page=${loop.index+1}"
+                      >
+                        ${loop.index+1}
+                      </a>
+                    </li>
+                  </c:forEach>
+                  <!-- next page -->
+                  <li class="page-item">
+                    <a
+                      class="${totalPages eq currentPage ? 'disabled page-link ' : 'page-link'}"
+                      href="/admin/order?page=${currentPage+1}"
+                      aria-label="Next"
+                    >
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>
