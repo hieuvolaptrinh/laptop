@@ -52,7 +52,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           <div class="row">
             <div class="col-12 mx-auto">
               <div class="d-flex justify-content-between mx-3">
-                <h3>Danh sách đơn hàng</h3>
+                <h3>Danh sách sản phẩm</h3>
+              </div>
+              <div class="d-flex justify-content-between">
+                <h3>Table users</h3>
+                <a href="/admin/product/create" class="btn btn-primary"
+                  >Tạo mới sản phẩm</a
+                >
               </div>
               <hr />
               <table

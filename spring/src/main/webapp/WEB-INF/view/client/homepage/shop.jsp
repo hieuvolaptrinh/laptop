@@ -77,7 +77,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <div class="col-md-4 col-12">
                   <div class="row g-4">
                     <!-- factory -->
-                    <div class="col-12 text-start">
+                    <div class="col-12 text-start" id="factoryFilter">
                       <div class="mb-2"><b>Hãng sản xuất</b></div>
                       <div class="form-check form-check-inline">
                         <input
@@ -146,8 +146,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         >
                       </div>
                     </div>
-                    <!-- Price -->
-                    <div class="col-12 text-start">
+                    <!-- target -->
+                    <div class="col-12 text-start" id="targetFilter">
                       <div class="mb-2"><b>Mục đích</b></div>
                       <div class="form-check form-check-inline">
                         <input
@@ -205,7 +205,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         >
                       </div>
                     </div>
-                    <div class="col-12 text-start">
+                    <!-- price -->
+                    <div class="col-12 text-start" id="priceFilter">
                       <div class="mb-2"><b>Mức Giá</b></div>
                       <div class="form-check form-check-inline">
                         <input
@@ -226,7 +227,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                           value="10-15-trieu"
                         />
                         <label class="form-check-label" for="price-3"
-                          >Từ 10 - 15 triệu</label
+                          >10 - 15 triệu</label
                         >
                       </div>
                       <div class="form-check form-check-inline">
@@ -272,7 +273,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                           type="radio"
                           name="flexRadioDefault"
                           id="gia-giam-dan"
-                          checked
                         />
                         <label class="form-check-label" for="gia-giam-dan">
                           Giá giảm dần
@@ -291,6 +291,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         </label>
                       </div>
                     </div>
+                    <div class="col-12">
+                      <button
+                        class="btn btn-secondary rounded-pill"
+                        id="btnFilter"
+                      >
+                        Lọc Sản Phẩm
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <!--  -->
@@ -301,86 +309,94 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <!-- list product -->
                     <div class="col-12">
                       <div class="row">
-                        <c:forEach var="product" items="${products}">
-                          <div class="col-md-4 col-lg-4 col-xl-4 mt-2">
-                            <div
-                              class="rounded position-relative fruite-item d-flex flex-column"
-                              style="height: 100%"
-                            >
-                              <div class="fruite-img">
-                                <img
-                                  src="/images/product/${product.image}"
-                                  class="img-fluid w-100 rounded-top"
-                                  alt=""
-                                />
-                              </div>
+                        <c:if test="${empty products}">
+                          <p>Không tìm thấy sản phẩm nào.</p>
+                        </c:if>
+                        <c:if test="${not empty products}">
+                          <c:forEach var="product" items="${products}">
+                            <div class="col-md-4 col-lg-4 col-xl-4 mt-2">
                               <div
-                                class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                style="top: 10px; left: 10px"
+                                class="rounded position-relative fruite-item d-flex flex-column"
+                                style="height: 100%"
                               >
-                                Laptop
-                              </div>
-                              <div
-                                class="p-4 border border-secondary border-top-0 rounded-bottom d-flex flex-column justify-content-between"
-                                style="flex: 1"
-                              >
-                                <h4
-                                  class="text-truncate"
-                                  style="font-size: 15px"
-                                >
-                                  <a
-                                    href="/product/${product.id}"
-                                    class="text-dark text-decoration-none"
-                                    >${product.productName}</a
-                                  >
-                                </h4>
-                                <p
-                                  class="text-truncate"
-                                  style="
-                                    font-size: 13px;
-                                    max-height: 40px;
-                                    overflow: hidden;
-                                    text-overflow: ellipsis;
-                                  "
-                                >
-                                  ${product.shortDesc}
-                                </p>
+                                <div class="fruite-img">
+                                  <img
+                                    src="/images/product/${product.image}"
+                                    class="img-fluid w-100 rounded-top"
+                                    alt=""
+                                  />
+                                </div>
                                 <div
-                                  class="d-flex flex-column align-items-center mt-auto"
+                                  class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                  style="top: 10px; left: 10px"
                                 >
-                                  <p
-                                    class="text-dark fs-5 fw-bold mb-3"
-                                    style="font-size: 15px; text-align: center"
+                                  Laptop
+                                </div>
+                                <div
+                                  class="p-4 border border-secondary border-top-0 rounded-bottom d-flex flex-column justify-content-between"
+                                  style="flex: 1"
+                                >
+                                  <h4
+                                    class="text-truncate"
+                                    style="font-size: 15px"
                                   >
-                                    <fmt:formatNumber
-                                      value="${product.price}"
-                                      type="number"
-                                    />
-                                    đ
-                                  </p>
-                                  <form
-                                    method="post"
-                                    action="/add-product-to-cart/${product.id}"
-                                  >
-                                    <input
-                                      type="hidden"
-                                      name="${_csrf.parameterName}"
-                                      value="${_csrf.token}"
-                                    />
-                                    <button
-                                      class="btn border border-secondary rounded-pill px-3 text-primary"
+                                    <a
+                                      href="/product/${product.id}"
+                                      class="text-dark text-decoration-none"
+                                      >${product.productName}</a
                                     >
-                                      <i
-                                        class="fa fa-shopping-bag me-2 text-primary"
-                                      ></i>
-                                      Add to cart
-                                    </button>
-                                  </form>
+                                  </h4>
+                                  <p
+                                    class="text-truncate"
+                                    style="
+                                      font-size: 13px;
+                                      max-height: 40px;
+                                      overflow: hidden;
+                                      text-overflow: ellipsis;
+                                    "
+                                  >
+                                    ${product.shortDesc}
+                                  </p>
+                                  <div
+                                    class="d-flex flex-column align-items-center mt-auto"
+                                  >
+                                    <p
+                                      class="text-dark fs-5 fw-bold mb-3"
+                                      style="
+                                        font-size: 15px;
+                                        text-align: center;
+                                      "
+                                    >
+                                      <fmt:formatNumber
+                                        value="${product.price}"
+                                        type="number"
+                                      />
+                                      đ
+                                    </p>
+                                    <form
+                                      method="post"
+                                      action="/add-product-to-cart/${product.id}"
+                                    >
+                                      <input
+                                        type="hidden"
+                                        name="${_csrf.parameterName}"
+                                        value="${_csrf.token}"
+                                      />
+                                      <button
+                                        class="btn border border-secondary rounded-pill px-3 text-primary"
+                                      >
+                                        <i
+                                          class="fa fa-shopping-bag me-2 text-primary"
+                                        ></i>
+                                        Add to cart
+                                      </button>
+                                    </form>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </c:forEach>
+                          </c:forEach>
+                        </c:if>
                       </div>
                     </div>
                     <!-- page -->

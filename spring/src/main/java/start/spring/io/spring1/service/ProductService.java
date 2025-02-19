@@ -51,8 +51,88 @@ public class ProductService {
     // criteriaBuilder.like(root.get(Product_.productName), "%" + name + "%");
     // }
 
+    public Page<Product> fetchProductsWithMinPrice(Pageable pageable, double minPrice) {
+        return this.productRepository.findAll(ProductSpec.minPrice(minPrice), pageable);
+    }
+
     public Page<Product> fetchProductsWithName(Pageable pageable, String name) {
         return this.productRepository.findAll(ProductSpec.nameLike(name), pageable);
+    }
+
+    public Page<Product> fetchProductsWithMaxPrice(Pageable pageable, double maxPrice) {
+        return this.productRepository.findAll(ProductSpec.maxPrice(maxPrice), pageable);
+    }
+
+    public Page<Product> fetchProductsWithFactory(Pageable pageable, String factory) {
+        return this.productRepository.findAll(ProductSpec.matchFactory(factory), pageable);
+    }
+
+    public Page<Product> fetchProductsWithListFactory(Pageable pageable, List<String> listFactory) {
+        return this.productRepository.findAll(ProductSpec.matchListFactory(listFactory), pageable);
+    }
+
+    public Page<Product> fetchProductsWithbetweenPrice(Pageable pageable, String price) {
+        double min, max;
+        if (price.equals("duoi-10-trieu")) {
+            min = 0;
+            max = 10000000;
+        } else if (price.equals("10-15-trieu")) {
+            min = 10000000;
+            max = 15000000;
+
+        } else if (price.equals("15-20-trieu")) {
+            min = 15000000;
+            max = 20000000;
+        } else if (price.equals("tren-20-trieu")) {
+            min = 0;
+            max = 10000000;
+        } else {
+            return this.productRepository.findAll(pageable);
+
+        }
+        return this.productRepository.findAll(ProductSpec.betweenPrice(min, max), pageable);
+    }
+
+    public Page<Product> fetchProductsWithMultiplePrice(Pageable pageable, List<String> listPrice) {
+        Specification<Product> combinedSpec = (root, query, criteriaBuilder) -> criteriaBuilder.disjunction();
+        int count = 0;
+        for (String price : listPrice) {
+            double min = 0, max = 0;
+            switch (price) {
+                case "duoi-10-trieu":
+                    max = 10000000;
+                    min = 1;
+                    count++;
+                    break;
+                case "10-15-trieu":
+                    min = 10000000;
+                    max = 15000000;
+                    count++;
+
+                    break;
+                case "15-20-trieu":
+                    min = 15000000;
+                    max = 20000000;
+                    count++;
+                    break;
+                case "tren-20-trieu":
+                    min = 20000000;
+                    max = Double.MAX_VALUE;
+                    count++;
+                    break;
+                default:
+                    break;
+            }
+            if (min != 0 && max != 0) {
+
+                Specification<Product> rangeSpec = ProductSpec.matchMultiplePrice(min, max);
+                combinedSpec = combinedSpec.or(rangeSpec);
+            }
+        }
+        if (count == 0) {
+            return this.productRepository.findAll(pageable);
+        }
+        return this.productRepository.findAll(combinedSpec, pageable);
     }
 
     // private Specification queryByName(String name) {
