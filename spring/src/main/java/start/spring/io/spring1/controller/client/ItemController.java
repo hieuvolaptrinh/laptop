@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import start.spring.io.spring1.domain.Product;
+import start.spring.io.spring1.domain.DTO.ProductCriteriaDTO;
 import start.spring.io.spring1.service.ProductService;
 
 import org.springframework.ui.Model;
-
 
 @Controller
 public class ItemController {
@@ -39,17 +39,12 @@ public class ItemController {
 
     @GetMapping("/shop")
     public String getUserPage(Model model,
-            @RequestParam(name = "page") Optional<String> pageOptional,
-            @RequestParam(name = "name") Optional<String> nameOptional,
-            @RequestParam(name = "min-price") Optional<String> minOptional,
-            @RequestParam(name = "max-price") Optional<String> maxOptional,
-            @RequestParam(name = "factory") Optional<String> factoryOptional,
-            @RequestParam(name = "price") Optional<String> priceOptional) {
+            ProductCriteriaDTO productCriteriaDTO) {
         int page = 1;
 
         try {
-            if (pageOptional.isPresent()) {
-                page = Integer.parseInt(pageOptional.get());
+            if (productCriteriaDTO.getPage().isPresent()) {
+                page = Integer.parseInt(productCriteriaDTO.getPage().get());
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -58,7 +53,7 @@ public class ItemController {
         Pageable pageable = PageRequest.of(page - 1, 6);
 
         // filter product
-        String name = nameOptional.isPresent() ? nameOptional.get() : "";
+        // String name = nameOptional.isPresent() ? nameOptional.get() : "";
         // Double minPrice = minOptional.isPresent() ?
         // Double.parseDouble(minOptional.get()) : 0;
         // Double maxPrice = maxOptional.isPresent() ?
@@ -66,16 +61,18 @@ public class ItemController {
 
         List<String> listFactory = new ArrayList<>();
 
-        listFactory = factoryOptional.isPresent() ? Arrays.asList(factoryOptional.get().split(","))
-                : Collections.emptyList();
+        // listFactory = factoryOptional.isPresent() ?
+        // Arrays.asList(factoryOptional.get().split(","))
+        // : Collections.emptyList();
 
         // String price = priceOptional.isPresent() ? priceOptional.get() : "";
 
-        List<String> listPrice = priceOptional.isPresent() ? Arrays.asList(priceOptional.get().split(","))
-                : Collections.emptyList();
+        // List<String> listPrice = priceOptional.isPresent() ?
+        // Arrays.asList(priceOptional.get().split(","))
+        // : Collections.emptyList();
         Page<Product> pageProducts = null;
 
-        // pageProducts = this.productService.fetchProductsWithName(pageable, name);
+        pageProducts = this.productService.fetchProducts(pageable);
 
         // pageProducts = this.productService.fetchProductsWithMinPrice(pageable,
         // minPrice);
@@ -92,27 +89,28 @@ public class ItemController {
         // price);
         // search by price
 
-        try {
-            // Thực hiện lọc sản phẩm dựa trên giá
-            pageProducts = this.productService.fetchProductsWithMultiplePrice(pageable, listPrice);
+        // try {
+        // // Thực hiện lọc sản phẩm dựa trên giá
+        // pageProducts = this.productService.fetchProductsWithMultiplePrice(pageable,
+        // listPrice);
 
-            // Kiểm tra nếu không có kết quả
-            if (pageProducts == null || pageProducts.isEmpty()) {
-                model.addAttribute("products", Collections.emptyList());
-                model.addAttribute("currentPage", 1);
-                model.addAttribute("totalPages", 0);
-            } else {
-                List<Product> products = pageProducts.getContent();
-                model.addAttribute("products", products);
-                model.addAttribute("currentPage", page);
-                model.addAttribute("totalPages", pageProducts.getTotalPages());
-            }
-        } catch (Exception e) {
-            System.out.println("Error fetching products: " + e.getMessage());
-            model.addAttribute("products", Collections.emptyList());
-            model.addAttribute("currentPage", 1);
-            model.addAttribute("totalPages", 0);
-        }
+        // // Kiểm tra nếu không có kết quả
+        // if (pageProducts == null || pageProducts.isEmpty()) {
+        // model.addAttribute("products", Collections.emptyList());
+        // model.addAttribute("currentPage", 1);
+        // model.addAttribute("totalPages", 0);
+        // } else {
+        // List<Product> products = pageProducts.getContent();
+        // model.addAttribute("products", products);
+        // model.addAttribute("currentPage", page);
+        // model.addAttribute("totalPages", pageProducts.getTotalPages());
+        // }
+        // } catch (Exception e) {
+        // System.out.println("Error fetching products: " + e.getMessage());
+        // model.addAttribute("products", Collections.emptyList());
+        // model.addAttribute("currentPage", 1);
+        // model.addAttribute("totalPages", 0);
+        // }
 
         List<Product> products = pageProducts.getContent();
         System.out.println(products);
