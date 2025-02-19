@@ -401,52 +401,55 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       </div>
                     </div>
                     <!-- page -->
-                    <div class="col-12">
-                      <!-- page -->
-                      <nav aria-label="Page navigation example ">
-                        <ul
-                          class="d-flex justify-content-center"
-                          style="list-style: none"
-                        >
-                          <li
-                            class="page-item ${1 eq currentPage ? 'disabled' : ''}"
-                          >
-                            <a
-                              class="page-link rounded"
-                              href="/shop?page=${currentPage-1}"
-                              aria-label="Previous"
-                              >&laquo;</a
-                            >
-                          </li>
-                          <c:forEach
-                            begin="0"
-                            end="${totalPages-1}"
-                            varStatus="loop"
+                    <c:if test="${not empty products}"
+                      ><div class="col-12">
+                        <!-- page -->
+                        <nav aria-label="Page navigation example ">
+                          <ul
+                            class="d-flex justify-content-center"
+                            style="list-style: none"
                           >
                             <li
-                              class="page-item ${ (loop.index+1) eq currentPage ? 'active' : '' }"
+                              class="page-item ${1 eq currentPage ? 'disabled' : ''}"
                             >
                               <a
-                                class="page-link rounded text-truncate"
-                                style="min-width: 40px"
-                                href="/shop?page=${loop.index+1}"
-                                >${loop.index+1}</a
+                                class="page-link rounded"
+                                href="/shop?page=${currentPage-1}"
+                                aria-label="Previous"
+                                >&laquo;</a
                               >
                             </li>
-                          </c:forEach>
-                          <li
-                            class="page-item ${totalPages eq currentPage ? 'disabled' : ''}"
-                          >
-                            <a
-                              class="page-link rounded"
-                              href="/shop?page=${currentPage+1}"
-                              aria-label="Next"
-                              >&raquo;</a
+                            <!-- sẽ lỗi khi mà không tìm ra sản phẩm => page =0 mà 0 trừ 1 thì ra page -1 => bug -->
+                            <c:forEach
+                              begin="0"
+                              end="${totalPages-1}"
+                              varStatus="loop"
                             >
-                          </li>
-                        </ul>
-                      </nav>
-                    </div>
+                              <li
+                                class="page-item ${ (loop.index+1) eq currentPage ? 'active' : '' }"
+                              >
+                                <a
+                                  class="page-link rounded text-truncate"
+                                  style="min-width: 40px"
+                                  href="/shop?page=${loop.index+1}"
+                                  >${loop.index+1}</a
+                                >
+                              </li>
+                            </c:forEach>
+                            <li
+                              class="page-item ${totalPages eq currentPage ? 'disabled' : ''}"
+                            >
+                              <a
+                                class="page-link rounded"
+                                href="/shop?page=${currentPage+1}"
+                                aria-label="Next"
+                                >&raquo;</a
+                              >
+                            </li>
+                          </ul>
+                        </nav>
+                      </div>
+                    </c:if>
                   </div>
                 </div>
               </div>
