@@ -223,9 +223,86 @@
     return formatted;
   }
 
-  //                 phần filter sản phẩm
-  $("#btnFilter").click(function () {
-    
+  //                  filter product
+  $(document).ready(function () {
+    $("#btnFilter").click(function (event) {
+      event.preventDefault();
+      let factoryArr = [];
+      let targetArr = [];
+      let priceArr = [];
 
+      // factory filter
+      $("#factoryFilter .form-check-input:checked").each(function () {
+        factoryArr.push($(this).val());
+      });
+
+      // target filter
+      $("#targetFilter .form-check-input:checked").each(function () {
+        targetArr.push($(this).val());
+      });
+
+      // price filter
+      $("#priceFilter .form-check-input:checked").each(function () {
+        priceArr.push($(this).val());
+      });
+
+      // get sort
+      let sortValue = $('input[name="radio-sort"]:checked').val() || "";
+
+      const currentUrl = new URL(window.location.href);
+      const searchParams = currentUrl.searchParams;
+
+      // add or update query parameters
+      searchParams.set("page", 1); // reset to page 1
+      searchParams.set("sort", sortValue);
+
+      if (factoryArr.length > 0) {
+        searchParams.set("factory", factoryArr.join(","));
+      } else {
+        searchParams.delete("factory");
+      }
+
+      if (targetArr.length > 0) {
+        searchParams.set("target", targetArr.join(","));
+      } else {
+        searchParams.delete("target");
+      }
+
+      if (priceArr.length > 0) {
+        searchParams.set("price", priceArr.join(","));
+      } else {
+        searchParams.delete("price");
+      }
+
+      // update URL after reload
+      window.location.href = currentUrl.toString();
+    });
+    // auto checkbox after page loading
+    // parse the url paramaters
+    const params = new URLSearchParams(window.location.search);
+
+    // set checkboxes factory
+    if (params.has("factory")) {
+      const factoryValues = params.get("factory").split(",");
+      factoryValues.forEach((value) => {
+        $(`#factoryFilter input[value='${value}']`).prop("checked", true);
+      });
+    }
+    if (params.has("target")) {
+      const targetValues = params.get("target").split(",");
+      targetValues.forEach((value) => {
+        $(`#targetFilter input[value='${value}']`).prop("checked", true);
+      });
+    }
+    if (params.has("price")) {
+      const priceValues = params.get("price").split(",");
+      priceValues.forEach((value) => {
+        $(`#priceFilter input[value='${value}']`).prop("checked", true);
+      });
+    }
+    if (params.has("sort")) {
+      const sortValue = params.get("sort");
+      $(`input[name="radio-sort"][value='${sortValue}']`).prop("checked", true);
+    }
   });
 })(jQuery);

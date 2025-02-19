@@ -198,7 +198,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                           class="form-check-input"
                           type="checkbox"
                           id="tagert-5"
-                          value="MONG-NHE"
+                          value="DOANH-NHAN"
                         />
                         <label class="form-check-label" for="tagert-5"
                           >Doanh Nhân</label
@@ -260,8 +260,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         <input
                           class="form-check-input"
                           type="radio"
-                          name="flexRadioDefault"
-                          id="gia-tang-dan"
+                          name="radio-sort"
+                          value="gia-tang-dan"
                         />
                         <label class="form-check-label" for="gia-tang-dan">
                           Giá tăng dần
@@ -271,8 +271,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         <input
                           class="form-check-input"
                           type="radio"
-                          name="flexRadioDefault"
-                          id="gia-giam-dan"
+                          name="radio-sort"
+                          value="gia-giam-dan"
                         />
                         <label class="form-check-label" for="gia-giam-dan">
                           Giá giảm dần
@@ -282,8 +282,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         <input
                           class="form-check-input"
                           type="radio"
-                          name="flexRadioDefault"
-                          id="khong-sap-xep"
+                          name="radio-sort"
+                          value="khong-sap-xep"
                           checked
                         />
                         <label class="form-check-label" for="khong-sap-xep">
@@ -291,6 +291,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         </label>
                       </div>
                     </div>
+                    <!-- button filter -->
                     <div class="col-12">
                       <button
                         class="btn btn-secondary rounded-pill"
