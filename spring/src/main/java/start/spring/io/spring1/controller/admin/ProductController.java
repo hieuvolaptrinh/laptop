@@ -3,9 +3,6 @@ package start.spring.io.spring1.controller.admin;
 
 import java.util.List;
 import java.util.Optional;
-
-import javax.naming.Binding;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -46,6 +43,7 @@ class ProductController {
             System.out.println("Error: " + e);
         }
         Pageable pageable = PageRequest.of(page - 1, 5);
+
 
         Page<Product> pageProducts = this.productService.fetchProducts(pageable);
         List<Product> products = pageProducts.getContent();

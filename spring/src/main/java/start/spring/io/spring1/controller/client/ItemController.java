@@ -9,13 +9,17 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import start.spring.io.spring1.domain.Product;
+import start.spring.io.spring1.domain.Product_;
 import start.spring.io.spring1.domain.DTO.ProductCriteriaDTO;
 import start.spring.io.spring1.service.ProductService;
 
@@ -39,7 +43,8 @@ public class ItemController {
 
     @GetMapping("/shop")
     public String getUserPage(Model model,
-            ProductCriteriaDTO productCriteriaDTO) {
+            ProductCriteriaDTO productCriteriaDTO,
+            HttpServletRequest request) {
         int page = 1;
 
         try {
@@ -49,8 +54,33 @@ public class ItemController {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+        Pageable pageable = null;
 
-        Pageable pageable = PageRequest.of(page - 1, 6);
+        // check sort by price
+        if (productCriteriaDTO.getSort() != null && productCriteriaDTO.getSort().isPresent()) {
+            String sort = productCriteriaDTO.getSort().get();
+            if (sort.equals("gia-tang-dan")) {
+                pageable = PageRequest.of(page - 1, 6, Sort.by(Product_.PRICE).ascending()); // sort
+
+            } else if (sort.equals("gia-giam-dan")) {
+                pageable = PageRequest.of(page - 1, 6, Sort.by(Product_.PRICE).descending());
+
+            } else {
+                pageable = PageRequest.of(page - 1, 6);
+            }
+
+        } else {
+            pageable = PageRequest.of(page - 1, 6);
+        }
+
+        // get current request url
+        String queryString = request.getQueryString();
+
+        if (queryString != null && !queryString.isBlank()) {
+            // remove page
+            queryString = queryString.replace("page=" + page, "");
+        }
+
         Page<Product> pageProducts = this.productService.fetchProductsWith(pageable, productCriteriaDTO);
 
         List<Product> products = pageProducts.getContent().size() > 0 ? pageProducts.getContent()
@@ -60,7 +90,7 @@ public class ItemController {
         model.addAttribute("products", products);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", pageProducts.getTotalPages());
-
+        model.addAttribute("queryString", queryString);
         return "client/homepage/shop";
     }
 

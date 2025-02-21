@@ -400,8 +400,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         </c:if>
                       </div>
                     </div>
+
                     <!-- page -->
-                    <!-- <c:if test="${not empty products}"> -->
                     <c:if test="${ totalPages > 0}">
                       <div class="col-12">
                         <!-- page -->
@@ -413,9 +413,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                             <li
                               class="page-item ${1 eq currentPage ? 'disabled' : ''}"
                             >
+                              <!-- vì xóa url bên controller nên qua đây truyền lại để chuyển trang ko bị mất url -->
                               <a
                                 class="page-link rounded"
-                                href="/shop?page=${currentPage-1}"
+                                href="/shop?page=${currentPage-1}${queryString}"
                                 aria-label="Previous"
                                 >&laquo;</a
                               >
@@ -432,7 +433,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                 <a
                                   class="page-link rounded text-truncate"
                                   style="min-width: 40px"
-                                  href="/shop?page=${loop.index+1}"
+                                  href="/shop?page=${loop.index+1}${queryString}"
                                   >${loop.index+1}</a
                                 >
                               </li>
