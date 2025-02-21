@@ -28,6 +28,10 @@ public class ProductSpec {
                 factory);
     }
 
+    public static Specification<Product> matchListTarget(List<String> listTarget) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.in(root.get(Product_.TARGET)).value(listTarget);
+    }
+
     public static Specification<Product> matchListFactory(List<String> listFactory) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.in(root.get(Product_.FACTORY)).value(listFactory);
     }
@@ -37,6 +41,7 @@ public class ProductSpec {
                 criteriaBuilder.greaterThan(root.get(Product_.PRICE), minPrice),
                 criteriaBuilder.lessThan(root.get(Product_.PRICE), maxPrice));
     }
+    
 
     public static Specification<Product> matchMultiplePrice(double minPrice, double maxPrice) {
         // return (root, query, criteriaBuilder) ->

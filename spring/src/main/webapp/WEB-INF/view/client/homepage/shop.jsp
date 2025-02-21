@@ -401,8 +401,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       </div>
                     </div>
                     <!-- page -->
-                    <c:if test="${not empty products}"
-                      ><div class="col-12">
+                    <!-- <c:if test="${not empty products}"> -->
+                    <c:if test="${ totalPages > 0}">
+                      <div class="col-12">
                         <!-- page -->
                         <nav aria-label="Page navigation example ">
                           <ul

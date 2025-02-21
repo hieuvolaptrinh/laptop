@@ -51,73 +51,15 @@ public class ItemController {
         }
 
         Pageable pageable = PageRequest.of(page - 1, 6);
+        Page<Product> pageProducts = this.productService.fetchProductsWith(pageable, productCriteriaDTO);
 
-        // filter product
-        // String name = nameOptional.isPresent() ? nameOptional.get() : "";
-        // Double minPrice = minOptional.isPresent() ?
-        // Double.parseDouble(minOptional.get()) : 0;
-        // Double maxPrice = maxOptional.isPresent() ?
-        // Double.parseDouble(maxOptional.get()) : 0;
-
-        List<String> listFactory = new ArrayList<>();
-
-        // listFactory = factoryOptional.isPresent() ?
-        // Arrays.asList(factoryOptional.get().split(","))
-        // : Collections.emptyList();
-
-        // String price = priceOptional.isPresent() ? priceOptional.get() : "";
-
-        // List<String> listPrice = priceOptional.isPresent() ?
-        // Arrays.asList(priceOptional.get().split(","))
-        // : Collections.emptyList();
-        Page<Product> pageProducts = null;
-
-        pageProducts = this.productService.fetchProducts(pageable);
-
-        // pageProducts = this.productService.fetchProductsWithMinPrice(pageable,
-        // minPrice);
-
-        // pageProducts = this.productService.fetchProducts(pageable);
-        // if (!listFactory.isEmpty()) {
-        // pageProducts = this.productService.fetchProductsWithListFactory(pageable,
-        // listFactory);
-        // } else {
-        // pageProducts = this.productService.fetchProducts(pageable);
-        // }
-
-        // pageProducts = this.productService.fetchProductsWithbetweenPrice(pageable,
-        // price);
-        // search by price
-
-        // try {
-        // // Thực hiện lọc sản phẩm dựa trên giá
-        // pageProducts = this.productService.fetchProductsWithMultiplePrice(pageable,
-        // listPrice);
-
-        // // Kiểm tra nếu không có kết quả
-        // if (pageProducts == null || pageProducts.isEmpty()) {
-        // model.addAttribute("products", Collections.emptyList());
-        // model.addAttribute("currentPage", 1);
-        // model.addAttribute("totalPages", 0);
-        // } else {
-        // List<Product> products = pageProducts.getContent();
-        // model.addAttribute("products", products);
-        // model.addAttribute("currentPage", page);
-        // model.addAttribute("totalPages", pageProducts.getTotalPages());
-        // }
-        // } catch (Exception e) {
-        // System.out.println("Error fetching products: " + e.getMessage());
-        // model.addAttribute("products", Collections.emptyList());
-        // model.addAttribute("currentPage", 1);
-        // model.addAttribute("totalPages", 0);
-        // }
-
-        List<Product> products = pageProducts.getContent();
+        List<Product> products = pageProducts.getContent().size() > 0 ? pageProducts.getContent()
+                : new ArrayList<Product>();
         System.out.println(products);
 
-        // model.addAttribute("products", products);
-        // model.addAttribute("currentPage", page);
-        // model.addAttribute("totalPages", pageProducts.getTotalPages());
+        model.addAttribute("products", products);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", pageProducts.getTotalPages());
 
         return "client/homepage/shop";
     }
