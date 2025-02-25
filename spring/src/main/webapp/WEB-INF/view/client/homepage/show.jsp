@@ -38,6 +38,15 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     <!-- Template Stylesheet -->
     <link href="/client/css/style.css" rel="stylesheet" />
+
+    <!--  -->
+    <meta name="_csrf" content="${_csrf.token}" />
+    <meta name="_csrf_header" content="${_csrf.headerName}" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
+    />
     <title>Home</title>
   </head>
 
@@ -932,15 +941,15 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                 />
                                 đ
                               </p>
-                              <form
-                                method="post"
-                                action="/add-product-to-cart/${product.id}"
-                              >
-                                <!-- phải có cái này vì javaspring sử dụng scurity nó có 3 trường luôn
+                              <!-- phải có cái này vì javaspring sử dụng scurity nó có 3 trường luôn
                     Csrf token: token ứng với lượt truy cập web của user. Cần token này để phòng tránh
                     CSRF (Cross Site Request Forgery) . Hiểu 1 cách đơn giản, là tăng độ an toàn cho
                     website của bạn 
                     -->
+                              <!-- <form
+                                method="post"
+                                action="/add-product-to-cart/${product.id}"
+                              >
                                 <input
                                   type="hidden"
                                   name="${_csrf.parameterName}"
@@ -955,7 +964,15 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                   ></i>
                                   Mua Ngay
                                 </button>
-                              </form>
+                              </form> -->
+
+                              <!-- sửa để tối ưu UI UX -->
+                              <button
+                                data-product-id="${product.id}"
+                                class="btnAddToCartHomePage mx-auto btn btn-primary border border-secondary"
+                              >
+                                Thêm vào giỏ hàng
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -1401,5 +1418,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     <!-- Template Javascript -->
     <script src="/client/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
   </body>
 </html>

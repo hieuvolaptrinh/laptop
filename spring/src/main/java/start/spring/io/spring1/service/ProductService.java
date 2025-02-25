@@ -77,7 +77,7 @@ public class ProductService {
 
     public Specification<Product> builtPriceSpecification(
             List<String> listPrice) {
-        Specification<Product> combinedSpec = Specification.where(null); 
+        Specification<Product> combinedSpec = Specification.where(null);
         for (String price : listPrice) {
             double min = 0, max = 0;
             switch (price) {

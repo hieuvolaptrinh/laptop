@@ -24,7 +24,7 @@ import start.spring.io.spring1.service.UserService;
 @Configuration
 @EnableWebSecurity // HttpSecurity http mới hoạt động được vì phiên bản mới
 @EnableMethodSecurity(securedEnabled = true)
-public class ScurityConfiguration {
+public class SecurityConfiguration {
 
         @Bean
         public PasswordEncoder passwordEncoder() {
@@ -83,7 +83,8 @@ public class ScurityConfiguration {
                                                                 DispatcherType.INCLUDE)
                                                 .permitAll()
 
-                                                .requestMatchers("/", "register", "/login", "/product/**", "/client/**",
+                                                .requestMatchers("/", "register", "/login", "/product/**", "/shop",
+                                                                "/client/**",
                                                                 "/css/**", "/js/**",
                                                                 "/images/**")
                                                 .permitAll()
